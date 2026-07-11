@@ -1,0 +1,2846 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#ea580c" />
+  <title>Modul Ajar dan LKPD Interaktif Teks Drama</title>
+
+  <style>
+    :root {
+      --orange: #ea580c;
+      --orange-dark: #9a3412;
+      --orange-light: #fff7ed;
+      --blue: #2563eb;
+      --blue-dark: #1e3a8a;
+      --blue-light: #eff6ff;
+      --green: #15803d;
+      --red: #dc2626;
+      --yellow: #facc15;
+      --white: #ffffff;
+      --text: #273449;
+      --muted: #64748b;
+      --border: #fed7aa;
+      --shadow: 0 18px 48px rgba(37, 99, 235, 0.14);
+      --radius: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(234, 88, 12, 0.18), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(37, 99, 235, 0.18), transparent 36%),
+        linear-gradient(135deg, var(--orange-light), var(--blue-light));
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      line-height: 1.65;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .app-shell {
+      width: min(1180px, calc(100% - 24px));
+      margin: 0 auto;
+      padding: 24px 0 52px;
+    }
+
+    .brand-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 20px;
+      padding: 15px 20px;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--orange), #f97316 48%, var(--blue));
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .brand-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-logo {
+      display: grid;
+      width: 54px;
+      height: 54px;
+      place-items: center;
+      flex: 0 0 auto;
+      font-size: 29px;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      border-radius: 16px;
+    }
+
+    .brand-bar h1,
+    .brand-bar p {
+      margin: 0;
+    }
+
+    .brand-bar h1 {
+      font-size: clamp(1.05rem, 2vw, 1.45rem);
+    }
+
+    .brand-bar p {
+      font-size: 0.86rem;
+      opacity: 0.92;
+    }
+
+    .status-chip {
+      padding: 8px 13px;
+      white-space: nowrap;
+      font-size: 0.82rem;
+      font-weight: 800;
+      background: rgba(255, 255, 255, 0.17);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+    }
+
+    .card {
+      padding: clamp(20px, 4vw, 34px);
+      background: rgba(255, 255, 255, 0.97);
+      border: 1px solid rgba(254, 215, 170, 0.82);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .login-card {
+      max-width: 780px;
+      margin: 34px auto 0;
+    }
+
+    .hero {
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    .hero-icon {
+      display: grid;
+      width: 82px;
+      height: 82px;
+      margin: 0 auto 16px;
+      place-items: center;
+      font-size: 42px;
+      background: linear-gradient(145deg, #ffedd5, #dbeafe);
+      border-radius: 25px;
+      box-shadow: 0 12px 28px rgba(37, 99, 235, 0.13);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 6px 12px;
+      color: var(--orange-dark);
+      font-size: 0.78rem;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: #ffedd5;
+      border-radius: 999px;
+    }
+
+    .hero h2 {
+      margin: 4px 0 8px;
+      color: var(--orange-dark);
+      font-size: clamp(1.8rem, 4vw, 2.7rem);
+      line-height: 1.2;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: 0 auto;
+      color: var(--muted);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 17px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      color: var(--blue-dark);
+      font-weight: 780;
+    }
+
+    .required {
+      color: var(--red);
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 48px;
+      padding: 11px 14px;
+      color: var(--text);
+      background: var(--white);
+      border: 1.5px solid #fdba74;
+      border-radius: 12px;
+      outline: none;
+      transition: 0.2s ease;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+    }
+
+    .input-warning {
+      margin: 0;
+      color: var(--red);
+      font-size: 0.78rem;
+      font-weight: 750;
+    }
+
+    .btn {
+      display: inline-flex;
+      min-height: 46px;
+      padding: 11px 19px;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--white);
+      font-weight: 850;
+      border: 0;
+      border-radius: 12px;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+    }
+
+    .btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+    }
+
+    .btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.56;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--orange), #f97316);
+      box-shadow: 0 9px 22px rgba(234, 88, 12, 0.24);
+    }
+
+    .btn-secondary {
+      background: linear-gradient(135deg, var(--blue), #3b82f6);
+      box-shadow: 0 9px 22px rgba(37, 99, 235, 0.24);
+    }
+
+    .btn-dark {
+      background: linear-gradient(135deg, #1e3a8a, #172554);
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, #15803d, #22c55e);
+      box-shadow: 0 9px 22px rgba(21, 128, 61, 0.21);
+    }
+
+    .btn-warning {
+      color: #422006;
+      background: linear-gradient(135deg, #fde047, #f59e0b);
+    }
+
+    .login-button {
+      width: 100%;
+      margin-top: 21px;
+    }
+
+    .notice {
+      margin-top: 18px;
+      padding: 13px 15px;
+      color: var(--blue-dark);
+      font-size: 0.86rem;
+      background: linear-gradient(135deg, var(--blue-light), var(--orange-light));
+      border-left: 5px solid var(--blue);
+      border-radius: 11px;
+    }
+
+    .session-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 21px;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--orange-dark), var(--orange), var(--blue));
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .session-header h2,
+    .session-header p {
+      margin: 0;
+    }
+
+    .session-header h2 {
+      font-size: clamp(1.35rem, 3vw, 2rem);
+    }
+
+    .student-identity {
+      text-align: right;
+      font-size: 0.88rem;
+    }
+
+    .student-identity strong {
+      display: block;
+      font-size: 1rem;
+    }
+
+    .progress-panel {
+      margin-bottom: 18px;
+      padding: 17px 20px;
+      background: var(--white);
+      border-radius: 16px;
+      box-shadow: 0 8px 22px rgba(37, 99, 235, 0.1);
+    }
+
+    .progress-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 9px;
+      font-weight: 780;
+    }
+
+    .progress-track {
+      height: 10px;
+      overflow: hidden;
+      background: #dbeafe;
+      border-radius: 999px;
+    }
+
+    .progress-fill {
+      width: 20%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--orange), var(--blue));
+      border-radius: inherit;
+      transition: width 0.45s ease;
+    }
+
+    .slider-card {
+      overflow: hidden;
+    }
+
+    .slider-window {
+      overflow: hidden;
+      border-radius: 15px;
+    }
+
+    .slides-track {
+      display: flex;
+      transition: transform 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .material-slide {
+      min-width: 100%;
+      padding: clamp(19px, 4vw, 32px);
+      background: linear-gradient(140deg, rgba(255, 247, 237, 0.98), rgba(239, 246, 255, 0.98));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+
+    .slide-number {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 5px 11px;
+      color: var(--white);
+      font-size: 0.76rem;
+      font-weight: 850;
+      background: var(--orange);
+      border-radius: 999px;
+    }
+
+    .material-slide h3 {
+      margin: 4px 0 14px;
+      color: var(--blue-dark);
+      font-size: clamp(1.3rem, 3vw, 1.8rem);
+    }
+
+    .material-slide ul {
+      margin: 0;
+      padding-left: 22px;
+    }
+
+    .material-slide li {
+      margin: 8px 0;
+    }
+
+    .concept-box {
+      margin-top: 18px;
+      padding: 14px 16px;
+      background: var(--white);
+      border-left: 5px solid var(--orange);
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.08);
+    }
+
+    .slider-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .slide-dots {
+      display: flex;
+      justify-content: center;
+      gap: 7px;
+      flex: 1;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      padding: 0;
+      background: #bfdbfe;
+      border: 0;
+      border-radius: 999px;
+      transition: 0.2s ease;
+    }
+
+    .dot.active {
+      width: 28px;
+      background: var(--blue);
+    }
+
+    .stage-two {
+      margin-top: 23px;
+      padding: 20px;
+      text-align: center;
+      background: linear-gradient(135deg, var(--orange-light), #ffedd5);
+      border: 1px dashed var(--orange);
+      border-radius: 16px;
+    }
+
+    .stage-two h4 {
+      margin: 0 0 7px;
+      color: var(--orange-dark);
+      font-size: 1.18rem;
+    }
+
+    .stage-two p {
+      margin: 0 0 14px;
+      color: #7c2d12;
+    }
+
+    .stage-two-form {
+      display: flex;
+      max-width: 570px;
+      margin: 0 auto;
+      gap: 10px;
+    }
+
+    .stage-two-form input {
+      flex: 1;
+    }
+
+    .lkpd-header {
+      margin-bottom: 20px;
+      padding: 22px;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--orange), #f97316, var(--blue));
+      border-radius: 17px;
+    }
+
+    .lkpd-header h2,
+    .lkpd-header p {
+      margin: 0;
+    }
+
+    .section-label {
+      margin: 28px 0 13px;
+      padding: 14px 17px;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--orange-dark), var(--orange), var(--blue));
+      border-radius: 13px;
+    }
+
+    .section-label h3,
+    .section-label p {
+      margin: 0;
+    }
+
+    .section-label p {
+      margin-top: 4px;
+      font-size: 0.88rem;
+      opacity: 0.91;
+    }
+
+    .stimulus-card {
+      margin: 21px 0 14px;
+      padding: 18px 20px;
+      background: linear-gradient(135deg, var(--orange-light), var(--blue-light));
+      border: 1px solid #fdba74;
+      border-left: 6px solid var(--orange);
+      border-radius: 14px;
+    }
+
+    .stimulus-card h4 {
+      margin: 0 0 8px;
+      color: var(--blue-dark);
+    }
+
+    .stimulus-card p {
+      margin: 0;
+      white-space: pre-line;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1rem;
+    }
+
+    .question-card {
+      margin-bottom: 15px;
+      padding: 19px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.06);
+    }
+
+    .question-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .question-number {
+      display: inline-grid;
+      width: 35px;
+      height: 35px;
+      place-items: center;
+      flex: 0 0 auto;
+      color: var(--white);
+      font-weight: 850;
+      background: linear-gradient(135deg, var(--orange), var(--blue));
+      border-radius: 11px;
+    }
+
+    .question-text {
+      flex: 1;
+      margin: 2px 0 0;
+      font-weight: 720;
+    }
+
+    .bloom-badge {
+      flex: 0 0 auto;
+      padding: 5px 9px;
+      color: var(--blue-dark);
+      font-size: 0.73rem;
+      font-weight: 850;
+      background: #dbeafe;
+      border-radius: 999px;
+    }
+
+    .options {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 12px;
+      background: #fffdfb;
+      border: 1px solid #ffedd5;
+      border-radius: 11px;
+      transition: 0.18s ease;
+    }
+
+    .option-label:hover {
+      background: var(--blue-light);
+      border-color: #93c5fd;
+    }
+
+    .option-label input {
+      width: auto;
+      min-height: auto;
+      margin-top: 4px;
+      accent-color: var(--orange);
+    }
+
+    .matching-select {
+      margin-top: 10px;
+    }
+
+    .submit-panel {
+      position: sticky;
+      z-index: 8;
+      bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin-top: 26px;
+      padding: 17px;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid #fdba74;
+      border-radius: 15px;
+      box-shadow: 0 12px 34px rgba(37, 99, 235, 0.17);
+      backdrop-filter: blur(8px);
+    }
+
+    .answer-progress {
+      font-weight: 780;
+    }
+
+    .answer-progress span {
+      color: var(--orange);
+    }
+
+    .result-card {
+      max-width: 920px;
+      margin: 20px auto;
+    }
+
+    .result-hero {
+      padding: 26px;
+      text-align: center;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--orange-dark), var(--orange), var(--blue));
+      border-radius: 18px;
+    }
+
+    .result-hero h2,
+    .result-hero p {
+      margin: 0;
+    }
+
+    .score-circle {
+      display: grid;
+      width: 142px;
+      height: 142px;
+      margin: 20px auto;
+      place-items: center;
+      background: rgba(255, 255, 255, 0.17);
+      border: 8px solid rgba(255, 255, 255, 0.56);
+      border-radius: 50%;
+    }
+
+    .score-circle strong {
+      display: block;
+      font-size: 2.55rem;
+      line-height: 1;
+    }
+
+    .score-circle span {
+      font-size: 0.82rem;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .result-box {
+      padding: 17px;
+      background: var(--orange-light);
+      border: 1px solid var(--border);
+      border-radius: 13px;
+    }
+
+    .result-box strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--blue-dark);
+    }
+
+    .analysis-box {
+      margin-top: 17px;
+      padding: 18px;
+      border-radius: 14px;
+    }
+
+    .analysis-positive {
+      color: #14532d;
+      background: #f0fdf4;
+      border-left: 6px solid var(--green);
+    }
+
+    .analysis-negative {
+      color: #7f1d1d;
+      background: #fef2f2;
+      border-left: 6px solid var(--red);
+    }
+
+    .analysis-box h3 {
+      margin: 0 0 8px;
+    }
+
+    .analysis-box p {
+      margin: 0;
+    }
+
+    .result-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 11px;
+      margin-top: 22px;
+    }
+
+    .sync-status {
+      margin-top: 16px;
+      padding: 11px;
+      text-align: center;
+      font-size: 0.86rem;
+      background: var(--blue-light);
+      border-radius: 10px;
+    }
+
+    .teacher-header {
+      margin-bottom: 20px;
+      padding: 23px;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--orange-dark), var(--orange), var(--blue-dark));
+      border-radius: 18px;
+    }
+
+    .teacher-header h2,
+    .teacher-header p {
+      margin: 0;
+    }
+
+    .teacher-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin: 17px 0;
+    }
+
+    .teacher-tab {
+      padding: 9px 13px;
+      color: var(--blue-dark);
+      font-weight: 800;
+      background: var(--blue-light);
+      border: 1px solid #bfdbfe;
+      border-radius: 10px;
+    }
+
+    .teacher-tab.active {
+      color: var(--white);
+      background: var(--blue);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+
+    table {
+      width: 100%;
+      min-width: 780px;
+      border-collapse: collapse;
+      background: var(--white);
+    }
+
+    th,
+    td {
+      padding: 11px 13px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid #ffedd5;
+    }
+
+    th {
+      color: var(--white);
+      background: linear-gradient(135deg, var(--orange-dark), var(--orange), var(--blue));
+    }
+
+    tr:nth-child(even) td {
+      background: #fffaf5;
+    }
+
+    .footer {
+      margin-top: 26px;
+      padding: 16px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    @media (max-width: 760px) {
+      .brand-bar,
+      .session-header,
+      .submit-panel {
+        display: flex;
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .status-chip {
+        align-self: flex-start;
+      }
+
+      .form-grid,
+      .result-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full {
+        grid-column: auto;
+      }
+
+      .student-identity {
+        text-align: left;
+      }
+
+      .stage-two-form {
+        flex-direction: column;
+      }
+
+      .slider-controls {
+        flex-wrap: wrap;
+      }
+
+      .slide-dots {
+        order: -1;
+        width: 100%;
+        flex-basis: 100%;
+      }
+
+      .question-head {
+        flex-wrap: wrap;
+      }
+
+      .bloom-badge {
+        margin-left: 47px;
+      }
+
+      .submit-panel {
+        position: static;
+      }
+
+      .submit-panel .btn {
+        width: 100%;
+      }
+    }
+
+    @media print {
+      body {
+        background: var(--white);
+      }
+
+      .brand-bar,
+      .result-actions,
+      .footer,
+      .sync-status {
+        display: none !important;
+      }
+
+      .app-shell {
+        width: 100%;
+        padding: 0;
+      }
+
+      .card,
+      .result-card {
+        box-shadow: none;
+        border: 0;
+      }
+
+      .result-hero {
+        color: #000000;
+        background: var(--white);
+        border: 2px solid #000000;
+      }
+
+      .score-circle {
+        border-color: #000000;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="app-shell">
+    <header class="brand-bar">
+      <div class="brand-left">
+        <div class="brand-logo">🎭</div>
+        <div>
+          <h1>Modul Ajar dan LKPD Interaktif</h1>
+          <p>Bahasa Indonesia Kelas XI SMA</p>
+        </div>
+      </div>
+      <div class="status-chip" id="headerStatus">Bab Teks Drama</div>
+    </header>
+
+    <section id="loginPage" class="card login-card">
+      <div class="hero">
+        <div class="hero-icon">🎬</div>
+        <span class="eyebrow">Satu Bab • Lima Pertemuan</span>
+        <h2>Teks Drama</h2>
+        <p>
+          Pelajari unsur, struktur, penokohan, dialog, nilai, penyutradaraan,
+          evaluasi, dan pementasan drama melalui sintaks SELIS.
+        </p>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group full">
+          <label for="studentName">
+            Nama Lengkap <span class="required">*</span>
+          </label>
+          <input
+            id="studentName"
+            type="text"
+            autocomplete="name"
+            placeholder="WAJIB DITULIS DENGAN HURUF KAPITAL SEMUA"
+          />
+          <p class="input-warning">WAJIB DITULIS DENGAN HURUF KAPITAL SEMUA.</p>
+        </div>
+
+        <div class="form-group">
+          <label for="studentClass">
+            Kelas <span class="required">*</span>
+          </label>
+          <select id="studentClass">
+            <option value="">Pilih Kelas</option>
+            <option value="XI IPA 1">XI IPA 1</option>
+            <option value="XI IPA 2">XI IPA 2</option>
+            <option value="XI IPA 3">XI IPA 3</option>
+            <option value="XI IPS 1">XI IPS 1</option>
+            <option value="XI IPS 2">XI IPS 2</option>
+            <option value="XI IPS 3">XI IPS 3</option>
+            <option value="XI IPS 4">XI IPS 4</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="materialCode">
+            Kode Akses Materi <span class="required">*</span>
+          </label>
+          <input
+            id="materialCode"
+            type="password"
+            autocomplete="off"
+            placeholder="Masukkan Kode Akses"
+          />
+        </div>
+      </div>
+
+      <button id="loginButton" class="btn btn-primary login-button" type="button">
+        🔓 Buka Materi Pembelajaran
+      </button>
+
+      <div class="notice">
+        Identitas digunakan dalam pencatatan hasil belajar. Pastikan nama dan kelas
+        telah ditulis secara benar.
+      </div>
+    </section>
+
+    <section id="materialPage" class="hidden">
+      <div class="session-header">
+        <div>
+          <p id="sessionDimension">Dimensi SELIS</p>
+          <h2 id="sessionTitle">Pertemuan</h2>
+          <p id="sessionSubtitle">Materi pembelajaran teks drama</p>
+        </div>
+
+        <div class="student-identity">
+          <span>Identitas Murid</span>
+          <strong id="materialStudentName">-</strong>
+          <span id="materialStudentClass">-</span>
+        </div>
+      </div>
+
+      <div class="progress-panel">
+        <div class="progress-top">
+          <span>Progres Materi</span>
+          <span id="slideIndicator">Slide 1 dari 5</span>
+        </div>
+        <div class="progress-track">
+          <div id="progressFill" class="progress-fill"></div>
+        </div>
+      </div>
+
+      <div class="card slider-card">
+        <div class="slider-window">
+          <div id="slidesTrack" class="slides-track"></div>
+        </div>
+
+        <div class="slider-controls">
+          <button id="prevSlide" class="btn btn-dark" type="button">
+            ← Sebelumnya
+          </button>
+
+          <div id="slideDots" class="slide-dots"></div>
+
+          <button id="nextSlide" class="btn btn-secondary" type="button">
+            Selanjutnya →
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="lkpdPage" class="hidden">
+      <div class="lkpd-header">
+        <h2 id="lkpdTitle">LKPD Murid</h2>
+        <p id="lkpdDescription">
+          Jawablah 30 soal berdasarkan stimulus drama dan materi pembelajaran.
+        </p>
+      </div>
+
+      <form id="quizForm">
+        <div id="questionsContainer"></div>
+
+        <div class="submit-panel">
+          <div class="answer-progress">
+            Terjawab: <span id="answeredCount">0</span>/30 soal
+          </div>
+
+          <button id="submitQuiz" class="btn btn-success" type="button">
+            ✅ Cek Hasil
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <section id="resultPage" class="card result-card hidden">
+      <div class="result-hero">
+        <p>Hasil Evaluasi Teks Drama</p>
+        <h2 id="resultMeeting">Pertemuan</h2>
+
+        <div class="score-circle">
+          <div>
+            <strong id="resultScore">0</strong>
+            <span>Skor dari 100</span>
+          </div>
+        </div>
+
+        <p id="resultMessage">Hasil evaluasi telah diproses.</p>
+      </div>
+
+      <div class="result-grid">
+        <div class="result-box">
+          <strong>Nama</strong>
+          <span id="resultName">-</span>
+        </div>
+
+        <div class="result-box">
+          <strong>Kelas</strong>
+          <span id="resultClass">-</span>
+        </div>
+
+        <div class="result-box">
+          <strong>Pertemuan</strong>
+          <span id="resultSession">-</span>
+        </div>
+
+        <div class="result-box">
+          <strong>Jumlah Jawaban Benar</strong>
+          <span id="resultCorrectTotal">0 dari 30 soal</span>
+        </div>
+      </div>
+
+      <div class="analysis-box analysis-positive">
+        <h3>Analisis Positif</h3>
+        <p id="positiveAnalysis">-</p>
+      </div>
+
+      <div class="analysis-box analysis-negative">
+        <h3>Analisis Penguatan</h3>
+        <p id="negativeAnalysis">-</p>
+      </div>
+
+      <div id="syncStatus" class="sync-status">
+        Menyiapkan pengiriman hasil evaluasi.
+      </div>
+
+      <div class="result-actions">
+        <button class="btn btn-primary" type="button" onclick="window.print()">
+          🖨️ Cetak ke PDF / Simpan
+        </button>
+
+        <button id="returnLogin" class="btn btn-dark" type="button">
+          Kembali ke Halaman Awal
+        </button>
+      </div>
+    </section>
+
+    <section id="teacherPage" class="hidden">
+      <div class="teacher-header">
+        <h2>Dashboard Guru</h2>
+        <p>
+          Daftar kunci jawaban, level Taksonomi Bloom C1–C6,
+          dan indikator kognitif untuk kelima pertemuan.
+        </p>
+      </div>
+
+      <div class="card">
+        <div id="teacherTabs" class="teacher-nav"></div>
+        <div id="teacherTableContainer"></div>
+
+        <div class="result-actions">
+          <button class="btn btn-primary" type="button" onclick="window.print()">
+            🖨️ Cetak Dashboard Guru
+          </button>
+
+          <button id="teacherLogout" class="btn btn-dark" type="button">
+            Keluar
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      Modul Ajar Bahasa Indonesia Kelas XI SMA • Teks Drama • Sintaks SELIS
+    </footer>
+  </main>
+
+  <script>
+    "use strict";
+
+    const EXPORT_URL =
+      "https://script.google.com/macros/s/AKfycbxkU8FiuD6HKp3GVuRMYcIDELqqy90AMLh2Swsccl9RWDcaS2s0j3y70IklilDaeYgMgQ/exec";
+
+    const ACCESS_CODES = {
+      sadar123: 1,
+      empati000: 2,
+      luhur010: 3,
+      instropektif111: 4,
+      santun1234: 5
+    };
+
+    const BLOOM_INDICATORS = {
+      C1: "Mengingat pengertian, unsur, struktur, dialog, petunjuk laku, dan istilah pementasan drama.",
+      C2: "Memahami tokoh, konflik, latar, amanat, hubungan dialog, dan tujuan adegan.",
+      C3: "Menerapkan konsep drama untuk memilih dialog, ekspresi, blocking, atau petunjuk laku yang tepat.",
+      C4: "Menganalisis motivasi tokoh, perkembangan konflik, hubungan antartokoh, dan fungsi unsur panggung.",
+      C5: "Mengevaluasi kekuatan, kelemahan, konsistensi, etika, dan efektivitas naskah serta pementasan.",
+      C6: "Mencipta atau memilih rancangan adegan, dialog, penyelesaian, blocking, atau pementasan yang paling tepat."
+    };
+
+    const BLOOM_SEQUENCE = [
+      "C1", "C2", "C3", "C4", "C5", "C6",
+      "C1", "C2", "C3", "C4", "C5", "C6",
+      "C1", "C2", "C3", "C4", "C5", "C6",
+      "C1", "C2", "C3", "C4", "C5", "C6",
+      "C1", "C2", "C3", "C4", "C5", "C6"
+    ];
+
+    const LETTERS = ["A", "B", "C", "D", "E"];
+
+    let appState = {
+      name: "",
+      className: "",
+      sessionId: null,
+      currentSlide: 0,
+      teacherSession: 1
+    };
+
+    const materialSessions = {
+      1: {
+        dimension: "SELIS P1 • SADAR",
+        title: "Pertemuan 1: Mengenali Dasar dan Struktur Drama",
+        subtitle: "Kesadaran awal, unsur drama, struktur adegan, dialog, dan petunjuk laku.",
+        slides: [
+          {
+            title: "Kesadaran Awal dalam Menikmati Drama",
+            points: [
+              "Drama merupakan karya sastra yang menampilkan konflik melalui tindakan dan dialog tokoh.",
+              "Penonton perlu menyadari emosi yang muncul ketika menyaksikan adegan.",
+              "Rasa marah, takut, iba, atau gembira dapat memengaruhi penilaian terhadap tokoh.",
+              "Penilaian perlu didukung dialog, tindakan, dan konteks adegan.",
+              "Kesadaran membantu penonton membedakan fakta adegan dari prasangka pribadi."
+            ],
+            box: "Dimensi Sadar mengajak murid mengenali respons diri sebelum menilai tokoh dan konflik."
+          },
+          {
+            title: "Unsur-Unsur Drama",
+            points: [
+              "Tokoh adalah pelaku yang menjalankan peristiwa.",
+              "Dialog merupakan percakapan antartokoh.",
+              "Konflik menjadi penggerak perkembangan adegan.",
+              "Latar mencakup tempat, waktu, dan suasana.",
+              "Amanat merupakan pesan yang dapat dipahami dari keseluruhan drama."
+            ],
+            box: "Unsur drama saling berkaitan dan memperoleh makna melalui pementasan."
+          },
+          {
+            title: "Struktur Drama",
+            points: [
+              "Prolog dapat memberikan pengantar sebelum cerita dimulai.",
+              "Orientasi memperkenalkan tokoh dan situasi awal.",
+              "Komplikasi menampilkan konflik yang berkembang.",
+              "Klimaks merupakan puncak ketegangan.",
+              "Resolusi dan epilog menutup konflik serta memberikan kesan akhir."
+            ],
+            box: "Struktur membantu penonton mengikuti perkembangan konflik secara runtut."
+          },
+          {
+            title: "Dialog dan Petunjuk Laku",
+            points: [
+              "Dialog harus sesuai watak, situasi, dan tujuan tokoh.",
+              "Petunjuk laku biasanya ditulis dalam tanda kurung atau huruf miring.",
+              "Petunjuk laku mengarahkan gerak, ekspresi, intonasi, atau suasana.",
+              "Dialog yang efektif mendorong konflik atau mengungkap watak.",
+              "Tindakan panggung dapat menyampaikan makna tanpa banyak kata."
+            ],
+            box: "Naskah drama bukan hanya untuk dibaca, tetapi juga dipentaskan."
+          },
+          {
+            title: "Membaca Naskah Drama secara Sadar",
+            points: [
+              "Identifikasi tokoh, tujuan, latar, konflik, dan penyelesaian.",
+              "Tandai dialog yang mengubah arah adegan.",
+              "Perhatikan petunjuk laku dan perubahan emosi.",
+              "Pisahkan penilaian pribadi dari bukti naskah.",
+              "Simpulkan pesan setelah memahami keseluruhan adegan."
+            ],
+            box: "Setelah memahami lima slide, masukkan kode yang diberikan guru untuk membuka LKPD murid."
+          }
+        ]
+      },
+
+      2: {
+        dimension: "SELIS P2 • EMPATI",
+        title: "Pertemuan 2: Memahami Tokoh dan Konflik secara Empatik",
+        subtitle: "Menempatkan diri pada posisi tokoh dan memahami sudut pandang sosial.",
+        slides: [
+          {
+            title: "Empati dalam Drama",
+            points: [
+              "Empati membantu penonton memahami alasan dan pengalaman tokoh.",
+              "Tindakan tokoh perlu dilihat berdasarkan kebutuhan, tekanan, dan keterbatasannya.",
+              "Empati tidak sama dengan membenarkan semua tindakan.",
+              "Dialog dapat memperlihatkan rasa takut, kebutuhan, dan harapan yang tersembunyi.",
+              "Pementasan yang empatik menjaga martabat tokoh dan kelompok sosial."
+            ],
+            box: "Empati memperluas pemahaman tanpa menghilangkan penilaian kritis."
+          },
+          {
+            title: "Penokohan dalam Drama",
+            points: [
+              "Watak dapat terlihat melalui dialog, tindakan, ekspresi, dan reaksi tokoh lain.",
+              "Tokoh protagonis berjuang mencapai tujuan utama.",
+              "Tokoh antagonis menghambat tujuan tersebut.",
+              "Tokoh tritagonis dapat menjadi penengah atau pendukung.",
+              "Perubahan watak harus didukung peristiwa yang logis."
+            ],
+            box: "Bukti penokohan harus ditemukan dalam adegan, bukan hanya dugaan penonton."
+          },
+          {
+            title: "Konflik dan Motivasi",
+            points: [
+              "Konflik internal terjadi dalam diri tokoh.",
+              "Konflik eksternal terjadi dengan tokoh lain, masyarakat, atau lingkungan.",
+              "Motivasi menjelaskan alasan di balik tindakan tokoh.",
+              "Konflik yang kuat tumbuh dari perbedaan kebutuhan.",
+              "Penyelesaian empatik mempertimbangkan akibat bagi berbagai pihak."
+            ],
+            box: "Motivasi membuat tindakan tokoh dapat dipahami secara manusiawi."
+          },
+          {
+            title: "Sudut Pandang Sosial",
+            points: [
+              "Drama dapat menghadirkan pengalaman keluarga, sekolah, pekerjaan, dan masyarakat.",
+              "Tokoh dari kelompok berbeda dapat memiliki kepentingan yang berlainan.",
+              "Pementasan perlu menghindari stereotip.",
+              "Dialog perlu memberikan ruang bagi suara yang terabaikan.",
+              "Konflik sosial sebaiknya diselesaikan melalui proses yang bermakna."
+            ],
+            box: "Drama menjadi ruang untuk mendengar pengalaman yang mungkin berbeda dari pengalaman penonton."
+          },
+          {
+            title: "Memerankan Tokoh secara Empatik",
+            points: [
+              "Pahami latar belakang dan tujuan tokoh.",
+              "Gunakan ekspresi sesuai pengalaman tokoh.",
+              "Hindari karikatur yang merendahkan.",
+              "Tampilkan perubahan emosi secara bertahap.",
+              "Jaga kesetiaan pada makna dialog dan situasi."
+            ],
+            box: "Setelah memahami lima slide, masukkan kode yang diberikan guru untuk membuka LKPD murid."
+          }
+        ]
+      },
+
+      3: {
+        dimension: "SELIS P3 • LUHUR",
+        title: "Pertemuan 3: Nilai Moral dan Kearifan Lokal dalam Drama",
+        subtitle: "Menemukan nilai, etika, kearifan lokal, dan pesan kebaikan.",
+        slides: [
+          {
+            title: "Nilai Luhur dalam Drama",
+            points: [
+              "Drama dapat mengangkat kejujuran, tanggung jawab, keadilan, dan kepedulian.",
+              "Nilai muncul melalui pilihan serta akibat yang dialami tokoh.",
+              "Pesan moral sebaiknya tumbuh dari konflik, bukan ceramah panjang.",
+              "Perubahan tokoh dapat menunjukkan proses pembelajaran.",
+              "Penyelesaian konflik perlu mempertimbangkan kemanusiaan."
+            ],
+            box: "Nilai luhur menjadi kuat ketika tercermin dalam tindakan nyata tokoh."
+          },
+          {
+            title: "Amanat Drama",
+            points: [
+              "Amanat dapat disampaikan secara langsung atau tersirat.",
+              "Dialog, konflik, dan penyelesaian menjadi dasar penafsiran amanat.",
+              "Satu drama dapat memiliki lebih dari satu pesan.",
+              "Amanat harus sesuai keseluruhan alur.",
+              "Penonton perlu menyertakan bukti adegan ketika menafsirkannya."
+            ],
+            box: "Amanat merupakan hasil perenungan atas keseluruhan pementasan."
+          },
+          {
+            title: "Kearifan Lokal",
+            points: [
+              "Tradisi, bahasa, kesenian, dan musyawarah dapat menjadi sumber drama.",
+              "Kearifan lokal perlu ditampilkan sesuai konteks.",
+              "Istilah lokal harus digunakan secara tepat.",
+              "Budaya tidak boleh dijadikan bahan ejekan.",
+              "Nilai lokal dapat dihubungkan dengan persoalan masa kini."
+            ],
+            box: "Drama berbasis budaya menjaga penghormatan terhadap masyarakat pemilik tradisi."
+          },
+          {
+            title: "Etika dan Keadilan dalam Konflik",
+            points: [
+              "Periksa pihak yang dirugikan oleh tindakan tokoh.",
+              "Nilai apakah penyelesaian memberi ruang dialog.",
+              "Hindari pembenaran kekerasan tanpa alasan.",
+              "Tanggung jawab perlu disertai keberanian mengakui kesalahan.",
+              "Keadilan tidak selalu berarti semua pihak menerima hal yang sama."
+            ],
+            box: "Konflik drama menjadi sarana memahami akibat moral dari pilihan manusia."
+          },
+          {
+            title: "Mencipta Drama Bernilai Luhur",
+            points: [
+              "Tentukan nilai utama dan konflik yang mengujinya.",
+              "Bangun motivasi tokoh secara logis.",
+              "Gunakan kearifan lokal secara kontekstual.",
+              "Hindari pesan yang menggurui.",
+              "Susun penyelesaian yang manusiawi dan bermakna."
+            ],
+            box: "Setelah memahami lima slide, masukkan kode yang diberikan guru untuk membuka LKPD murid."
+          }
+        ]
+      },
+
+      4: {
+        dimension: "SELIS P4 • INTROSPEKTIF",
+        title: "Pertemuan 4: Mengevaluasi dan Merevisi Naskah Drama",
+        subtitle: "Menilai kekuatan, kelemahan, konsistensi, dan objektivitas pementasan.",
+        slides: [
+          {
+            title: "Introspeksi dalam Drama",
+            points: [
+              "Pemain perlu mengevaluasi pilihan ekspresi dan geraknya.",
+              "Penulis perlu menerima masukan terhadap naskah.",
+              "Penonton perlu meninjau alasan penilaiannya.",
+              "Kritik sebaiknya fokus pada adegan dan unsur teknis.",
+              "Introspeksi membantu perbaikan tanpa menghakimi diri."
+            ],
+            box: "Proses drama berkembang melalui latihan, umpan balik, dan revisi."
+          },
+          {
+            title: "Kriteria Naskah yang Kuat",
+            points: [
+              "Tujuan tokoh jelas.",
+              "Konflik berkembang secara logis.",
+              "Dialog terdengar alami dan fungsional.",
+              "Petunjuk laku mendukung pementasan.",
+              "Penyelesaian sesuai dengan perkembangan tokoh."
+            ],
+            box: "Naskah yang kuat memiliki hubungan erat antara dialog, tindakan, dan konflik."
+          },
+          {
+            title: "Kelemahan yang Sering Muncul",
+            points: [
+              "Dialog terlalu panjang dan menjelaskan semua hal.",
+              "Tokoh berubah tanpa alasan.",
+              "Konflik selesai secara tiba-tiba.",
+              "Blocking tidak mendukung fokus adegan.",
+              "Properti digunakan tanpa fungsi."
+            ],
+            box: "Kelemahan dapat diperbaiki dengan menata ulang adegan dan motivasi."
+          },
+          {
+            title: "Objektivitas dalam Evaluasi",
+            points: [
+              "Gunakan kriteria yang jelas.",
+              "Sertakan bukti adegan.",
+              "Bedakan selera pribadi dari kualitas teknis.",
+              "Akui kekuatan sebelum menyampaikan kelemahan.",
+              "Berikan saran yang spesifik dan dapat diterapkan."
+            ],
+            box: "Evaluasi objektif berfokus pada karya, bukan pribadi pemain atau penulis."
+          },
+          {
+            title: "Merevisi Naskah dan Pementasan",
+            points: [
+              "Perjelas tujuan tokoh dan pemicu konflik.",
+              "Ringkas dialog yang berulang.",
+              "Perbaiki transisi adegan.",
+              "Sesuaikan blocking, ekspresi, dan properti.",
+              "Pastikan akhir drama menjawab konflik utama."
+            ],
+            box: "Setelah memahami lima slide, masukkan kode yang diberikan guru untuk membuka LKPD murid."
+          }
+        ]
+      },
+
+      5: {
+        dimension: "SELIS P5 • SANTUN",
+        title: "Pertemuan 5: Menulis dan Mementaskan Drama secara Santun",
+        subtitle: "Praktik dialog beradab, penyutradaraan, kerja sama, dan etika pementasan.",
+        slides: [
+          {
+            title: "Kesantunan Dialog",
+            points: [
+              "Dialog dapat tegas tanpa merendahkan martabat tokoh lain.",
+              "Ketidaksetujuan perlu diarahkan pada persoalan.",
+              "Ucapan kasar harus memiliki fungsi dramatik yang jelas.",
+              "Stereotip diskriminatif perlu dihindari.",
+              "Dialog santun tetap mampu membangun konflik."
+            ],
+            box: "Kesantunan tidak menghilangkan ketegangan, tetapi menjaganya tetap manusiawi."
+          },
+          {
+            title: "Bahasa Tubuh dan Ekspresi",
+            points: [
+              "Ekspresi harus sesuai emosi dan tujuan tokoh.",
+              "Gerak tidak boleh berlebihan tanpa fungsi.",
+              "Kontak mata membantu membangun hubungan antartokoh.",
+              "Jarak antarpemain dapat menunjukkan kedekatan atau konflik.",
+              "Blocking perlu mempertimbangkan fokus penonton."
+            ],
+            box: "Tubuh pemain merupakan bagian penting dari bahasa drama."
+          },
+          {
+            title: "Kerja Sama Pementasan",
+            points: [
+              "Pementasan melibatkan pemain, sutradara, penata panggung, suara, cahaya, dan kostum.",
+              "Setiap anggota perlu memahami tugasnya.",
+              "Keputusan dibahas melalui komunikasi terbuka.",
+              "Kesalahan latihan diperbaiki tanpa mempermalukan.",
+              "Keberhasilan pementasan merupakan hasil kerja bersama."
+            ],
+            box: "Santun dalam proses sama pentingnya dengan santun dalam dialog."
+          },
+          {
+            title: "Etika Pementasan",
+            points: [
+              "Hormati naskah dan pencipta.",
+              "Minta izin ketika melakukan adaptasi.",
+              "Jaga keselamatan pemain dan kru.",
+              "Hindari properti atau adegan berbahaya tanpa pengamanan.",
+              "Tanggapi kritik secara terbuka dan beradab."
+            ],
+            box: "Etika memastikan pementasan berlangsung kreatif, aman, dan bertanggung jawab."
+          },
+          {
+            title: "Mencipta Pementasan Santun",
+            points: [
+              "Tentukan tema, tokoh, konflik, dan pesan.",
+              "Susun dialog serta petunjuk laku.",
+              "Rancang blocking, properti, suara, dan cahaya.",
+              "Lakukan latihan serta evaluasi.",
+              "Pastikan pesan disampaikan tanpa merendahkan pihak tertentu."
+            ],
+            box: "Setelah memahami lima slide, masukkan kode yang diberikan guru untuk membuka LKPD murid."
+          }
+        ]
+      }
+    };
+
+    const stimuli = {
+      1: [
+        {
+          title: "Stimulus 1 — Buku yang Hilang",
+          text:
+`RANI: Buku catatanku tadi masih di meja.
+DIO: Aku melihat Sinta berada di dekat meja itu.
+RANI: Jangan langsung menuduh. Kita cari dulu.
+(Dio menunduk dan ikut memeriksa bawah kursi.)`
+        },
+        {
+          title: "Stimulus 2 — Hujan di Halte",
+          text:
+`MAYA: Bus terakhir belum datang.
+RUDI: Hujan semakin deras. Pakai payungku saja.
+MAYA: Lalu kamu?
+RUDI: Kita berdiri berdekatan. Payung ini cukup untuk berdua.`
+        },
+        {
+          title: "Stimulus 3 — Latihan Pentas",
+          text:
+`SUTRADARA: Bagian ini masih terlalu cepat.
+NISA: Saya gugup sehingga lupa memberi jeda.
+SUTRADARA: Kita ulangi dari dialog kedua. Tarik napas lebih dahulu.
+(Nisa mengangguk dan kembali ke posisi awal.)`
+        },
+        {
+          title: "Stimulus 4 — Lampu Padam",
+          text:
+`(Panggung gelap. Terdengar suara benda jatuh.)
+ARIF: Siapa di sana?
+LINA: Tenang, aku sedang mencari senter.
+ARIF: Aku mendengar langkah dari belakang tirai.`
+        },
+        {
+          title: "Stimulus 5 — Surat di Laci",
+          text:
+`IBU: Surat ini sudah lama kusimpan.
+DARA: Mengapa Ibu tidak pernah memberitahuku?
+IBU: Aku takut kamu belum siap menerima isinya.
+(Dara memegang surat itu dengan tangan bergetar.)`
+        },
+        {
+          title: "Stimulus 6 — Kunci Ruang Musik",
+          text:
+`BAYU: Kunci ruang musik tidak ada di tempatnya.
+TIKA: Tadi aku meminjamnya, tetapi sudah kukembalikan.
+BAYU: Mari kita periksa daftar peminjaman.
+(Tika membuka buku catatan di meja.)`
+        }
+      ],
+
+      2: [
+        {
+          title: "Stimulus 1 — Murid Baru",
+          text:
+`WALI KELAS: Ini Alya, murid baru dari luar kota.
+ALYA: Senang berkenalan dengan kalian.
+RINA: Duduklah bersama kami saat tugas kelompok.
+(Alya tersenyum kecil dan mengangguk.)`
+        },
+        {
+          title: "Stimulus 2 — Sepatu Berlumpur",
+          text:
+`DANI: Sepatumu kotor sekali. Kamu terlambat lagi.
+RENO: Tadi aku membantu pengendara yang jatuh.
+DANI: Aku tidak tahu. Maaf, aku terlalu cepat menilai.
+Reno membersihkan sepatunya sambil tersenyum tipis.`
+        },
+        {
+          title: "Stimulus 3 — Peran Kecil",
+          text:
+`SINTA: Aku ingin mencoba menjadi narator.
+KETUA: Kukira kamu tidak tertarik karena selalu diam.
+SINTA: Aku hanya takut ditertawakan.
+KETUA: Kita bisa mencoba latihan singkat lebih dahulu.`
+        },
+        {
+          title: "Stimulus 4 — Pedagang Kecil",
+          text:
+`FARIS: Bapak selalu berjualan sampai malam?
+PAK JAYA: Sejak pagi. Anak saya sedang membutuhkan biaya sekolah.
+FARIS: Bolehkah saya membantu mempromosikan dagangan Bapak?
+Pak Jaya terdiam lalu tersenyum.`
+        },
+        {
+          title: "Stimulus 5 — Kursi Dekat Pintu",
+          text:
+`NINA: Aku membutuhkan kursi dekat pintu agar mudah keluar.
+LALA: Kukira kamu selalu ingin mendapat tempat khusus.
+NINA: Kakiku masih sakit setelah operasi.
+LALA: Maaf, aku belum mengetahui keadaanmu.`
+        },
+        {
+          title: "Stimulus 6 — Pohon Mangga",
+          text:
+`PAK RAKA: Dahan pohon ini sering menjatuhkan buah ke mobil saya.
+PAK DANA: Pohon itu sudah tumbuh sejak ayah saya masih hidup.
+PAK RAKA: Bagaimana kalau kita memangkas bagian yang melewati pagar?
+Pak Dana memandang pohon itu beberapa saat.`
+        }
+      ],
+
+      3: [
+        {
+          title: "Stimulus 1 — Mata Air Desa",
+          text:
+`KAKEK: Pohon-pohon di sekitar mata air tidak boleh ditebang.
+ARSA: Kami ingin membuat lahan parkir untuk wisatawan.
+KAKEK: Jika akar hilang, air pun akan pergi.
+Arsa memandang aliran air yang digunakan warga.`
+        },
+        {
+          title: "Stimulus 2 — Dompet di Pasar",
+          text:
+`LARAS: Dompet ini berisi banyak uang.
+SARI: Bukankah kamu sedang membutuhkan buku?
+LARAS: Benar, tetapi uang ini bukan milikku.
+(Laras menyerahkan dompet kepada pengelola pasar.)`
+        },
+        {
+          title: "Stimulus 3 — Jembatan Bambu",
+          text:
+`KETUA DESA: Besok kita memperbaiki jembatan bersama.
+BIMA: Mengapa kami harus bekerja tanpa dibayar?
+KETUA DESA: Lihat anak-anak yang melewatinya setiap pagi.
+Bima menatap jembatan yang mulai rapuh.`
+        },
+        {
+          title: "Stimulus 4 — Beras Terakhir",
+          text:
+`IBU: Beras kita tinggal sedikit.
+AYAH: Keluarga Pak Wiryo bahkan tidak memiliki makanan.
+IBU: Aku khawatir untuk anak-anak.
+AYAH: Kita bagi secukupnya dan mencari jalan bersama.`
+        },
+        {
+          title: "Stimulus 5 — Tenun Warisan",
+          text:
+`RANTI: Aku ingin mengganti warna motif ini.
+IBU: Boleh, tetapi pahami dahulu maknanya.
+RANTI: Jadi tradisi tidak selalu melarang perubahan?
+IBU: Tradisi mengajarkan arah, bukan membelenggu langkah.`
+        },
+        {
+          title: "Stimulus 6 — Musyawarah Desa",
+          text:
+`WARGA 1: Jalan rusak harus segera diperbaiki.
+WARGA 2: Saluran air juga menyebabkan banjir.
+KEPALA DESA: Kita dengarkan data dan dampak setiap usulan.
+Semua warga kembali duduk membentuk lingkaran.`
+        }
+      ],
+
+      4: [
+        {
+          title: "Stimulus 1 — Resolusi Mendadak",
+          text:
+`RAKA: Kita terjebak di gudang dan tidak ada jalan keluar.
+TIBA-TIBA PETUGAS: Aku datang menyelamatkan kalian!
+Pintu terbuka tanpa penjelasan dan semua tokoh pulang.`
+        },
+        {
+          title: "Stimulus 2 — Watak Berubah",
+          text:
+`NINA: Aku tidak berani tampil.
+Beberapa detik kemudian.
+NINA: Sekarang aku akan memimpin pertunjukan terbesar!
+Tidak ada adegan latihan atau perubahan yang mendukung keputusan itu.`
+        },
+        {
+          title: "Stimulus 3 — Dialog Berlebihan",
+          text:
+`ANTO: Aku akan menjelaskan seluruh sejarah keluargaku sejak tahun 1945.
+RINI: Silakan jelaskan semuanya sekarang.
+Anto berbicara selama beberapa halaman tanpa tindakan atau perubahan emosi.`
+        },
+        {
+          title: "Stimulus 4 — Properti Tanpa Fungsi",
+          text:
+`Di tengah panggung terdapat payung merah, sepeda, koper, dan jam besar.
+Tokoh hanya duduk berbicara di kursi.
+Tidak satu pun properti digunakan atau disebutkan.`
+        },
+        {
+          title: "Stimulus 5 — Blocking Membingungkan",
+          text:
+`Semua pemain berdiri membelakangi penonton.
+Tokoh utama berbicara dari belakang properti tinggi.
+Pemain lain menutupi geraknya sepanjang adegan.`
+        },
+        {
+          title: "Stimulus 6 — Naskah Revisi",
+          text:
+`Penulis menambahkan pemicu konflik, mempersingkat dialog, dan memberi alasan perubahan tokoh.
+Sutradara mengubah blocking agar tokoh utama terlihat.
+Properti yang tidak diperlukan dihapus.`
+        }
+      ],
+
+      5: [
+        {
+          title: "Stimulus 1 — Perbedaan Pendapat",
+          text:
+`RANI: Aku belum setuju dengan keputusan itu.
+DIO: Kamu selalu menolak semua usul!
+RANI: Aku menolak bagian yang merugikan anggota lain. Mari kita bahas alasannya.
+Dio menarik napas dan kembali duduk.`
+        },
+        {
+          title: "Stimulus 2 — Latihan Kelompok",
+          text:
+`SUTRADARA: Adeganmu masih belum tepat.
+Pemain menunduk.
+SUTRADARA: Kita perbaiki bersama. Cobalah memberi jeda sebelum dialog terakhir.
+Pemain mengangguk dan mengulang adegan.`
+        },
+        {
+          title: "Stimulus 3 — Tokoh dari Desa",
+          text:
+`WAWAN: Mesin ini dapat diperbaiki. Berikan aku kunci pas.
+BIMA: Kamu yakin?
+WAWAN: Aku terbiasa membantu ayah di bengkel desa.
+Wawan mulai memeriksa mesin dengan teliti.`
+        },
+        {
+          title: "Stimulus 4 — Keselamatan Panggung",
+          text:
+`PENATA PANGGUNG: Kabel ini melintang di jalur pemain.
+SUTRADARA: Hentikan latihan dahulu.
+PENATA PANGGUNG: Saya akan merekatkannya dan memindahkan lampu.
+Semua pemain menunggu di area aman.`
+        },
+        {
+          title: "Stimulus 5 — Adaptasi Naskah",
+          text:
+`RINA: Kita ingin mengubah latar cerita menjadi sekolah.
+DANI: Apakah kita sudah meminta izin kepada penulis?
+RINA: Belum. Kita hubungi penulis dan jelaskan bentuk adaptasinya.
+Mereka mencatat bagian-bagian yang akan diubah.`
+        },
+        {
+          title: "Stimulus 6 — Kritik Pementasan",
+          text:
+`PENONTON: Intonasi pada adegan terakhir kurang jelas.
+PEMAIN: Terima kasih. Bagian mana yang paling sulit didengar?
+PENONTON: Dialog sebelum lampu padam.
+Pemain mencatat masukan tersebut.`
+        }
+      ]
+    };
+
+    const questionBanks = {
+      1: [
+        ["radio", "Percakapan antartokoh dalam drama disebut ....", ["dialog", "prolog", "epilog", "tema", "latar"], "A"],
+        ["radio", "Sikap Rani dalam stimulus menunjukkan bahwa ia ....", ["langsung menuduh", "ingin memeriksa fakta lebih dahulu", "menyembunyikan buku", "menolak mencari", "menyalahkan guru"], "B"],
+        ["radio", "Dialog lanjutan yang paling tepat adalah ....", ["RANI: Sinta pasti pencurinya.", "DIO: Kita tidak perlu mencari.", "DIO: Benar, mungkin buku itu terjatuh. Kita periksa bersama.", "RANI: Semua orang harus dihukum.", "DIO: Aku akan pulang."], "C"],
+        ["radio", "Konflik awal dalam adegan adalah ....", ["Dio ingin pulang.", "Rani tidak suka membaca.", "Sinta kehilangan meja.", "Buku Rani hilang dan muncul dugaan terhadap Sinta.", "Guru mengambil buku."], "D"],
+        ["radio", "Penilaian paling tepat terhadap adegan adalah ....", ["Dialog tidak memiliki tujuan.", "Tokoh tidak memiliki emosi.", "Tidak ada konflik.", "Petunjuk laku tidak berfungsi.", "Adegan menampilkan konflik sederhana dan sikap sadar untuk tidak tergesa-gesa menuduh."], "E"],
+        ["radio", "Judul adegan paling sesuai adalah ....", ["Sebelum Menuduh", "Pulang Sekolah", "Meja Baru", "Sinta yang Marah", "Buku Pelajaran"], "A"],
+
+        ["radio", "Keterangan gerak atau ekspresi dalam naskah drama disebut ....", ["petunjuk laku", "tema", "epilog", "amanat", "babak"], "A"],
+        ["radio", "Masalah yang dihadapi Maya dan Rudi adalah ....", ["mereka kehilangan payung", "bus terlambat dan hujan semakin deras", "mereka bertengkar", "halte ditutup", "mereka tidak saling mengenal"], "B"],
+        ["radio", "Petunjuk laku yang tepat setelah dialog Rudi adalah ....", ["(Maya tertawa mengejek.)", "(Keduanya berlari ke arah berlawanan.)", "(Maya bergeser mendekat di bawah payung.)", "(Rudi membuang payung.)", "(Lampu panggung padam tanpa alasan.)"], "C"],
+        ["radio", "Hubungan dialog dalam stimulus menunjukkan ....", ["Maya menolak bantuan.", "Rudi ingin pergi.", "Keduanya tidak memiliki tujuan.", "Rudi menawarkan solusi atas masalah yang mereka hadapi.", "Hujan telah berhenti."], "D"],
+
+        ["checkbox", "Pilih unsur drama yang terdapat dalam stimulus halte.", ["Tokoh", "Dialog", "Konflik", "Daftar pustaka", "Latar"], ["A", "B", "C", "E"]],
+        ["checkbox", "Pilih unsur yang dapat digunakan untuk mencipta kelanjutan adegan.", ["Kedatangan bus", "Keputusan Maya", "Perubahan cuaca", "Tokoh acak tanpa hubungan", "Akibat pilihan Rudi"], ["A", "B", "C", "E"]],
+        ["checkbox", "Pilih bagian struktur drama.", ["Orientasi", "Komplikasi", "Klimaks", "Bibliografi", "Resolusi"], ["A", "B", "C", "E"]],
+        ["checkbox", "Pilih informasi yang tepat tentang latihan pentas.", ["Sutradara menilai tempo terlalu cepat.", "Nisa merasa gugup.", "Nisa menolak mengulang.", "Sutradara memberi arahan bernapas.", "Nisa kembali ke posisi awal."], ["A", "B", "D", "E"]],
+        ["checkbox", "Pilih tindakan yang menerapkan arahan sutradara.", ["Memberi jeda", "Menarik napas", "Mempercepat semua dialog", "Mengulang dari bagian tertentu", "Menjaga posisi awal"], ["A", "B", "D", "E"]],
+        ["checkbox", "Pilih fungsi petunjuk laku dalam stimulus.", ["Menunjukkan reaksi Nisa", "Menjelaskan perpindahan posisi", "Menentukan daftar pemeran", "Mendukung proses latihan", "Memberi gambaran tindakan"], ["A", "B", "D", "E"]],
+        ["checkbox", "Pilih evaluasi yang tepat terhadap arahan sutradara.", ["Arahan bersifat spesifik.", "Masalah tempo diidentifikasi.", "Sutradara menghina Nisa.", "Solusi dapat diterapkan.", "Latihan dilakukan kembali."], ["A", "B", "D", "E"]],
+        ["checkbox", "Pilih rancangan perbaikan adegan.", ["Penanda jeda", "Perubahan tempo", "Ekspresi gugup", "Dialog tanpa latihan", "Evaluasi setelah pengulangan"], ["A", "B", "C", "E"]],
+        ["checkbox", "Pilih fungsi dialog dalam drama.", ["Mengungkap watak", "Mengembangkan konflik", "Memberi informasi", "Menggantikan seluruh gerak", "Menunjukkan hubungan tokoh"], ["A", "B", "C", "E"]],
+        ["checkbox", "Pilih informasi yang terdapat dalam adegan lampu padam.", ["Panggung gelap.", "Terdengar benda jatuh.", "Lina mencari senter.", "Arif mengetahui siapa pelakunya.", "Ada langkah di belakang tirai."], ["A", "B", "C", "E"]],
+
+        ["boolean", "Petunjuk panggung gelap membantu membangun suasana tegang.", ["Benar", "Salah"], "Benar"],
+        ["boolean", "Dialog Arif menunjukkan bahwa ia merasa sepenuhnya tenang.", ["Benar", "Salah"], "Salah"],
+        ["boolean", "Efek suara dapat mendukung pementasan drama.", ["Benar", "Salah"], "Benar"],
+        ["boolean", "Petunjuk laku tidak berpengaruh terhadap makna adegan.", ["Benar", "Salah"], "Salah"],
+        ["boolean", "Penonton perlu menggunakan bukti adegan ketika menilai tokoh.", ["Benar", "Salah"], "Benar"],
+
+        ["select", "Jodohkan konflik dalam adegan Surat di Laci.", ["Ibu menyimpan surat dan Dara mempertanyakan alasannya", "Dara kehilangan buku", "Ibu menolak pulang", "Surat terbakar", "Dara ingin pergi sekolah"], "Ibu menyimpan surat dan Dara mempertanyakan alasannya"],
+        ["select", "Jodohkan petunjuk laku Dara.", ["Tangan bergetar", "Berjalan tertawa", "Menutup jendela", "Duduk santai", "Membuang surat"], "Tangan bergetar"],
+        ["select", "Jodohkan emosi yang paling mungkin dialami Dara.", ["Tegang dan penasaran", "Gembira tanpa alasan", "Bosan", "Lucu", "Tenang sepenuhnya"], "Tegang dan penasaran"],
+        ["select", "Jodohkan analisis adegan kunci ruang musik.", ["Tokoh menggunakan catatan untuk memeriksa fakta", "Tokoh langsung menuduh", "Tokoh mengabaikan kunci", "Tokoh membatalkan kegiatan", "Tokoh menyembunyikan buku"], "Tokoh menggunakan catatan untuk memeriksa fakta"],
+        ["select", "Jodohkan akhir adegan paling logis.", ["Daftar menunjukkan peminjam berikutnya sehingga mereka menghubunginya.", "Kunci muncul secara ajaib.", "Semua tokoh pulang tanpa mencari.", "Ruang musik dibongkar.", "Tika dituduh tanpa bukti."], "Daftar menunjukkan peminjam berikutnya sehingga mereka menghubunginya."]
+      ],
+
+      2: [
+        ["radio", "Tokoh yang menjadi pusat perjuangan cerita disebut ....", ["protagonis", "antagonis", "figuran", "narator", "sutradara"], "A"],
+        ["radio", "Mengapa Alya tampak tersenyum kecil?", ["Ia ingin mengejek.", "Ia merasa diterima setelah diajak bergabung.", "Ia marah kepada wali kelas.", "Ia tidak ingin berteman.", "Ia ingin pulang."], "B"],
+        ["radio", "Tindakan empatik yang ditunjukkan Rina adalah ....", ["mengabaikan Alya", "menilai Alya pendiam", "mengajak Alya bergabung dalam kelompok", "meminta Alya duduk sendiri", "menertawakan logat Alya"], "C"],
+        ["radio", "Masalah sosial yang mungkin muncul sebelum dialog Rina adalah ....", ["Alya tidak membawa buku.", "Wali kelas tidak hadir.", "Kelas tidak memiliki kursi.", "Alya berisiko terasing karena belum mengenal teman.", "Rina ingin pindah."], "D"],
+        ["radio", "Penilaian paling tepat adalah ....", ["Alya pasti tidak ramah.", "Rina harus memaksa Alya berbicara.", "Murid baru selalu membutuhkan bantuan yang sama.", "Wali kelas tidak memiliki peran.", "Ajakan Rina membantu Alya memasuki lingkungan baru tanpa merendahkannya."], "E"],
+        ["radio", "Kelanjutan adegan paling empatik adalah ....", ["Rina mengenalkan anggota kelompok dan menanyakan minat Alya.", "Semua murid meninggalkan Alya.", "Alya dipaksa menjadi ketua.", "Wali kelas membatalkan pelajaran.", "Rina mengejek kota asal Alya."], "A"],
+
+        ["radio", "Alasan yang mendorong tindakan tokoh disebut ....", ["motivasi", "tipografi", "properti", "epilog", "dekorasi"], "A"],
+        ["radio", "Mengapa penilaian Dani terhadap Reno berubah?", ["Sepatu Reno dibersihkan.", "Dani mengetahui Reno membantu orang lain.", "Reno mengganti sepatu.", "Dani terlambat.", "Guru datang."], "B"],
+        ["radio", "Dialog yang menunjukkan empati adalah ....", ["Sepatumu sangat memalukan.", "Kamu pasti malas.", "Aku tidak tahu keadaanmu. Maaf karena terlalu cepat menilai.", "Aku tidak peduli alasanmu.", "Kamu selalu terlambat."], "C"],
+        ["radio", "Konflik dalam adegan muncul akibat ....", ["Reno kehilangan sepatu.", "Dani ingin pulang.", "Reno menolak bicara.", "Dani menilai Reno sebelum mengetahui konteks.", "Guru menghukum semua murid."], "D"],
+
+        ["checkbox", "Pilih evaluasi yang tepat terhadap Dani.", ["Ia menilai terlalu cepat.", "Ia bersedia meminta maaf.", "Ia mengetahui konteks sejak awal.", "Ia mengalami perubahan sikap.", "Dialog menunjukkan proses memahami."], ["A", "B", "D", "E"]],
+        ["checkbox", "Pilih unsur rancangan kelanjutan adegan.", ["Reno menjelaskan kejadian", "Dani menawarkan bantuan", "Perubahan hubungan mereka", "Ejekan baru", "Refleksi Dani"], ["A", "B", "C", "E"]],
+        ["checkbox", "Pilih cara penokohan dalam drama.", ["Dialog", "Tindakan", "Ekspresi", "Daftar isi", "Reaksi tokoh lain"], ["A", "B", "C", "E"]],
+        ["checkbox", "Pilih pemahaman yang sesuai tentang Sinta.", ["Sinta ingin menjadi narator.", "Sinta takut ditertawakan.", "Ketua telah mengetahui keinginannya.", "Kesalahpahaman muncul karena Sinta diam.", "Ketua menawarkan latihan."], ["A", "B", "D", "E"]],
+        ["checkbox", "Pilih tindakan yang mendukung Sinta.", ["Memberi kesempatan mencoba", "Melakukan latihan singkat", "Mengejek kegugupannya", "Memberikan umpan balik", "Mendengar keinginannya"], ["A", "B", "D", "E"]],
+        ["checkbox", "Pilih aspek yang perlu dianalisis.", ["Motivasi Sinta", "Asumsi ketua", "Cara komunikasi", "Warna kostum", "Peluang perubahan"], ["A", "B", "C", "E"]],
+        ["checkbox", "Pilih evaluasi empatik.", ["Diam tidak selalu berarti tidak tertarik.", "Ketua dapat memperbaiki komunikasi.", "Sinta pasti tidak mampu.", "Kesempatan mencoba dapat mengurangi kecemasan.", "Kelompok perlu mendengar semua anggota."], ["A", "B", "D", "E"]],
+        ["checkbox", "Pilih rancangan penyelesaian yang inklusif.", ["Audisi singkat", "Pembagian peran transparan", "Mempermalukan Sinta", "Latihan bersama", "Refleksi kelompok"], ["A", "B", "D", "E"]],
+        ["checkbox", "Pilih ciri konflik internal.", ["Terjadi dalam diri tokoh", "Melibatkan pilihan sulit", "Berhubungan dengan rasa takut", "Selalu berbentuk perkelahian", "Dapat ditampilkan melalui monolog"], ["A", "B", "C", "E"]],
+        ["checkbox", "Pilih informasi yang tepat tentang Pak Jaya.", ["Ia berjualan sejak pagi.", "Ia memiliki kebutuhan biaya sekolah anak.", "Faris mengejeknya.", "Faris menawarkan bantuan.", "Pak Jaya merespons dengan senyum."], ["A", "B", "D", "E"]],
+
+        ["boolean", "Pertanyaan Faris membuka ruang bagi Pak Jaya menjelaskan keadaannya.", ["Benar", "Salah"], "Benar"],
+        ["boolean", "Empati berarti menampilkan Pak Jaya hanya sebagai objek belas kasihan.", ["Benar", "Salah"], "Salah"],
+        ["boolean", "Dialog dapat memperlihatkan kebutuhan sosial tokoh.", ["Benar", "Salah"], "Benar"],
+        ["boolean", "Semua tokoh yang berbeda pendapat merupakan tokoh jahat.", ["Benar", "Salah"], "Salah"],
+        ["boolean", "Motivasi membantu penonton memahami tindakan tokoh.", ["Benar", "Salah"], "Benar"],
+
+        ["select", "Jodohkan kebutuhan Nina.", ["Akses keluar yang lebih mudah", "Kursi paling mahal", "Tempat untuk tidur", "Jendela besar", "Meja tambahan"], "Akses keluar yang lebih mudah"],
+        ["select", "Jodohkan kesalahpahaman Lala.", ["Mengira Nina menginginkan perlakuan khusus tanpa alasan", "Mengira Nina murid baru", "Mengira kursi rusak", "Mengira kelas ditutup", "Mengira pintu terkunci"], "Mengira Nina menginginkan perlakuan khusus tanpa alasan"],
+        ["select", "Jodohkan tindakan empatik Lala.", ["Meminta maaf dan memahami kebutuhan Nina", "Mengambil kursi Nina", "Mengabaikan penjelasan", "Mengejek kondisi Nina", "Menutup pintu"], "Meminta maaf dan memahami kebutuhan Nina"],
+        ["select", "Jodohkan analisis konflik pohon mangga.", ["Dua pihak memiliki kebutuhan yang sama-sama perlu dipertimbangkan", "Pak Dana tidak memiliki alasan", "Pak Raka ingin menebang semua pohon", "Pohon tidak berkaitan dengan konflik", "Mobil tidak pernah berada di sana"], "Dua pihak memiliki kebutuhan yang sama-sama perlu dipertimbangkan"],
+        ["select", "Jodohkan penyelesaian paling empatik.", ["Memangkas dahan yang melewati pagar dan merawat pohon bersama", "Menebang pohon diam-diam", "Merusak mobil", "Menutup komunikasi", "Membiarkan buah terus jatuh"], "Memangkas dahan yang melewati pagar dan merawat pohon bersama"]
+      ],
+
+      3: [
+        ["radio", "Pesan yang dapat dipetik dari keseluruhan drama disebut ....", ["amanat", "blocking", "properti", "dialog", "setting"], "A"],
+        ["radio", "Mengapa Kakek melarang penebangan pohon?", ["Untuk menghalangi wisata.", "Karena pohon menjaga mata air.", "Karena parkir tidak dibutuhkan.", "Karena Arsa harus pergi.", "Karena warga tidak boleh bekerja."], "B"],
+        ["radio", "Tindakan yang paling sesuai dengan nilai luhur adalah ....", ["Menebang pohon segera.", "Menutup mata air.", "Mencari lokasi parkir lain dan menjaga kawasan resapan.", "Mengabaikan warga.", "Membatalkan musyawarah."], "C"],
+        ["radio", "Konflik nilai dalam adegan terjadi antara ....", ["Kakek dan pohon.", "Arsa dan air minum.", "Wisata dan rumah warga.", "Kebutuhan parkir dan kelestarian sumber air.", "Desa dan kota."], "D"],
+        ["radio", "Penilaian paling tepat adalah ....", ["Semua pembangunan harus ditolak.", "Tradisi tidak perlu dijelaskan.", "Kakek selalu benar tanpa alasan.", "Wisata tidak memiliki manfaat.", "Adegan menunjukkan perlunya menyeimbangkan pembangunan dengan perlindungan alam."], "E"],
+        ["radio", "Judul adegan paling tepat adalah ....", ["Akar yang Menjaga Air", "Parkir Terbesar", "Arsa yang Marah", "Desa Tanpa Pohon", "Wisata Baru"], "A"],
+
+        ["radio", "Nilai bertindak sesuai kebenaran disebut ....", ["kejujuran", "kesombongan", "dominasi", "prasangka", "manipulasi"], "A"],
+        ["radio", "Mengapa Laras menyerahkan dompet?", ["Dompet kosong.", "Ia menyadari uang itu bukan miliknya.", "Ia takut pasar tutup.", "Sari memaksanya.", "Ia tidak membutuhkan buku."], "B"],
+        ["radio", "Tindakan yang menunjukkan nilai luhur adalah ....", ["Mengambil sebagian uang.", "Menyembunyikan dompet.", "Menyerahkan dompet kepada pengelola pasar.", "Membuang kartu identitas.", "Menyalahkan pemilik."], "C"],
+        ["radio", "Konflik internal Laras adalah ....", ["Ia tidak mengenal Sari.", "Ia ingin meninggalkan pasar.", "Ia takut hujan.", "Ia membutuhkan uang tetapi mengetahui uang itu bukan miliknya.", "Ia kehilangan buku."], "D"],
+
+        ["checkbox", "Pilih evaluasi yang tepat.", ["Laras menghadapi dilema moral.", "Kebutuhannya membuat konflik lebih kuat.", "Ia seharusnya mengambil uang.", "Keputusannya menunjukkan kejujuran.", "Penyelesaian cukup logis."], ["A", "B", "D", "E"]],
+        ["checkbox", "Pilih unsur rancangan adegan tentang kejujuran.", ["Godaan yang masuk akal", "Pilihan tokoh", "Akibat keputusan", "Hadiah ajaib", "Refleksi tokoh"], ["A", "B", "C", "E"]],
+        ["checkbox", "Pilih nilai luhur.", ["Kejujuran", "Tanggung jawab", "Kepedulian", "Eksploitasi", "Keadilan"], ["A", "B", "C", "E"]],
+        ["checkbox", "Pilih informasi yang tepat tentang jembatan bambu.", ["Jembatan perlu diperbaiki.", "Ketua desa mengajak warga.", "Bima langsung setuju.", "Anak-anak melewati jembatan.", "Jembatan mulai rapuh."], ["A", "B", "D", "E"]],
+        ["checkbox", "Pilih tindakan yang mencerminkan gotong royong.", ["Membagi tugas", "Menyediakan bahan", "Menolak semua bantuan", "Menyesuaikan kontribusi", "Menjaga keselamatan"], ["A", "B", "D", "E"]],
+        ["checkbox", "Pilih aspek yang perlu dianalisis.", ["Manfaat jembatan", "Alasan Bima", "Kebutuhan anak-anak", "Warna bambu", "Tanggung jawab warga"], ["A", "B", "C", "E"]],
+        ["checkbox", "Pilih penilaian luhur.", ["Ketua desa menggunakan pendekatan dialog.", "Bima perlu melihat dampak sosial.", "Kerja bersama tidak bernilai.", "Jembatan merupakan kepentingan bersama.", "Kontribusi dapat dibagi secara adil."], ["A", "B", "D", "E"]],
+        ["checkbox", "Pilih rancangan akhir yang bermakna.", ["Bima melihat anak menyeberang", "Ia ikut memperbaiki", "Warga mengejeknya", "Jembatan kembali aman", "Bima memahami gotong royong"], ["A", "B", "D", "E"]],
+        ["checkbox", "Pilih bentuk kearifan lokal.", ["Musyawarah", "Gotong royong", "Pengetahuan lingkungan", "Perundungan", "Tradisi kerajinan"], ["A", "B", "C", "E"]],
+        ["checkbox", "Pilih pemahaman tentang adegan Beras Terakhir.", ["Beras keluarga terbatas.", "Tetangga kekurangan makanan.", "Ibu tidak memiliki kekhawatiran.", "Ayah ingin berbagi secukupnya.", "Solusi dicari bersama."], ["A", "B", "D", "E"]],
+
+        ["boolean", "Kekhawatiran Ibu membuat konflik lebih realistis.", ["Benar", "Salah"], "Benar"],
+        ["boolean", "Adegan mengajarkan bahwa berbagi tidak memerlukan pertimbangan apa pun.", ["Benar", "Salah"], "Salah"],
+        ["boolean", "Dialog Ayah menunjukkan kepedulian dan tanggung jawab.", ["Benar", "Salah"], "Benar"],
+        ["boolean", "Amanat harus selalu disampaikan sebagai ceramah panjang.", ["Benar", "Salah"], "Salah"],
+        ["boolean", "Kearifan lokal dapat menjadi sumber konflik dan penyelesaian drama.", ["Benar", "Salah"], "Benar"],
+
+        ["select", "Jodohkan sikap Ibu dalam adegan Tenun Warisan.", ["Terbuka terhadap perubahan dengan pemahaman makna", "Menolak semua kreativitas", "Mengabaikan tradisi", "Melarang Ranti belajar", "Membuang kain"], "Terbuka terhadap perubahan dengan pemahaman makna"],
+        ["select", "Jodohkan makna kalimat “tradisi mengajarkan arah”.", ["Tradisi menjadi pedoman, bukan penjara", "Tradisi tidak boleh berubah", "Tradisi harus dihapus", "Ranti tidak boleh berpikir", "Warna tidak penting"], "Tradisi menjadi pedoman, bukan penjara"],
+        ["select", "Jodohkan tindakan luhur Ranti.", ["Memahami makna motif sebelum berinovasi", "Menghapus motif lama", "Meniru tanpa belajar", "Mengejek penenun", "Membuang kain"], "Memahami makna motif sebelum berinovasi"],
+        ["select", "Jodohkan analisis musyawarah desa.", ["Keputusan perlu mempertimbangkan data dan dampak setiap usulan", "Kelompok terbesar selalu benar", "Saluran air tidak penting", "Jalan harus dipilih tanpa diskusi", "Semua warga harus diam"], "Keputusan perlu mempertimbangkan data dan dampak setiap usulan"],
+        ["select", "Jodohkan penyelesaian paling adil.", ["Menentukan prioritas berdasarkan urgensi dan menyusun tahap pengerjaan bersama", "Memilih usulan teman kepala desa", "Mengabaikan banjir", "Menolak seluruh usulan", "Membubarkan rapat"], "Menentukan prioritas berdasarkan urgensi dan menyusun tahap pengerjaan bersama"]
+      ],
+
+      4: [
+        ["radio", "Proses memperbaiki naskah drama disebut ....", ["revisi", "deklamasi", "apresiasi", "publikasi", "improvisasi"], "A"],
+        ["radio", "Kelemahan utama stimulus pertama adalah ....", ["gudang tidak menarik", "penyelamatan muncul tanpa persiapan logis", "tokoh terlalu banyak", "dialog terlalu pendek", "petugas hadir"], "B"],
+        ["radio", "Perbaikan yang paling tepat adalah ....", ["Menghapus seluruh adegan.", "Menambah petugas lain tiba-tiba.", "Memberi petunjuk bahwa tokoh telah menghubungi petugas atau ada proses pencarian.", "Mengganti gudang menjadi kelas.", "Membiarkan pintu terbuka sejak awal."], "C"],
+        ["radio", "Resolusi tersebut lemah karena ....", ["tidak memiliki tokoh", "tidak memiliki dialog", "tidak memiliki latar", "tidak dibangun melalui hubungan sebab-akibat", "tidak memiliki judul"], "D"],
+        ["radio", "Penilaian paling objektif adalah ....", ["Naskah buruk karena penulisnya malas.", "Semua adegan gudang membosankan.", "Petugas tidak boleh muncul.", "Drama harus berakhir sedih.", "Konflik cukup jelas, tetapi penyelamatan perlu dipersiapkan dalam adegan sebelumnya."], "E"],
+        ["radio", "Rancangan revisi terbaik adalah ....", ["Tokoh menemukan telepon rusak, memperbaikinya, lalu berhasil menghubungi petugas.", "Pintu terbuka sendiri.", "Semua tokoh menghilang.", "Gudang berubah menjadi taman.", "Petugas datang dari langit."], "A"],
+
+        ["radio", "Kesesuaian perkembangan watak tokoh disebut ....", ["konsistensi penokohan", "tipografi", "dekorasi", "ilustrasi", "publikasi"], "A"],
+        ["radio", "Mengapa perubahan Nina tidak meyakinkan?", ["Ia ingin tampil.", "Tidak ada proses yang mendukung perubahan.", "Ia berada di panggung.", "Ia berbicara.", "Ia menjadi pemimpin."], "B"],
+        ["radio", "Adegan yang dapat ditambahkan adalah ....", ["Nina langsung menang.", "Semua tokoh memujinya.", "Nina berlatih, mengalami kegagalan, menerima dukungan, lalu mencoba kembali.", "Panggung ditutup.", "Tokoh lain pergi."], "C"],
+        ["radio", "Hubungan yang hilang dalam stimulus adalah ....", ["nama dan tempat", "judul dan tema", "kostum dan cahaya", "proses antara rasa takut dan keberanian", "jumlah pemain"], "D"],
+
+        ["checkbox", "Pilih evaluasi yang tepat.", ["Perubahan tokoh perlu dibangun.", "Latihan dapat mendukung perubahan.", "Perubahan mendadak selalu baik.", "Kegagalan dapat memperkuat perkembangan.", "Akhir harus sesuai proses."], ["A", "B", "D", "E"]],
+        ["checkbox", "Pilih unsur revisi penokohan.", ["Motivasi", "Hambatan", "Latihan", "Keberhasilan tanpa proses", "Refleksi"], ["A", "B", "C", "E"]],
+        ["checkbox", "Pilih ciri naskah drama yang kuat.", ["Konflik logis", "Dialog fungsional", "Petunjuk laku jelas", "Penyelesaian acak", "Motivasi tokoh"], ["A", "B", "C", "E"]],
+        ["checkbox", "Pilih kelemahan dialog Anto.", ["Terlalu panjang", "Hanya berisi penjelasan", "Tidak disertai tindakan", "Menunjukkan konflik kuat", "Tidak terasa alami"], ["A", "B", "C", "E"]],
+        ["checkbox", "Pilih cara memperbaiki dialog.", ["Membagi informasi ke beberapa adegan", "Menambahkan reaksi Rini", "Mempertahankan seluruh penjelasan", "Menggunakan tindakan panggung", "Menyisakan informasi penting saja"], ["A", "B", "D", "E"]],
+        ["checkbox", "Pilih aspek yang perlu dianalisis.", ["Fungsi dialog", "Tempo adegan", "Reaksi tokoh", "Harga naskah", "Keterkaitan dengan konflik"], ["A", "B", "C", "E"]],
+        ["checkbox", "Pilih penilaian objektif.", ["Informasi latar keluarga penting.", "Penyampaian terlalu panjang.", "Penulis tidak berbakat.", "Adegan perlu variasi tindakan.", "Sebagian dialog dapat dipindahkan."], ["A", "B", "D", "E"]],
+        ["checkbox", "Pilih rancangan revisi.", ["Memecah monolog", "Menambahkan pertanyaan relevan", "Menggunakan kilas balik singkat", "Menambah penjelasan acak", "Menghadirkan konflik dalam percakapan"], ["A", "B", "C", "E"]],
+        ["checkbox", "Pilih ciri properti yang efektif.", ["Memiliki fungsi", "Mendukung latar", "Digunakan pemain", "Hanya memenuhi panggung", "Mendukung simbol"], ["A", "B", "C", "E"]],
+        ["checkbox", "Pilih pemahaman tentang stimulus properti.", ["Ada banyak properti.", "Properti tidak digunakan.", "Semua properti mendukung cerita.", "Panggung berpotensi terasa penuh.", "Properti perlu diseleksi."], ["A", "B", "D", "E"]],
+
+        ["boolean", "Properti yang tidak memiliki fungsi dapat mengganggu fokus adegan.", ["Benar", "Salah"], "Benar"],
+        ["boolean", "Semakin banyak properti, semakin baik pementasan.", ["Benar", "Salah"], "Salah"],
+        ["boolean", "Blocking perlu mempertimbangkan arah pandang penonton.", ["Benar", "Salah"], "Benar"],
+        ["boolean", "Evaluasi objektif berfokus pada pribadi pemain.", ["Benar", "Salah"], "Salah"],
+        ["boolean", "Revisi dapat mencakup naskah dan aspek pementasan.", ["Benar", "Salah"], "Benar"],
+
+        ["select", "Jodohkan kelemahan blocking.", ["Tokoh utama tertutup properti dan pemain lain", "Tokoh utama terlihat jelas", "Semua pemain menghadap penonton", "Jalur gerak terbuka", "Panggung seimbang"], "Tokoh utama tertutup properti dan pemain lain"],
+        ["select", "Jodohkan perbaikan blocking.", ["Memindahkan properti dan membuka garis pandang", "Menambah pemain di depan tokoh utama", "Mematikan seluruh lampu", "Membelakangkan semua pemain", "Menutup panggung"], "Memindahkan properti dan membuka garis pandang"],
+        ["select", "Jodohkan tujuan blocking.", ["Mengatur posisi dan gerak agar adegan jelas", "Mengganti dialog", "Menentukan tema", "Menulis sinopsis", "Menghapus konflik"], "Mengatur posisi dan gerak agar adegan jelas"],
+        ["select", "Jodohkan analisis naskah revisi.", ["Perbaikan menyentuh konflik, dialog, penokohan, blocking, dan properti", "Hanya judul yang diubah", "Tidak ada revisi", "Semua dialog ditambah", "Properti diperbanyak"], "Perbaikan menyentuh konflik, dialog, penokohan, blocking, dan properti"],
+        ["select", "Jodohkan hasil revisi yang ideal.", ["Adegan menjadi lebih logis, ringkas, terlihat, dan fungsional", "Adegan semakin panjang tanpa tujuan", "Tokoh kehilangan motivasi", "Panggung semakin penuh", "Konflik hilang"], "Adegan menjadi lebih logis, ringkas, terlihat, dan fungsional"]
+      ],
+
+      5: [
+        ["radio", "Pengaturan posisi dan gerak pemain di panggung disebut ....", ["blocking", "prolog", "tema", "amanat", "sinopsis"], "A"],
+        ["radio", "Mengapa dialog Rani tergolong santun?", ["Ia menghindari pembahasan.", "Ia menjelaskan bagian yang ditolak dan mengajak membahas alasan.", "Ia menghina Dio.", "Ia memaksa semua anggota.", "Ia meninggalkan rapat."], "B"],
+        ["radio", "Dialog pengganti yang paling santun untuk Dio adalah ....", ["Kamu selalu membuat masalah.", "Diam saja dan ikuti keputusan.", "Baik, jelaskan bagian yang menurutmu merugikan agar kita dapat meninjaunya.", "Pendapatmu tidak penting.", "Aku tidak mau mendengar."], "C"],
+        ["radio", "Perubahan sikap Dio terlihat melalui ....", ["ia berdiri", "ia berteriak", "ia pergi", "ia menarik napas dan kembali duduk", "ia menutup pintu"], "D"],
+        ["radio", "Penilaian paling tepat adalah ....", ["Konflik tidak terlihat.", "Rani tidak tegas.", "Dio tidak memiliki emosi.", "Kesantunan menghilangkan perbedaan.", "Adegan menunjukkan bahwa ketidaksetujuan dapat disampaikan tegas tanpa serangan pribadi."], "E"],
+        ["radio", "Judul adegan paling tepat adalah ....", ["Duduk dan Mendengar", "Pertengkaran Besar", "Keputusan Tunggal", "Rani yang Pergi", "Rapat Tanpa Suara"], "A"],
+
+        ["radio", "Kejelasan pengucapan dialog disebut ....", ["artikulasi", "dekorasi", "properti", "tema", "alur"], "A"],
+        ["radio", "Mengapa arahan sutradara pada stimulus latihan tergolong santun?", ["Karena sutradara menghentikan latihan.", "Karena kritik disertai arahan perbaikan tanpa mempermalukan.", "Karena pemain tidak boleh menjawab.", "Karena semua kesalahan diabaikan.", "Karena adegan dibatalkan."], "B"],
+        ["radio", "Kalimat umpan balik yang tepat adalah ....", ["Kamu tidak berbakat.", "Adeganmu selalu buruk.", "Jeda sebelum dialog terakhir dapat membantu penonton memahami perubahan emosi.", "Jangan tampil lagi.", "Semua kesalahan berasal darimu."], "C"],
+        ["radio", "Tujuan memberi jeda sebelum dialog terakhir adalah ....", ["memperpanjang waktu", "membuat pemain lupa", "menghentikan konflik", "menegaskan perubahan emosi dan makna", "menghilangkan dialog"], "D"],
+
+        ["checkbox", "Pilih evaluasi yang tepat.", ["Masalah adegan dijelaskan.", "Sutradara memberi solusi spesifik.", "Pemain dipermalukan.", "Latihan dilakukan kembali.", "Bahasa arahan tetap menghormati pemain."], ["A", "B", "D", "E"]],
+        ["checkbox", "Pilih unsur umpan balik santun.", ["Fokus pada karya", "Memberi bukti", "Memberi saran", "Menyerang pribadi", "Menghargai usaha"], ["A", "B", "C", "E"]],
+        ["checkbox", "Pilih unsur pementasan drama.", ["Pemain", "Sutradara", "Tata cahaya", "Daftar pustaka", "Tata suara"], ["A", "B", "C", "E"]],
+        ["checkbox", "Pilih pemahaman yang tepat tentang Wawan.", ["Wawan berasal dari desa.", "Ia memiliki keterampilan memperbaiki mesin.", "Ia dijadikan bahan ejekan.", "Pengalaman membantu ayah mendukung kemampuannya.", "Ia bertindak teliti."], ["A", "B", "D", "E"]],
+        ["checkbox", "Pilih representasi tokoh yang santun.", ["Menampilkan kemampuan", "Memberi motivasi jelas", "Menggunakan asal daerah sebagai hinaan", "Menggambarkan tokoh secara utuh", "Menghindari stereotip"], ["A", "B", "D", "E"]],
+        ["checkbox", "Pilih aspek yang perlu dianalisis.", ["Kemampuan Wawan", "Hubungan pengalaman dan tindakan", "Sikap Bima", "Warna kunci pas", "Fungsi adegan"], ["A", "B", "C", "E"]],
+        ["checkbox", "Pilih evaluasi etis.", ["Tokoh desa tidak direduksi menjadi stereotip.", "Kemampuan Wawan dibuktikan melalui tindakan.", "Bima harus mengejek Wawan.", "Dialog tetap alami.", "Adegan dapat dilanjutkan dengan kerja sama."], ["A", "B", "D", "E"]],
+        ["checkbox", "Pilih rancangan kelanjutan adegan.", ["Wawan menemukan kerusakan", "Bima membantu mengambil alat", "Tokoh lain mengejek logat", "Mesin berhasil diperbaiki", "Bima mengakui kemampuan Wawan"], ["A", "B", "D", "E"]],
+        ["checkbox", "Pilih prinsip keselamatan panggung.", ["Memeriksa kabel", "Mengamankan properti", "Menghentikan latihan saat berbahaya", "Membiarkan jalur terhalang", "Menentukan area aman"], ["A", "B", "C", "E"]],
+        ["checkbox", "Pilih pemahaman tentang stimulus keselamatan.", ["Kabel melintang di jalur pemain.", "Latihan dihentikan.", "Sutradara mengabaikan bahaya.", "Kabel akan direkatkan.", "Pemain menunggu di area aman."], ["A", "B", "D", "E"]],
+
+        ["boolean", "Keselamatan pemain lebih penting daripada melanjutkan latihan tanpa jeda.", ["Benar", "Salah"], "Benar"],
+        ["boolean", "Kesantunan berarti semua kritik harus dihilangkan.", ["Benar", "Salah"], "Salah"],
+        ["boolean", "Kerja sama teknis memengaruhi keberhasilan pementasan.", ["Benar", "Salah"], "Benar"],
+        ["boolean", "Adaptasi naskah orang lain tidak memerlukan izin atau pengakuan.", ["Benar", "Salah"], "Salah"],
+        ["boolean", "Umpan balik dapat disampaikan melalui pertanyaan yang spesifik.", ["Benar", "Salah"], "Benar"],
+
+        ["select", "Jodohkan tindakan etis dalam adaptasi naskah.", ["Menghubungi penulis dan meminta izin", "Mengubah karya diam-diam", "Menghapus nama penulis", "Mengaku karya sendiri", "Menyebarkan tanpa izin"], "Menghubungi penulis dan meminta izin"],
+        ["select", "Jodohkan fungsi mencatat bagian yang diubah.", ["Menjaga kejelasan proses adaptasi", "Menghapus bukti", "Menambah konflik", "Mengganti pemain", "Mengurangi latihan"], "Menjaga kejelasan proses adaptasi"],
+        ["select", "Jodohkan bentuk adaptasi dalam stimulus.", ["Mengubah latar menjadi sekolah", "Menghapus semua tokoh", "Mengganti drama menjadi puisi", "Mengubah penulis", "Menutup pertunjukan"], "Mengubah latar menjadi sekolah"],
+        ["select", "Jodohkan sikap pemain terhadap kritik penonton.", ["Menerima dan meminta bagian yang perlu diperbaiki", "Menolak semua masukan", "Menyalahkan penonton", "Meninggalkan panggung", "Menghapus adegan"], "Menerima dan meminta bagian yang perlu diperbaiki"],
+        ["select", "Jodohkan hasil tindak lanjut yang paling tepat.", ["Pemain melatih ulang artikulasi dialog sebelum lampu padam", "Pemain menghapus seluruh adegan", "Penonton dilarang memberi masukan", "Lampu tidak digunakan lagi", "Dialog dibiarkan tidak jelas"], "Pemain melatih ulang artikulasi dialog sebelum lampu padam"]
+      ]
+    };
+
+    function buildQuizSessions() {
+      const dimensions = ["Sadar", "Empati", "Luhur", "Introspektif", "Santun"];
+      const sessions = {};
+
+      for (let sessionId = 1; sessionId <= 5; sessionId += 1) {
+        sessions[sessionId] = {
+          dimension: dimensions[sessionId - 1],
+          stimuli: stimuli[sessionId],
+          questions: questionBanks[sessionId].map((item, index) => {
+            const [type, text, options, answer] = item;
+
+            return {
+              number: index + 1,
+              type,
+              text,
+              options,
+              answer,
+              bloom: BLOOM_SEQUENCE[index],
+              indicator: BLOOM_INDICATORS[BLOOM_SEQUENCE[index]]
+            };
+          })
+        };
+      }
+
+      return sessions;
+    }
+
+    const quizSessions = buildQuizSessions();
+
+    const loginPage = document.getElementById("loginPage");
+    const materialPage = document.getElementById("materialPage");
+    const lkpdPage = document.getElementById("lkpdPage");
+    const resultPage = document.getElementById("resultPage");
+    const teacherPage = document.getElementById("teacherPage");
+
+    const studentNameInput = document.getElementById("studentName");
+    const studentClassSelect = document.getElementById("studentClass");
+    const materialCodeInput = document.getElementById("materialCode");
+    const loginButton = document.getElementById("loginButton");
+
+    const slidesTrack = document.getElementById("slidesTrack");
+    const slideDots = document.getElementById("slideDots");
+    const prevSlideButton = document.getElementById("prevSlide");
+    const nextSlideButton = document.getElementById("nextSlide");
+    const slideIndicator = document.getElementById("slideIndicator");
+    const progressFill = document.getElementById("progressFill");
+
+    const questionsContainer = document.getElementById("questionsContainer");
+    const quizForm = document.getElementById("quizForm");
+    const submitQuizButton = document.getElementById("submitQuiz");
+    const answeredCount = document.getElementById("answeredCount");
+
+    function escapeHTML(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function normalizeName(value) {
+      return value.trim().replace(/\s+/g, " ").toUpperCase();
+    }
+
+    function showOnly(page) {
+      [loginPage, materialPage, lkpdPage, resultPage, teacherPage].forEach(
+        element => element.classList.add("hidden")
+      );
+
+      page.classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function getDynamicQuizCode() {
+      const now = new Date();
+      const day = String(now.getDate()).padStart(2, "0");
+      const month = String(now.getMonth() + 1).padStart(2, "0");
+      const year = String(now.getFullYear()).slice(-2);
+
+      return `${day}${month}${year}peace`;
+    }
+
+    function getSubmissionKey() {
+      const safeName = appState.name
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "_");
+
+      const safeClass = appState.className
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "_");
+
+      return `drama_submitted_${safeName}_${safeClass}_p${appState.sessionId}`;
+    }
+
+    function isAlreadySubmitted() {
+      return localStorage.getItem(getSubmissionKey()) === "true";
+    }
+
+    function validateQuizDatabase() {
+      for (let sessionId = 1; sessionId <= 5; sessionId += 1) {
+        const session = quizSessions[sessionId];
+
+        if (!session || session.questions.length !== 30) {
+          throw new Error(`Pertemuan ${sessionId} harus memiliki tepat 30 soal.`);
+        }
+
+        if (!session.stimuli || session.stimuli.length !== 6) {
+          throw new Error(`Pertemuan ${sessionId} harus memiliki tepat 6 stimulus.`);
+        }
+
+        session.questions.forEach((question, index) => {
+          if (index < 10 && question.type !== "radio") {
+            throw new Error(`Soal ${index + 1} P${sessionId} harus berupa PG biasa.`);
+          }
+
+          if (index >= 10 && index < 20 && question.type !== "checkbox") {
+            throw new Error(`Soal ${index + 1} P${sessionId} harus berupa PG kompleks.`);
+          }
+
+          if (index >= 20 && index < 25 && question.type !== "boolean") {
+            throw new Error(`Soal ${index + 1} P${sessionId} harus berupa benar-salah.`);
+          }
+
+          if (index >= 25 && question.type !== "select") {
+            throw new Error(`Soal ${index + 1} P${sessionId} harus berupa menjodohkan.`);
+          }
+
+          if (
+            (question.type === "radio" || question.type === "checkbox") &&
+            question.options.length !== 5
+          ) {
+            throw new Error(
+              `Soal ${index + 1} P${sessionId} wajib memiliki lima pilihan.`
+            );
+          }
+        });
+      }
+    }
+
+    validateQuizDatabase();
+
+    studentNameInput.addEventListener("input", () => {
+      const cursor = studentNameInput.selectionStart;
+      studentNameInput.value = studentNameInput.value.toUpperCase();
+      studentNameInput.setSelectionRange(cursor, cursor);
+    });
+
+    loginButton.addEventListener("click", handleLogin);
+
+    materialCodeInput.addEventListener("keydown", event => {
+      if (event.key === "Enter") {
+        handleLogin();
+      }
+    });
+
+    function handleLogin() {
+      const name = normalizeName(studentNameInput.value);
+      const className = studentClassSelect.value;
+      const code = materialCodeInput.value.trim();
+
+      if (code === "kuncimasterguru") {
+        openTeacherDashboard();
+        return;
+      }
+
+      if (!name) {
+        alert("Nama Lengkap wajib diisi!");
+        studentNameInput.focus();
+        return;
+      }
+
+      if (studentNameInput.value.trim() !== name) {
+        alert("Nama Lengkap wajib ditulis dengan HURUF KAPITAL SEMUA!");
+        studentNameInput.value = name;
+        studentNameInput.focus();
+        return;
+      }
+
+      if (!className) {
+        alert("Silakan pilih kelas!");
+        studentClassSelect.focus();
+        return;
+      }
+
+      if (!Object.prototype.hasOwnProperty.call(ACCESS_CODES, code)) {
+        alert("Kode Akses Salah!");
+        materialCodeInput.value = "";
+        materialCodeInput.focus();
+        return;
+      }
+
+      appState.name = name;
+      appState.className = className;
+      appState.sessionId = ACCESS_CODES[code];
+      appState.currentSlide = 0;
+
+      openMaterialSession();
+    }
+
+    function openMaterialSession() {
+      const session = materialSessions[appState.sessionId];
+
+      document.getElementById("headerStatus").textContent =
+        `Pertemuan ${appState.sessionId} • ${quizSessions[appState.sessionId].dimension}`;
+
+      document.getElementById("sessionDimension").textContent = session.dimension;
+      document.getElementById("sessionTitle").textContent = session.title;
+      document.getElementById("sessionSubtitle").textContent = session.subtitle;
+      document.getElementById("materialStudentName").textContent = appState.name;
+      document.getElementById("materialStudentClass").textContent = appState.className;
+
+      renderSlides();
+      showOnly(materialPage);
+    }
+
+    function renderSlides() {
+      const session = materialSessions[appState.sessionId];
+
+      slidesTrack.innerHTML = "";
+      slideDots.innerHTML = "";
+
+      session.slides.forEach((slide, index) => {
+        const slideElement = document.createElement("article");
+        slideElement.className = "material-slide";
+
+        const listItems = slide.points
+          .map(point => `<li>${escapeHTML(point)}</li>`)
+          .join("");
+
+        const stageTwo =
+          index === 4
+            ? `
+              <div class="stage-two">
+                <h4>Gerbang LKPD Murid</h4>
+                <p>Masukkan kode untuk membuka soal evaluasi.</p>
+                <div class="stage-two-form">
+                  <input
+                    id="quizAccessCode"
+                    type="password"
+                    autocomplete="off"
+                    aria-label="Kode pembuka soal LKPD"
+                  />
+                  <button
+                    id="openQuizButton"
+                    class="btn btn-warning"
+                    type="button"
+                  >
+                    🔐 Buka Soal LKPD
+                  </button>
+                </div>
+              </div>
+            `
+            : "";
+
+        slideElement.innerHTML = `
+          <!-- EDIT DI SINI: Materi P${appState.sessionId} Slide ${index + 1} -->
+          <span class="slide-number">SLIDE ${index + 1} DARI 5</span>
+          <h3>${escapeHTML(slide.title)}</h3>
+          <ul>${listItems}</ul>
+          <div class="concept-box">${escapeHTML(slide.box)}</div>
+          ${stageTwo}
+        `;
+
+        slidesTrack.appendChild(slideElement);
+
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = `dot${index === appState.currentSlide ? " active" : ""}`;
+        dot.setAttribute("aria-label", `Buka slide ${index + 1}`);
+
+        dot.addEventListener("click", () => {
+          appState.currentSlide = index;
+          updateSlider();
+        });
+
+        slideDots.appendChild(dot);
+      });
+
+      const openQuizButton = document.getElementById("openQuizButton");
+      const quizAccessCode = document.getElementById("quizAccessCode");
+
+      openQuizButton.addEventListener("click", validateSecondStage);
+
+      quizAccessCode.addEventListener("keydown", event => {
+        if (event.key === "Enter") {
+          validateSecondStage();
+        }
+      });
+
+      updateSlider();
+    }
+
+    function updateSlider() {
+      slidesTrack.style.transform =
+        `translateX(-${appState.currentSlide * 100}%)`;
+
+      Array.from(slideDots.children).forEach((dot, index) => {
+        dot.classList.toggle("active", index === appState.currentSlide);
+      });
+
+      slideIndicator.textContent =
+        `Slide ${appState.currentSlide + 1} dari 5`;
+
+      progressFill.style.width =
+        `${(appState.currentSlide + 1) * 20}%`;
+
+      prevSlideButton.disabled = appState.currentSlide === 0;
+      nextSlideButton.disabled = appState.currentSlide === 4;
+    }
+
+    prevSlideButton.addEventListener("click", () => {
+      if (appState.currentSlide > 0) {
+        appState.currentSlide -= 1;
+        updateSlider();
+      }
+    });
+
+    nextSlideButton.addEventListener("click", () => {
+      if (appState.currentSlide < 4) {
+        appState.currentSlide += 1;
+        updateSlider();
+      }
+    });
+
+    function validateSecondStage() {
+      const input = document.getElementById("quizAccessCode");
+      const entered = input.value.trim().toLowerCase();
+      const correct = getDynamicQuizCode().toLowerCase();
+
+      if (entered !== correct) {
+        alert("Kode pembuka soal salah!");
+        input.value = "";
+        input.focus();
+        return;
+      }
+
+      renderQuiz();
+      showOnly(lkpdPage);
+    }
+
+    function getSectionMetadata(questionNumber) {
+      if (questionNumber <= 10) {
+        return {
+          title: "Bagian A — Pilihan Ganda Biasa",
+          description: "Pilih satu jawaban yang paling tepat."
+        };
+      }
+
+      if (questionNumber <= 20) {
+        return {
+          title: "Bagian B — Pilihan Ganda Kompleks",
+          description: "Pilih semua jawaban yang benar."
+        };
+      }
+
+      if (questionNumber <= 25) {
+        return {
+          title: "Bagian C — Benar atau Salah",
+          description: "Tentukan kebenaran setiap pernyataan."
+        };
+      }
+
+      return {
+        title: "Bagian D — Menjodohkan",
+        description: "Pilih pasangan jawaban yang paling tepat."
+      };
+    }
+
+    function renderQuiz() {
+      const session = quizSessions[appState.sessionId];
+
+      document.getElementById("lkpdTitle").textContent =
+        `LKPD Murid Pertemuan ${appState.sessionId} — ${session.dimension}`;
+
+      document.getElementById("lkpdDescription").textContent =
+        "Jawablah 30 soal. Setiap lima soal didahului satu stimulus drama.";
+
+      questionsContainer.innerHTML = "";
+      quizForm.reset();
+
+      let lastSectionTitle = "";
+
+      session.questions.forEach((question, index) => {
+        const number = index + 1;
+        const section = getSectionMetadata(number);
+
+        if (section.title !== lastSectionTitle) {
+          const sectionElement = document.createElement("div");
+          sectionElement.className = "section-label";
+          sectionElement.innerHTML = `
+            <h3>${escapeHTML(section.title)}</h3>
+            <p>${escapeHTML(section.description)}</p>
+          `;
+
+          questionsContainer.appendChild(sectionElement);
+          lastSectionTitle = section.title;
+        }
+
+        if (index % 5 === 0) {
+          const stimulus = session.stimuli[Math.floor(index / 5)];
+          const stimulusElement = document.createElement("article");
+          stimulusElement.className = "stimulus-card";
+          stimulusElement.innerHTML = `
+            <h4>${escapeHTML(stimulus.title)}</h4>
+            <p>${escapeHTML(stimulus.text)}</p>
+          `;
+
+          questionsContainer.appendChild(stimulusElement);
+        }
+
+        const questionElement = document.createElement("article");
+        questionElement.className = "question-card";
+        questionElement.dataset.question = String(number);
+
+        questionElement.innerHTML = `
+          <div class="question-head">
+            <span class="question-number">${number}</span>
+            <p class="question-text">${escapeHTML(question.text)}</p>
+            <span class="bloom-badge">${question.bloom}</span>
+          </div>
+          ${buildQuestionInput(question, number)}
+        `;
+
+        questionsContainer.appendChild(questionElement);
+      });
+
+      questionsContainer
+        .querySelectorAll("input, select")
+        .forEach(input =>
+          input.addEventListener("change", updateAnsweredCount)
+        );
+
+      updateAnsweredCount();
+
+      if (isAlreadySubmitted()) {
+        submitQuizButton.disabled = true;
+        submitQuizButton.textContent = "🔒 Jawaban Sudah Pernah Dikirim";
+      } else {
+        submitQuizButton.disabled = false;
+        submitQuizButton.textContent = "✅ Cek Hasil";
+      }
+    }
+
+    function buildQuestionInput(question, number) {
+      if (question.type === "radio" || question.type === "checkbox") {
+        const inputType =
+          question.type === "radio" ? "radio" : "checkbox";
+
+        return `
+          <div class="options">
+            ${question.options
+              .map(
+                (option, index) => `
+                  <label class="option-label">
+                    <input
+                      type="${inputType}"
+                      name="q${number}"
+                      value="${LETTERS[index]}"
+                    />
+                    <span>
+                      <strong>${LETTERS[index]}.</strong>
+                      ${escapeHTML(option)}
+                    </span>
+                  </label>
+                `
+              )
+              .join("")}
+          </div>
+        `;
+      }
+
+      if (question.type === "boolean") {
+        return `
+          <div class="options">
+            ${question.options
+              .map(
+                option => `
+                  <label class="option-label">
+                    <input
+                      type="radio"
+                      name="q${number}"
+                      value="${escapeHTML(option)}"
+                    />
+                    <span>${escapeHTML(option)}</span>
+                  </label>
+                `
+              )
+              .join("")}
+          </div>
+        `;
+      }
+
+      return `
+        <select
+          class="matching-select"
+          name="q${number}"
+          aria-label="Jawaban soal ${number}"
+        >
+          <option value="">Pilih pasangan jawaban</option>
+          ${question.options
+            .map(
+              option =>
+                `<option value="${escapeHTML(option)}">${escapeHTML(option)}</option>`
+            )
+            .join("")}
+        </select>
+      `;
+    }
+
+    function updateAnsweredCount() {
+      let total = 0;
+
+      quizSessions[appState.sessionId].questions.forEach((question, index) => {
+        const number = index + 1;
+
+        if (question.type === "checkbox") {
+          if (
+            document.querySelectorAll(`input[name="q${number}"]:checked`).length > 0
+          ) {
+            total += 1;
+          }
+
+          return;
+        }
+
+        if (question.type === "select") {
+          const select = document.querySelector(`select[name="q${number}"]`);
+
+          if (select && select.value !== "") {
+            total += 1;
+          }
+
+          return;
+        }
+
+        if (document.querySelector(`input[name="q${number}"]:checked`)) {
+          total += 1;
+        }
+      });
+
+      answeredCount.textContent = String(total);
+    }
+
+    submitQuizButton.addEventListener("click", gradeQuiz);
+
+    function getUserAnswer(question, number) {
+      if (question.type === "checkbox") {
+        return Array.from(
+          document.querySelectorAll(`input[name="q${number}"]:checked`)
+        )
+          .map(input => input.value)
+          .sort();
+      }
+
+      if (question.type === "select") {
+        const select = document.querySelector(`select[name="q${number}"]`);
+        return select ? select.value : "";
+      }
+
+      const selected =
+        document.querySelector(`input[name="q${number}"]:checked`);
+
+      return selected ? selected.value : "";
+    }
+
+    function answersAreEqual(question, userAnswer) {
+      if (question.type === "checkbox") {
+        const expected = [...question.answer].sort();
+
+        return (
+          expected.length === userAnswer.length &&
+          expected.every((answer, index) => answer === userAnswer[index])
+        );
+      }
+
+      return userAnswer === question.answer;
+    }
+
+    function gradeQuiz() {
+      if (isAlreadySubmitted()) {
+        alert("Jawaban untuk pertemuan ini sudah pernah dikirim.");
+        submitQuizButton.disabled = true;
+        return;
+      }
+
+      const session = quizSessions[appState.sessionId];
+      const unanswered = [];
+
+      session.questions.forEach((question, index) => {
+        const answer = getUserAnswer(question, index + 1);
+
+        if (
+          (Array.isArray(answer) && answer.length === 0) ||
+          (!Array.isArray(answer) && answer === "")
+        ) {
+          unanswered.push(index + 1);
+        }
+      });
+
+      if (unanswered.length > 0) {
+        const confirmation = confirm(
+          `Masih ada ${unanswered.length} soal yang belum dijawab, yaitu nomor ${unanswered.join(
+            ", "
+          )}. Jawaban kosong akan dinilai salah. Tetap cek hasil?`
+        );
+
+        if (!confirmation) {
+          const firstCard = document.querySelector(
+            `[data-question="${unanswered[0]}"]`
+          );
+
+          firstCard?.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+          });
+
+          return;
+        }
+      }
+
+      const correctNumbers = [];
+      const wrongNumbers = [];
+      const bloomPerformance = {};
+
+      Object.keys(BLOOM_INDICATORS).forEach(level => {
+        bloomPerformance[level] = {
+          correct: 0,
+          total: 0
+        };
+      });
+
+      session.questions.forEach((question, index) => {
+        const number = index + 1;
+        const userAnswer = getUserAnswer(question, number);
+        const correct = answersAreEqual(question, userAnswer);
+
+        bloomPerformance[question.bloom].total += 1;
+
+        if (correct) {
+          correctNumbers.push(number);
+          bloomPerformance[question.bloom].correct += 1;
+        } else {
+          wrongNumbers.push(number);
+        }
+      });
+
+      const score = Number(
+        ((correctNumbers.length / session.questions.length) * 100).toFixed(2)
+      );
+
+      const masteredLevels = Object.entries(bloomPerformance)
+        .filter(([, value]) => value.correct / value.total >= 0.6)
+        .map(([level]) => level);
+
+      const weakLevels = Object.entries(bloomPerformance)
+        .filter(([, value]) => value.correct / value.total < 0.6)
+        .map(([level]) => level);
+
+      const positiveAnalysis =
+        `Soal Benar: ${correctNumbers.length ? correctNumbers.join(", ") : "-"} | ` +
+        `Menguasai Level: ${masteredLevels.length ? masteredLevels.join(", ") : "-"}.`;
+
+      const negativeAnalysis =
+        `Soal Salah: ${wrongNumbers.length ? wrongNumbers.join(", ") : "-"} | ` +
+        `Kurang Menguasai Level: ${weakLevels.length ? weakLevels.join(", ") : "-"}.`;
+
+      localStorage.setItem(getSubmissionKey(), "true");
+
+      submitQuizButton.disabled = true;
+      submitQuizButton.textContent = "🔒 Jawaban Sudah Dikirim";
+
+      displayResult({
+        score,
+        correctNumbers,
+        positiveAnalysis,
+        negativeAnalysis
+      });
+
+      exportResult({
+        score,
+        positiveAnalysis,
+        negativeAnalysis
+      });
+    }
+
+    function displayResult(result) {
+      const label =
+        `Pertemuan ${appState.sessionId} — ${quizSessions[appState.sessionId].dimension}`;
+
+      document.getElementById("resultMeeting").textContent = label;
+
+      document.getElementById("resultScore").textContent =
+        Number.isInteger(result.score)
+          ? String(result.score)
+          : result.score.toFixed(2);
+
+      document.getElementById("resultName").textContent =
+        appState.name;
+
+      document.getElementById("resultClass").textContent =
+        appState.className;
+
+      document.getElementById("resultSession").textContent =
+        label;
+
+      document.getElementById("resultCorrectTotal").textContent =
+        `${result.correctNumbers.length} dari 30 soal`;
+
+      document.getElementById("positiveAnalysis").textContent =
+        result.positiveAnalysis;
+
+      document.getElementById("negativeAnalysis").textContent =
+        result.negativeAnalysis;
+
+      let message =
+        "Terus tingkatkan kemampuan memahami, mengevaluasi, dan mementaskan drama.";
+
+      if (result.score >= 90) {
+        message =
+          "Sangat baik! Penguasaan unsur, analisis, dan kreativitas drama Anda sangat kuat.";
+      } else if (result.score >= 80) {
+        message =
+          "Baik! Pertahankan hasil dan perkuat level yang masih perlu ditingkatkan.";
+      } else if (result.score >= 70) {
+        message =
+          "Cukup baik. Tinjau kembali dialog, konflik, penokohan, dan unsur pementasan.";
+      } else {
+        message =
+          "Pelajari kembali materi dan gunakan analisis sebagai panduan perbaikan.";
+      }
+
+      document.getElementById("resultMessage").textContent =
+        message;
+
+      showOnly(resultPage);
+    }
+
+    async function exportResult({
+      score,
+      positiveAnalysis,
+      negativeAnalysis
+    }) {
+      const status =
+        document.getElementById("syncStatus");
+
+      status.textContent =
+        "Mengirim hasil evaluasi ke sistem pencatatan...";
+
+      const formData = new FormData();
+      formData.append("nama_sheet", "Drama");
+      formData.append("kelas", appState.className);
+      formData.append("pertemuan_ke", String(appState.sessionId));
+      formData.append("nama", appState.name);
+      formData.append("skor", String(score));
+      formData.append("analisis_positif", positiveAnalysis);
+      formData.append("analisis_negatif", negativeAnalysis);
+
+      try {
+        await fetch(EXPORT_URL, {
+          method: "POST",
+          body: formData,
+          mode: "no-cors"
+        });
+
+        status.textContent =
+          "Hasil telah dikirim ke sistem pencatatan. Simpan atau cetak halaman ini sebagai bukti.";
+
+        status.style.color = "#166534";
+        status.style.background = "#f0fdf4";
+      } catch (error) {
+        console.error(error);
+
+        status.textContent =
+          "Koneksi ke sistem pencatatan gagal. Cetak atau simpan halaman ini sebagai bukti.";
+
+        status.style.color = "#991b1b";
+        status.style.background = "#fef2f2";
+      }
+    }
+
+    document
+      .getElementById("returnLogin")
+      .addEventListener("click", resetToLogin);
+
+    function resetToLogin() {
+      appState = {
+        name: "",
+        className: "",
+        sessionId: null,
+        currentSlide: 0,
+        teacherSession: 1
+      };
+
+      studentNameInput.value = "";
+      studentClassSelect.value = "";
+      materialCodeInput.value = "";
+      quizForm.reset();
+
+      document.getElementById("headerStatus").textContent =
+        "Bab Teks Drama";
+
+      showOnly(loginPage);
+    }
+
+    function openTeacherDashboard() {
+      appState.teacherSession = 1;
+
+      document.getElementById("headerStatus").textContent =
+        "Dashboard Guru";
+
+      renderTeacherTabs();
+      renderTeacherTable();
+      showOnly(teacherPage);
+    }
+
+    function renderTeacherTabs() {
+      const container =
+        document.getElementById("teacherTabs");
+
+      container.innerHTML = "";
+
+      for (let sessionId = 1; sessionId <= 5; sessionId += 1) {
+        const button = document.createElement("button");
+        button.type = "button";
+
+        button.className =
+          `teacher-tab${
+            appState.teacherSession === sessionId
+              ? " active"
+              : ""
+          }`;
+
+        button.textContent =
+          `P${sessionId} • ${quizSessions[sessionId].dimension}`;
+
+        button.addEventListener("click", () => {
+          appState.teacherSession = sessionId;
+          renderTeacherTabs();
+          renderTeacherTable();
+        });
+
+        container.appendChild(button);
+      }
+    }
+
+    function formatTeacherAnswer(question) {
+      return Array.isArray(question.answer)
+        ? question.answer.join(", ")
+        : question.answer;
+    }
+
+    function renderTeacherTable() {
+      const sessionId = appState.teacherSession;
+      const session = quizSessions[sessionId];
+      const material = materialSessions[sessionId];
+
+      const container =
+        document.getElementById("teacherTableContainer");
+
+      const rows = session.questions
+        .map(
+          question => `
+            <tr>
+              <td>${question.number}</td>
+              <td>${escapeHTML(question.text)}</td>
+              <td>
+                <strong>
+                  ${escapeHTML(formatTeacherAnswer(question))}
+                </strong>
+              </td>
+              <td>${question.bloom}</td>
+              <td>${escapeHTML(question.indicator)}</td>
+            </tr>
+          `
+        )
+        .join("");
+
+      container.innerHTML = `
+        <h3>${escapeHTML(material.title)}</h3>
+
+        <p>
+          Dimensi SELIS:
+          <strong>${escapeHTML(session.dimension)}</strong>.
+          Distribusi Taksonomi Bloom proporsional:
+          setiap level C1–C6 terdiri atas lima soal.
+        </p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>Ringkasan Soal</th>
+                <th>Kunci Jawaban</th>
+                <th>Bloom</th>
+                <th>Indikator</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    document
+      .getElementById("teacherLogout")
+      .addEventListener("click", () => {
+        materialCodeInput.value = "";
+
+        document.getElementById("headerStatus").textContent =
+          "Bab Teks Drama";
+
+        showOnly(loginPage);
+      });
+  </script>
+</body>
+</html>
