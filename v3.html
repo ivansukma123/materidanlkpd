@@ -1,0 +1,3857 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#087f8c">
+  <title>Modul Ajar dan LKPD Interaktif — Teks Berita Kelas XI</title>
+
+  <!-- Library pemindai QR Code -->
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+
+  <style>
+    :root {
+      --primary: #087f8c;
+      --primary-dark: #075f6a;
+      --secondary: #16a085;
+      --accent: #dff8f3;
+      --blue-soft: #eaf6ff;
+      --green-soft: #e9fbf5;
+      --yellow-soft: #fff8d9;
+      --red-soft: #fff0f0;
+      --text: #18323a;
+      --muted: #61757b;
+      --white: #ffffff;
+      --border: #d6e7e9;
+      --danger: #c0392b;
+      --success: #138a5b;
+      --warning: #d98200;
+      --shadow: 0 12px 34px rgba(18, 74, 83, 0.12);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(22, 160, 133, 0.13), transparent 35%),
+        radial-gradient(circle at top right, rgba(8, 127, 140, 0.13), transparent 30%),
+        linear-gradient(135deg, #f4fbff 0%, #f5fff9 100%);
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      line-height: 1.65;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .app-shell {
+      width: min(1180px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 24px 0 52px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 10px;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 18px;
+      margin-bottom: 22px;
+      color: var(--white);
+      background: linear-gradient(135deg, rgba(8, 127, 140, 0.96), rgba(22, 160, 133, 0.96));
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+    }
+
+    .brand-icon {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 13px;
+      font-size: 1.35rem;
+    }
+
+    .topbar-info {
+      text-align: right;
+      font-size: 0.87rem;
+      opacity: 0.95;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(26px, 5vw, 56px);
+      margin-bottom: 24px;
+      color: var(--white);
+      background: linear-gradient(135deg, #087f8c 0%, #0f9b8e 52%, #39b98a 100%);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero::before,
+    .hero::after {
+      position: absolute;
+      content: "";
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .hero::before {
+      width: 290px;
+      height: 290px;
+      top: -150px;
+      right: -80px;
+    }
+
+    .hero::after {
+      width: 190px;
+      height: 190px;
+      right: 100px;
+      bottom: -120px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 13px;
+      margin-bottom: 14px;
+      background: rgba(255, 255, 255, 0.17);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.88rem;
+    }
+
+    .hero h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 5vw, 4rem);
+      line-height: 1.08;
+    }
+
+    .hero p {
+      max-width: 680px;
+      margin: 0;
+      font-size: clamp(1rem, 2vw, 1.16rem);
+      opacity: 0.95;
+    }
+
+    .card {
+      padding: clamp(20px, 4vw, 34px);
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(214, 231, 233, 0.9);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .auth-card {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .section-heading {
+      margin-bottom: 22px;
+    }
+
+    .section-heading h2 {
+      margin: 0 0 5px;
+      color: var(--primary-dark);
+      font-size: clamp(1.5rem, 3vw, 2.15rem);
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 17px;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .field-group.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-weight: 750;
+      color: #294a51;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 13px 15px;
+      color: var(--text);
+      background: #fbfefe;
+      border: 1.5px solid #cfe1e4;
+      border-radius: 12px;
+      outline: none;
+      transition: 0.2s ease;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(8, 127, 140, 0.11);
+    }
+
+    .password-wrap {
+      position: relative;
+    }
+
+    .password-wrap input {
+      padding-right: 52px;
+    }
+
+    .password-toggle {
+      position: absolute;
+      top: 50%;
+      right: 8px;
+      width: 39px;
+      height: 39px;
+      padding: 0;
+      transform: translateY(-50%);
+      color: var(--primary-dark);
+      background: transparent;
+      border: 0;
+      border-radius: 10px;
+    }
+
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 46px;
+      padding: 11px 18px;
+      font-weight: 800;
+      border: 0;
+      border-radius: 12px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.2s ease;
+    }
+
+    .btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 9px 20px rgba(8, 127, 140, 0.18);
+    }
+
+    .btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.58;
+    }
+
+    .btn-primary {
+      color: var(--white);
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+    }
+
+    .btn-secondary {
+      color: var(--primary-dark);
+      background: var(--accent);
+      border: 1px solid #bde8df;
+    }
+
+    .btn-danger {
+      color: var(--danger);
+      background: var(--red-soft);
+      border: 1px solid #f0c9c5;
+    }
+
+    .btn-dark {
+      color: var(--white);
+      background: #23454c;
+    }
+
+    .message {
+      display: none;
+      padding: 12px 15px;
+      margin-top: 15px;
+      border-radius: 11px;
+      font-weight: 650;
+    }
+
+    .message.show {
+      display: block;
+    }
+
+    .message.error {
+      color: #922b21;
+      background: var(--red-soft);
+      border: 1px solid #f1c7c2;
+    }
+
+    .message.success {
+      color: #0d6f49;
+      background: var(--green-soft);
+      border: 1px solid #bdebd8;
+    }
+
+    .scanner-panel {
+      padding: 18px;
+      margin-top: 20px;
+      background: #f5fbfc;
+      border: 1px dashed #9ccbd0;
+      border-radius: 15px;
+    }
+
+    #qr-reader {
+      width: min(100%, 520px);
+      margin: 12px auto 0;
+      overflow: hidden;
+      background: var(--white);
+      border-radius: 12px;
+    }
+
+    .privacy-note {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+      text-align: center;
+    }
+
+    .module-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    .module-title h2 {
+      margin: 0 0 4px;
+      color: var(--primary-dark);
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+    }
+
+    .module-title p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .focus-badge {
+      padding: 10px 17px;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 999px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .identity-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .identity-chip {
+      padding: 8px 13px;
+      color: #28525a;
+      background: var(--blue-soft);
+      border: 1px solid #cbe5f3;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .progress-shell {
+      margin-bottom: 24px;
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 7px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .progress-track {
+      height: 11px;
+      overflow: hidden;
+      background: #e2eff1;
+      border-radius: 999px;
+    }
+
+    .progress-bar {
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), #43c98f);
+      border-radius: inherit;
+      transition: width 0.25s ease;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      padding: 9px;
+      margin-bottom: 22px;
+      background: #eff7f8;
+      border-radius: 15px;
+    }
+
+    .tab-btn {
+      flex: 1 1 150px;
+      padding: 11px 14px;
+      color: #41636a;
+      background: transparent;
+      border: 0;
+      border-radius: 10px;
+      font-weight: 800;
+    }
+
+    .tab-btn.active {
+      color: var(--white);
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      box-shadow: 0 7px 16px rgba(8, 127, 140, 0.18);
+    }
+
+    .slide-shell {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--white);
+    }
+
+    .slide {
+      display: none;
+      min-height: 390px;
+      padding: clamp(23px, 5vw, 48px);
+      background:
+        linear-gradient(135deg, rgba(234, 246, 255, 0.8), rgba(233, 251, 245, 0.75)),
+        var(--white);
+    }
+
+    .slide.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .slide-number {
+      display: inline-flex;
+      padding: 5px 10px;
+      margin-bottom: 14px;
+      color: var(--primary-dark);
+      background: var(--accent);
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.85rem;
+    }
+
+    .slide h3 {
+      margin: 0 0 13px;
+      color: var(--primary-dark);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+    }
+
+    .slide-content {
+      font-size: 1.02rem;
+    }
+
+    .slide-content ul {
+      padding-left: 22px;
+    }
+
+    .slide-content li {
+      margin-bottom: 7px;
+    }
+
+    .highlight-box {
+      padding: 16px 18px;
+      margin-top: 17px;
+      color: #23494f;
+      background: rgba(255, 255, 255, 0.85);
+      border-left: 5px solid var(--secondary);
+      border-radius: 12px;
+    }
+
+    .slide-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 13px;
+      padding: 15px;
+      background: #f5fafb;
+      border-top: 1px solid var(--border);
+    }
+
+    .slide-dots {
+      display: flex;
+      justify-content: center;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    .slide-dot {
+      width: 10px;
+      height: 10px;
+      padding: 0;
+      background: #b8ced2;
+      border: 0;
+      border-radius: 50%;
+    }
+
+    .slide-dot.active {
+      width: 27px;
+      background: var(--primary);
+      border-radius: 999px;
+    }
+
+    .instruction-card {
+      padding: 18px;
+      margin-bottom: 22px;
+      background: linear-gradient(135deg, var(--blue-soft), var(--green-soft));
+      border: 1px solid #cde7e4;
+      border-radius: 15px;
+    }
+
+    .instruction-card h3 {
+      margin: 0 0 8px;
+      color: var(--primary-dark);
+    }
+
+    .instruction-card p {
+      margin: 0;
+    }
+
+    .stimulus-card {
+      padding: clamp(18px, 4vw, 28px);
+      margin-bottom: 22px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 24px rgba(18, 74, 83, 0.07);
+    }
+
+    .stimulus-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 13px;
+      margin-bottom: 14px;
+    }
+
+    .stimulus-header h3 {
+      margin: 0;
+      color: var(--primary-dark);
+    }
+
+    .question-range {
+      flex-shrink: 0;
+      padding: 5px 10px;
+      color: var(--primary-dark);
+      background: var(--accent);
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .stimulus-text {
+      padding: 17px;
+      margin-bottom: 18px;
+      color: #29464c;
+      background: #f6fbfc;
+      border-left: 5px solid var(--primary);
+      border-radius: 12px;
+      white-space: pre-line;
+    }
+
+    .question-card {
+      padding: 17px;
+      margin-top: 14px;
+      background: #fcfefe;
+      border: 1px solid #deebed;
+      border-radius: 14px;
+    }
+
+    .question-title {
+      margin: 0 0 12px;
+      font-weight: 760;
+    }
+
+    .question-number {
+      display: inline-grid;
+      width: 29px;
+      height: 29px;
+      margin-right: 7px;
+      place-items: center;
+      color: var(--white);
+      background: var(--primary);
+      border-radius: 9px;
+      font-size: 0.88rem;
+    }
+
+    .options {
+      display: grid;
+      gap: 9px;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 12px;
+      background: var(--white);
+      border: 1px solid #d8e7e9;
+      border-radius: 10px;
+      transition: 0.17s ease;
+    }
+
+    .option-label:hover {
+      border-color: #8fc9c7;
+      background: #f3fcf9;
+    }
+
+    .option-label input {
+      width: auto;
+      margin-top: 5px;
+      accent-color: var(--primary);
+    }
+
+    .matching-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(180px, 0.65fr);
+      align-items: center;
+      gap: 13px;
+    }
+
+    .matching-label {
+      padding: 11px 13px;
+      background: #f4fafb;
+      border-radius: 10px;
+    }
+
+    .completion-note {
+      padding: 12px 14px;
+      margin-top: 17px;
+      color: var(--muted);
+      background: #f8fbfc;
+      border-radius: 10px;
+      font-size: 0.9rem;
+    }
+
+    .submit-panel {
+      position: sticky;
+      bottom: 12px;
+      z-index: 12;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 17px;
+      padding: 15px 18px;
+      margin-top: 25px;
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .submit-panel p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .result-page {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .result-hero {
+      padding: clamp(26px, 5vw, 48px);
+      color: var(--white);
+      text-align: center;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 25px 25px 0 0;
+    }
+
+    .result-hero h2 {
+      margin: 0 0 8px;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+    }
+
+    .score-circle {
+      display: grid;
+      width: 160px;
+      height: 160px;
+      margin: 22px auto 0;
+      place-items: center;
+      background: rgba(255, 255, 255, 0.17);
+      border: 7px solid rgba(255, 255, 255, 0.75);
+      border-radius: 50%;
+    }
+
+    .score-circle strong {
+      display: block;
+      font-size: 3rem;
+      line-height: 1;
+    }
+
+    .score-circle span {
+      font-size: 0.87rem;
+      opacity: 0.9;
+    }
+
+    .result-body {
+      padding: clamp(20px, 4vw, 35px);
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-top: 0;
+      border-radius: 0 0 25px 25px;
+      box-shadow: var(--shadow);
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 13px;
+      margin-bottom: 23px;
+    }
+
+    .result-item {
+      padding: 15px;
+      background: #f6fbfc;
+      border-radius: 12px;
+    }
+
+    .result-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .result-item strong {
+      display: block;
+      margin-top: 3px;
+      color: var(--primary-dark);
+    }
+
+    .analysis-box {
+      padding: 18px;
+      margin-top: 14px;
+      border-radius: 14px;
+    }
+
+    .analysis-box h3 {
+      margin: 0 0 8px;
+    }
+
+    .analysis-box p {
+      margin: 0;
+      white-space: pre-line;
+    }
+
+    .analysis-positive {
+      color: #145b43;
+      background: var(--green-soft);
+      border: 1px solid #bce7d5;
+    }
+
+    .analysis-negative {
+      color: #7c3a31;
+      background: var(--red-soft);
+      border: 1px solid #efcbc6;
+    }
+
+    .send-status {
+      padding: 15px;
+      margin-top: 20px;
+      text-align: center;
+      border-radius: 13px;
+      font-weight: 800;
+    }
+
+    .send-status.waiting {
+      color: #765000;
+      background: var(--yellow-soft);
+      border: 1px solid #efdf99;
+    }
+
+    .send-status.success {
+      color: #0f6a47;
+      background: var(--green-soft);
+      border: 1px solid #bce7d5;
+    }
+
+    .send-status.failed {
+      color: #922b21;
+      background: var(--red-soft);
+      border: 1px solid #efcbc6;
+    }
+
+    .result-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 11px;
+      margin-top: 22px;
+    }
+
+    .footer {
+      padding: 30px 10px 0;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 720px) {
+      .app-shell {
+        width: min(100% - 18px, 1180px);
+        padding-top: 10px;
+      }
+
+      .topbar {
+        position: static;
+        align-items: flex-start;
+      }
+
+      .topbar-info {
+        display: none;
+      }
+
+      .form-grid,
+      .result-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .module-header {
+        grid-template-columns: 1fr;
+      }
+
+      .focus-badge {
+        width: fit-content;
+      }
+
+      .matching-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .submit-panel {
+        position: static;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .submit-panel .btn {
+        width: 100%;
+      }
+
+      .slide {
+        min-height: 440px;
+      }
+
+      .slide-nav .btn {
+        padding: 9px 11px;
+        font-size: 0.86rem;
+      }
+    }
+
+    @media print {
+      body {
+        background: var(--white);
+      }
+
+      .topbar,
+      .result-actions,
+      .footer,
+      #dashboardPage,
+      #modulePage {
+        display: none !important;
+      }
+
+      .app-shell {
+        width: 100%;
+        padding: 0;
+      }
+
+      #resultPage {
+        display: block !important;
+      }
+
+      .result-page {
+        max-width: none;
+      }
+
+      .result-hero,
+      .result-body {
+        box-shadow: none;
+      }
+
+      .result-hero {
+        color: #000;
+        background: #fff;
+        border: 2px solid #333;
+      }
+
+      .score-circle {
+        border-color: #333;
+        background: #fff;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-icon">📰</div>
+        <div>
+          <div>Modul Ajar Interaktif</div>
+          <small>Bahasa Indonesia Kelas XI</small>
+        </div>
+      </div>
+      <div class="topbar-info">
+        Bab: Teks Berita<br>
+        Sintaks SELIS: Sadar–Empati–Luhur–Introspektif–Santun
+      </div>
+    </header>
+
+    <!-- =========================================================
+         GERBANG AWAL / DASHBOARD AUTENTIKASI DUAL-ACCESS
+    ========================================================== -->
+    <main id="dashboardPage">
+      <section class="hero">
+        <div class="hero-content">
+          <div class="hero-badge">📘 Satu Bab • Lima Pertemuan</div>
+          <h1>Teks Berita</h1>
+          <p>
+            Pelajari cara mengenali, menganalisis, mengevaluasi, dan menyajikan
+            berita secara objektif melalui alur pembelajaran SELIS.
+          </p>
+        </div>
+      </section>
+
+      <section class="card auth-card">
+        <div class="section-heading">
+          <h2>Gerbang Masuk Modul</h2>
+          <p>Isi identitas, kemudian masukkan atau pindai kode pertemuan dari guru.</p>
+        </div>
+
+        <div class="form-grid">
+          <div class="field-group">
+            <label for="studentName">Nama Murid</label>
+            <input
+              id="studentName"
+              type="text"
+              autocomplete="name"
+              maxlength="80"
+              placeholder="Contoh: Ananda Pratama"
+            >
+          </div>
+
+          <div class="field-group">
+            <label for="studentClass">Kelas</label>
+            <input
+              id="studentClass"
+              type="text"
+              maxlength="30"
+              placeholder="Contoh: XI-3"
+            >
+          </div>
+
+          <div class="field-group full">
+            <label for="accessCode">Kode Pertemuan</label>
+            <div class="password-wrap">
+              <input
+                id="accessCode"
+                type="password"
+                autocomplete="off"
+                spellcheck="false"
+                placeholder="Ketik atau pindai kode pertemuan"
+              >
+              <button
+                id="togglePassword"
+                class="password-toggle"
+                type="button"
+                aria-label="Tampilkan atau sembunyikan kode"
+                title="Tampilkan atau sembunyikan kode"
+              >👁️</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-row">
+          <button id="openModuleBtn" class="btn btn-primary" type="button">
+            🔓 Buka Modul
+          </button>
+          <button id="scanQrBtn" class="btn btn-secondary" type="button">
+            📷 Scan QR Code
+          </button>
+        </div>
+
+        <div id="authMessage" class="message" role="alert"></div>
+
+        <div id="scannerPanel" class="scanner-panel hidden">
+          <strong>Pemindai QR Code</strong>
+          <p style="margin:5px 0 0;color:var(--muted)">
+            Arahkan kamera ke QR Code yang berisi kode akses pertemuan.
+          </p>
+          <div id="qr-reader"></div>
+          <p class="privacy-note">
+            Kamera hanya digunakan untuk membaca kode dan tidak menyimpan foto atau video.
+          </p>
+          <div class="action-row" style="justify-content:center">
+            <button id="stopScannerBtn" class="btn btn-danger" type="button">
+              ✕ Tutup Pemindai
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- =========================================================
+         HALAMAN MODUL DAN LKPD
+    ========================================================== -->
+    <main id="modulePage" class="hidden">
+      <section class="card">
+        <div class="module-header">
+          <div class="module-title">
+            <h2 id="meetingTitle">Pertemuan</h2>
+            <p id="meetingSubtitle"></p>
+          </div>
+          <div id="focusBadge" class="focus-badge">Fokus SELIS</div>
+        </div>
+
+        <div class="identity-strip">
+          <div class="identity-chip">👤 <span id="identityName"></span></div>
+          <div class="identity-chip">🏫 <span id="identityClass"></span></div>
+          <div class="identity-chip">📚 Bahasa Indonesia Kelas XI</div>
+        </div>
+
+        <div class="progress-shell">
+          <div class="progress-meta">
+            <span>Progres pengerjaan LKPD murid</span>
+            <span id="progressText">0 dari 30 terjawab</span>
+          </div>
+          <div class="progress-track">
+            <div id="progressBar" class="progress-bar"></div>
+          </div>
+        </div>
+
+        <div class="tabs">
+          <button class="tab-btn active" data-tab="materialTab" type="button">
+            📖 Materi
+          </button>
+          <button class="tab-btn" data-tab="worksheetTab" type="button">
+            ✍️ LKPD Murid
+          </button>
+        </div>
+
+        <!-- =====================================================
+             MATERI: 5 SLIDE PER PERTEMUAN
+        ====================================================== -->
+        <section id="materialTab" class="tab-content">
+          <div class="slide-shell">
+            <div id="slidesContainer"></div>
+
+            <div class="slide-nav">
+              <button id="prevSlideBtn" class="btn btn-secondary" type="button">
+                ← Sebelumnya
+              </button>
+              <div id="slideDots" class="slide-dots"></div>
+              <button id="nextSlideBtn" class="btn btn-primary" type="button">
+                Berikutnya →
+              </button>
+            </div>
+          </div>
+
+          <div class="action-row" style="justify-content:center">
+            <button id="goToWorksheetBtn" class="btn btn-primary" type="button">
+              Lanjut ke LKPD Murid ✍️
+            </button>
+          </div>
+        </section>
+
+        <!-- =====================================================
+             LKPD: 30 SOAL PER PERTEMUAN
+             Setiap kelompok lima soal memiliki stimulus.
+        ====================================================== -->
+        <section id="worksheetTab" class="tab-content hidden">
+          <div class="instruction-card">
+            <h3>Petunjuk Pengerjaan</h3>
+            <p>
+              Bacalah setiap stimulus secara teliti. Jawablah 30 soal yang terbagi
+              menjadi enam kelompok. Bagian A dan E berupa pilihan ganda, Bagian B
+              berupa pilihan ganda kompleks, Bagian C dan F berupa benar–salah,
+              sedangkan Bagian D berupa menjodohkan.
+            </p>
+          </div>
+
+          <form id="quizForm">
+            <div id="questionsContainer"></div>
+          </form>
+
+          <div class="submit-panel">
+            <p>
+              Pastikan seluruh jawaban sudah diperiksa. Data hanya dikirim satu kali
+              setelah pengiriman dinyatakan berhasil.
+            </p>
+            <button id="checkResultBtn" class="btn btn-primary" type="button">
+              ✅ Cek Hasil &amp; Skor
+            </button>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <!-- =========================================================
+         HALAMAN HASIL EVALUASI TERPISAH
+    ========================================================== -->
+    <main id="resultPage" class="hidden">
+      <section class="result-page">
+        <div class="result-hero">
+          <h2>Hasil Evaluasi</h2>
+          <p id="resultGreeting">Hasil pengerjaan LKPD murid</p>
+          <div class="score-circle">
+            <div>
+              <strong id="resultScore">0</strong>
+              <span>Skor dari 100</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="result-body">
+          <div class="result-grid">
+            <div class="result-item">
+              <span>Nama</span>
+              <strong id="resultName">-</strong>
+            </div>
+            <div class="result-item">
+              <span>Kelas</span>
+              <strong id="resultClass">-</strong>
+            </div>
+            <div class="result-item">
+              <span>Pertemuan</span>
+              <strong id="resultMeeting">-</strong>
+            </div>
+            <div class="result-item">
+              <span>Jawaban Benar</span>
+              <strong id="resultCorrect">0 dari 30</strong>
+            </div>
+          </div>
+
+          <div class="analysis-box analysis-positive">
+            <h3>✅ Analisis Positif</h3>
+            <p id="positiveAnalysis"></p>
+          </div>
+
+          <div class="analysis-box analysis-negative">
+            <h3>🔎 Analisis Negatif dan Tindak Lanjut</h3>
+            <p id="negativeAnalysis"></p>
+          </div>
+
+          <div id="sendStatus" class="send-status waiting">
+            Menyiapkan pengiriman hasil ke Google Sheets...
+          </div>
+
+          <div class="result-actions">
+            <button id="printResultBtn" class="btn btn-dark" type="button">
+              🖨️ Cetak ke PDF
+            </button>
+            <button id="retrySendBtn" class="btn btn-secondary hidden" type="button">
+              🔄 Kirim Ulang Data
+            </button>
+            <button id="backToModuleBtn" class="btn btn-secondary" type="button">
+              ← Kembali ke Modul
+            </button>
+            <button id="logoutBtn" class="btn btn-danger" type="button">
+              Keluar
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      Modul Ajar dan LKPD Murid Interaktif Teks Berita • Bahasa Indonesia Kelas XI
+    </footer>
+  </div>
+
+  <script>
+    "use strict";
+
+    const SHEETS_ENDPOINT =
+      "https://script.google.com/macros/s/AKfycbxkU8FiuD6HKp3GVuRMYcIDELqqy90AMLh2Swsccl9RWDcaS2s0j3y70IklilDaeYgMgQ/exec";
+
+    /* ============================================================
+       KONFIGURASI KODE AKSES DAN PERTEMUAN
+    ============================================================ */
+    const accessMap = {
+      sadar123: 1,
+      empati000: 2,
+      luhur010: 3,
+      instropektif111: 4,
+      santun1234: 5
+    };
+
+    /* ============================================================
+       DATA MATERI DAN LKPD PERTEMUAN 1
+       FOKUS SELIS: SADAR
+    ============================================================ */
+    const meeting1 = {
+      number: 1,
+      focus: "Sadar",
+      title: "Mengenali Hakikat dan Unsur Teks Berita",
+      subtitle:
+        "Membangun kesadaran awal, mengenali fakta esensial, dan mengamati reaksi diri terhadap informasi.",
+      objectives: [
+        "Murid mampu menjelaskan pengertian dan tujuan teks berita.",
+        "Murid mampu menemukan unsur 5W+1H.",
+        "Murid mampu membedakan fakta dan opini.",
+        "Murid mampu menyadari emosi awal ketika menerima informasi."
+      ],
+      slides: [
+        {
+          title: "Apa Itu Teks Berita?",
+          content: `
+            <p>Teks berita adalah teks yang menyampaikan informasi mengenai peristiwa aktual, penting, dan menarik kepada masyarakat.</p>
+            <ul>
+              <li><strong>Aktual</strong>: peristiwa masih baru atau sedang menjadi perhatian.</li>
+              <li><strong>Faktual</strong>: informasi dapat diperiksa kebenarannya.</li>
+              <li><strong>Penting</strong>: memiliki dampak atau nilai bagi pembaca.</li>
+              <li><strong>Objektif</strong>: disajikan tanpa memihak.</li>
+            </ul>
+            <div class="highlight-box">Kesadaran awal dimulai dengan berhenti sejenak sebelum langsung mempercayai atau menyebarkan informasi.</div>
+          `
+        },
+        {
+          title: "Unsur 5W+1H",
+          content: `
+            <p>Isi berita yang lengkap umumnya menjawab enam pertanyaan dasar.</p>
+            <ul>
+              <li><strong>What</strong>: apa yang terjadi?</li>
+              <li><strong>Who</strong>: siapa yang terlibat?</li>
+              <li><strong>Where</strong>: di mana peristiwa terjadi?</li>
+              <li><strong>When</strong>: kapan peristiwa terjadi?</li>
+              <li><strong>Why</strong>: mengapa peristiwa terjadi?</li>
+              <li><strong>How</strong>: bagaimana peristiwa berlangsung?</li>
+            </ul>
+          `
+        },
+        {
+          title: "Fakta dan Opini",
+          content: `
+            <p><strong>Fakta</strong> dapat dibuktikan melalui data, dokumen, saksi, atau pengamatan. <strong>Opini</strong> berisi penilaian, dugaan, atau pendapat.</p>
+            <div class="highlight-box">
+              Fakta: “Kegiatan diikuti 240 murid.”<br>
+              Opini: “Kegiatan tersebut merupakan acara paling menarik tahun ini.”
+            </div>
+          `
+        },
+        {
+          title: "Menyadari Reaksi terhadap Berita",
+          content: `
+            <p>Judul dan gambar berita dapat memunculkan rasa takut, marah, senang, atau penasaran. Emosi bukan sesuatu yang salah, tetapi perlu dikenali agar tidak menguasai tindakan.</p>
+            <ul>
+              <li>Kenali emosi yang muncul.</li>
+              <li>Tunda keinginan untuk langsung membagikan berita.</li>
+              <li>Periksa sumber dan isi lengkap.</li>
+              <li>Pisahkan perasaan pribadi dari fakta yang tersedia.</li>
+            </ul>
+          `
+        },
+        {
+          title: "Ringkasan Pertemuan 1",
+          content: `
+            <p>Berita yang baik menyajikan peristiwa aktual dan faktual dengan unsur yang cukup lengkap.</p>
+            <ul>
+              <li>Temukan 5W+1H.</li>
+              <li>Bedakan fakta dan opini.</li>
+              <li>Kenali reaksi emosional diri.</li>
+              <li>Periksa informasi sebelum bereaksi.</li>
+            </ul>
+            <div class="highlight-box">Sadar berarti mampu mengamati pikiran, emosi, dan dorongan diri sebelum mengambil tindakan.</div>
+          `
+        }
+      ],
+      groups: [
+        {
+          section: "Bagian A — Pilihan Ganda",
+          title: "Perpustakaan Sekolah Dibuka Kembali",
+          text:
+`Perpustakaan SMA Tunas Bangsa dibuka kembali pada Senin, 13 Juli 2026, setelah menjalani renovasi selama dua bulan. Kepala sekolah, Ratna Wijaya, menjelaskan bahwa renovasi mencakup penambahan 1.200 buku, ruang baca digital, dan enam komputer.
+
+Acara pembukaan dihadiri guru, pengurus OSIS, dan perwakilan murid. Perpustakaan akan beroperasi setiap Senin sampai Jumat pukul 07.00–15.30. Renovasi dilakukan untuk meningkatkan minat baca dan memperluas akses murid terhadap sumber belajar.`,
+          type: "single",
+          questions: [
+            {
+              text: "Peristiwa utama dalam berita tersebut adalah ...",
+              options: [
+                "pelaksanaan pemilihan pengurus OSIS",
+                "pembukaan kembali perpustakaan setelah renovasi",
+                "pembagian komputer kepada seluruh murid",
+                "penutupan sekolah selama dua bulan"
+              ],
+              answer: 1
+            },
+            {
+              text: "Unsur kapan dalam berita ditunjukkan oleh keterangan ...",
+              options: [
+                "SMA Tunas Bangsa",
+                "Ratna Wijaya",
+                "Senin, 13 Juli 2026",
+                "ruang baca digital"
+              ],
+              answer: 2
+            },
+            {
+              text: "Tujuan renovasi perpustakaan adalah ...",
+              options: [
+                "mengurangi jumlah pengunjung",
+                "menggantikan kegiatan belajar di kelas",
+                "meningkatkan minat baca dan akses sumber belajar",
+                "memindahkan seluruh komputer sekolah"
+              ],
+              answer: 2
+            },
+            {
+              text: "Pernyataan yang merupakan fakta adalah ...",
+              options: [
+                "Perpustakaan itu pasti menjadi yang terbaik di kota.",
+                "Semua murid merasa sangat bahagia.",
+                "Renovasi mencakup penambahan 1.200 buku.",
+                "Ruang baca digital terlihat paling mengagumkan."
+              ],
+              answer: 2
+            },
+            {
+              text: "Sikap sadar setelah membaca berita tersebut adalah ...",
+              options: [
+                "langsung menyebarkan judul tanpa membaca isi",
+                "memeriksa informasi penting sebelum menyimpulkan",
+                "menganggap semua informasi pasti salah",
+                "menambahkan informasi berdasarkan dugaan"
+              ],
+              answer: 1
+            }
+          ]
+        },
+        {
+          section: "Bagian B — Pilihan Ganda Kompleks",
+          title: "Hujan Lebat dan Genangan di Jalan Merdeka",
+          text:
+`Hujan lebat mengguyur Kota Aruna pada Selasa sore selama hampir tiga jam. Akibatnya, sebagian Jalan Merdeka tergenang air setinggi 25–35 sentimeter. Petugas Badan Penanggulangan Bencana Daerah menutup satu lajur jalan dan mengarahkan kendaraan ke Jalan Diponegoro.
+
+Menurut petugas, genangan terjadi karena saluran air tersumbat sampah dan tidak mampu menampung debit air. Tidak ada korban jiwa dalam kejadian tersebut. Pemerintah kota mengerahkan dua kendaraan penyedot air dan meminta warga tidak membuang sampah ke saluran.`,
+          type: "multiple",
+          questions: [
+            {
+              text: "Pilih semua informasi yang termasuk fakta.",
+              options: [
+                "Hujan berlangsung hampir tiga jam.",
+                "Jalan Merdeka merupakan jalan terburuk di kota.",
+                "Genangan mencapai 25–35 sentimeter.",
+                "Dua kendaraan penyedot air dikerahkan."
+              ],
+              answer: [0, 2, 3]
+            },
+            {
+              text: "Pilih unsur sebab yang disebutkan dalam berita.",
+              options: [
+                "Saluran air tersumbat sampah.",
+                "Debit air melebihi kemampuan saluran.",
+                "Seluruh warga meninggalkan kota.",
+                "Lampu jalan mengalami kerusakan."
+              ],
+              answer: [0, 1]
+            },
+            {
+              text: "Tindakan penanganan yang dilakukan adalah ...",
+              options: [
+                "menutup satu lajur jalan",
+                "mengalihkan kendaraan",
+                "mengerahkan kendaraan penyedot air",
+                "menutup seluruh sekolah selama sebulan"
+              ],
+              answer: [0, 1, 2]
+            },
+            {
+              text: "Respons sadar ketika menerima berita bencana adalah ...",
+              options: [
+                "membaca isi berita secara lengkap",
+                "memastikan lokasi sebelum panik",
+                "meneruskan foto lama tanpa pemeriksaan",
+                "mengikuti arahan petugas"
+              ],
+              answer: [0, 1, 3]
+            },
+            {
+              text: "Unsur berita yang tersedia dalam teks meliputi ...",
+              options: [
+                "apa",
+                "di mana",
+                "mengapa",
+                "bagaimana"
+              ],
+              answer: [0, 1, 2, 3]
+            }
+          ]
+        },
+        {
+          section: "Bagian C — Benar atau Salah",
+          title: "Program Sarapan Sehat",
+          text:
+`SMA Harapan Jaya memulai program Sarapan Sehat pada Rabu pagi. Program tersebut menyediakan makanan sederhana bagi 180 murid sebelum pembelajaran dimulai. Kegiatan dilaksanakan di aula sekolah dan didukung oleh komite sekolah serta puskesmas setempat.
+
+Ahli gizi dari puskesmas memberikan edukasi mengenai pentingnya sarapan dan komposisi makanan seimbang. Program akan dievaluasi setelah empat minggu untuk mengetahui pengaruhnya terhadap kehadiran dan konsentrasi murid.`,
+          type: "truefalse",
+          questions: [
+            {
+              text: "Program Sarapan Sehat dimulai pada Rabu pagi.",
+              answer: true
+            },
+            {
+              text: "Program tersebut hanya diikuti oleh sepuluh murid.",
+              answer: false
+            },
+            {
+              text: "Puskesmas ikut mendukung kegiatan.",
+              answer: true
+            },
+            {
+              text: "Berita menyatakan program pasti berhasil tanpa evaluasi.",
+              answer: false
+            },
+            {
+              text: "Pengaruh program terhadap konsentrasi akan dievaluasi.",
+              answer: true
+            }
+          ]
+        },
+        {
+          section: "Bagian D — Menjodohkan",
+          title: "Festival Literasi Remaja",
+          text:
+`Festival Literasi Remaja diselenggarakan di Gedung Budaya Surya pada Sabtu, 18 Juli 2026. Kegiatan diikuti 35 sekolah dan menghadirkan pameran buku, lomba membaca berita, lokakarya penulisan, serta temu penulis.
+
+Ketua panitia menjelaskan bahwa festival bertujuan memperkuat budaya membaca dan menulis di kalangan remaja. Acara berlangsung sejak pukul 08.00 sampai 16.00 dan terbuka untuk masyarakat.`,
+          type: "matching",
+          pairs: [
+            ["Apa", "Festival Literasi Remaja"],
+            ["Siapa", "Murid dari 35 sekolah"],
+            ["Di mana", "Gedung Budaya Surya"],
+            ["Kapan", "Sabtu, 18 Juli 2026"],
+            ["Mengapa", "Memperkuat budaya membaca dan menulis"]
+          ]
+        },
+        {
+          section: "Bagian E — Penguatan Pilihan Ganda",
+          title: "Kabar Penutupan Jembatan",
+          text:
+`Sebuah pesan berantai menyebutkan bahwa Jembatan Cempaka akan ditutup total selama satu bulan. Pesan tersebut tidak mencantumkan sumber resmi, tanggal penerbitan, maupun nama instansi.
+
+Setelah diperiksa melalui laman Dinas Perhubungan, penutupan hanya dilakukan pada Minggu, 19 Juli 2026, pukul 06.00–12.00 untuk pemeriksaan konstruksi. Dinas Perhubungan meminta masyarakat merujuk pada pengumuman resmi dan tidak menyebarkan informasi yang belum terverifikasi.`,
+          type: "single",
+          questions: [
+            {
+              text: "Masalah utama pada pesan berantai tersebut adalah ...",
+              options: [
+                "menggunakan bahasa Indonesia",
+                "tidak mencantumkan sumber resmi",
+                "menyebutkan nama jembatan",
+                "membahas pemeriksaan konstruksi"
+              ],
+              answer: 1
+            },
+            {
+              text: "Informasi resmi menyatakan jembatan ditutup ...",
+              options: [
+                "selama satu bulan penuh",
+                "setiap hari selama satu minggu",
+                "pada Minggu pukul 06.00–12.00",
+                "tanpa batas waktu"
+              ],
+              answer: 2
+            },
+            {
+              text: "Sumber yang lebih dapat dipercaya adalah ...",
+              options: [
+                "pesan anonim",
+                "komentar tanpa identitas",
+                "laman Dinas Perhubungan",
+                "dugaan seorang teman"
+              ],
+              answer: 2
+            },
+            {
+              text: "Tindakan yang tepat sebelum membagikan pesan adalah ...",
+              options: [
+                "mengubah isi agar lebih menarik",
+                "memeriksa sumber resmi",
+                "menghapus nama lokasi",
+                "menambah dugaan pribadi"
+              ],
+              answer: 1
+            },
+            {
+              text: "Keterampilan SELIS yang paling ditekankan adalah ...",
+              options: [
+                "menyadari dorongan untuk segera menyebarkan informasi",
+                "menghindari seluruh berita",
+                "menerima semua pesan tanpa berpikir",
+                "membuat berita tandingan"
+              ],
+              answer: 0
+            }
+          ]
+        },
+        {
+          section: "Bagian F — Penguatan Benar atau Salah",
+          title: "Pameran Karya Murid",
+          text:
+`Sebanyak 96 karya murid dipamerkan dalam Gelar Karya Projek di halaman SMA Bina Cendekia. Pameran berlangsung Jumat pagi dan menampilkan produk daur ulang, poster kesehatan, karya fotografi, serta aplikasi sederhana.
+
+Wakil kepala sekolah bidang kurikulum menyatakan bahwa kegiatan tersebut merupakan bagian dari pembelajaran berbasis projek. Pengunjung dapat memberikan tanggapan melalui formulir digital, tetapi hasil penilaian belum diumumkan.`,
+          type: "truefalse",
+          questions: [
+            {
+              text: "Jumlah karya yang dipamerkan adalah 96.",
+              answer: true
+            },
+            {
+              text: "Pameran hanya menampilkan karya fotografi.",
+              answer: false
+            },
+            {
+              text: "Pengunjung dapat memberikan tanggapan secara digital.",
+              answer: true
+            },
+            {
+              text: "Hasil penilaian sudah diumumkan dalam berita.",
+              answer: false
+            },
+            {
+              text: "Pernyataan bahwa pameran pasti paling bagus merupakan fakta dari teks.",
+              answer: false
+            }
+          ]
+        }
+      ]
+    };
+
+    /* ============================================================
+       DATA MATERI DAN LKPD PERTEMUAN 2
+       FOKUS SELIS: EMPATI
+    ============================================================ */
+    const meeting2 = {
+      number: 2,
+      focus: "Empati",
+      title: "Memahami Sudut Pandang dalam Pemberitaan",
+      subtitle:
+        "Menempatkan diri pada posisi narasumber dan memahami dampak peristiwa terhadap kelompok yang berbeda.",
+      objectives: [
+        "Murid mampu mengidentifikasi pihak yang terlibat dalam berita.",
+        "Murid mampu memahami sudut pandang narasumber.",
+        "Murid mampu mengenali dampak sosial suatu peristiwa.",
+        "Murid mampu menyusun tanggapan yang tidak menghakimi."
+      ],
+      slides: [
+        {
+          title: "Empati dalam Membaca Berita",
+          content: `
+            <p>Empati adalah kemampuan memahami pengalaman dan perasaan orang lain tanpa harus mengalami peristiwa yang sama.</p>
+            <ul>
+              <li>Perhatikan siapa yang terdampak.</li>
+              <li>Dengarkan suara dari lebih dari satu pihak.</li>
+              <li>Hindari menyalahkan korban.</li>
+              <li>Gunakan bahasa yang menjaga martabat manusia.</li>
+            </ul>
+          `
+        },
+        {
+          title: "Narasumber dan Sudut Pandang",
+          content: `
+            <p>Narasumber memberikan keterangan berdasarkan peran, pengalaman, atau keahliannya. Setiap narasumber dapat melihat peristiwa dari sisi berbeda.</p>
+            <div class="highlight-box">
+              Dalam berita banjir, warga menjelaskan pengalaman, petugas menjelaskan penanganan, dan ahli menjelaskan penyebab.
+            </div>
+          `
+        },
+        {
+          title: "Dampak Peristiwa",
+          content: `
+            <p>Satu peristiwa dapat memberikan dampak yang berbeda kepada kelompok yang berbeda.</p>
+            <ul>
+              <li>Murid dapat kehilangan waktu belajar.</li>
+              <li>Pedagang dapat kehilangan pendapatan.</li>
+              <li>Petugas menghadapi tanggung jawab penanganan.</li>
+              <li>Keluarga dapat mengalami kecemasan.</li>
+            </ul>
+          `
+        },
+        {
+          title: "Bahasa yang Berempati",
+          content: `
+            <p>Bahasa berita harus menghindari ejekan, stigma, dan penghakiman.</p>
+            <div class="highlight-box">
+              Kurang empatik: “Korban ceroboh dan pantas mengalami kejadian itu.”<br>
+              Lebih empatik: “Petugas mengimbau masyarakat meningkatkan kewaspadaan agar kejadian serupa tidak terulang.”
+            </div>
+          `
+        },
+        {
+          title: "Ringkasan Pertemuan 2",
+          content: `
+            <ul>
+              <li>Pahami pengalaman pihak yang terdampak.</li>
+              <li>Bandingkan keterangan dari beberapa narasumber.</li>
+              <li>Jangan terburu-buru menghakimi.</li>
+              <li>Pilih bahasa yang manusiawi dan proporsional.</li>
+            </ul>
+            <div class="highlight-box">Empati membantu berita tetap akurat tanpa kehilangan kepedulian terhadap manusia.</div>
+          `
+        }
+      ],
+      groups: [
+        {
+          section: "Bagian A — Pilihan Ganda",
+          title: "Sekolah Sementara bagi Murid Terdampak Banjir",
+          text:
+`Sebanyak 74 murid SD di Desa Sumberrejo mengikuti pembelajaran sementara di balai desa setelah ruang kelas mereka terendam banjir. Kegiatan belajar dimulai pada Senin dan dibagi menjadi dua sesi karena keterbatasan ruangan.
+
+Sejumlah guru membawa buku serta alat tulis dari sekolah. Orang tua membantu menyiapkan tikar dan makanan ringan. Kepala desa menyatakan bahwa balai desa dapat digunakan sampai sekolah kembali aman.`,
+          type: "single",
+          questions: [
+            {
+              text: "Pihak yang paling langsung mengalami perubahan tempat belajar adalah ...",
+              options: ["petugas lalu lintas", "74 murid SD", "pedagang pasar", "wisatawan"],
+              answer: 1
+            },
+            {
+              text: "Pembelajaran dibagi menjadi dua sesi karena ...",
+              options: [
+                "guru tidak ingin mengajar",
+                "keterbatasan ruangan",
+                "murid menolak hadir",
+                "balai desa sedang direnovasi"
+              ],
+              answer: 1
+            },
+            {
+              text: "Bentuk kepedulian orang tua adalah ...",
+              options: [
+                "menutup balai desa",
+                "menyiapkan tikar dan makanan ringan",
+                "menghentikan pembelajaran",
+                "memindahkan semua guru"
+              ],
+              answer: 1
+            },
+            {
+              text: "Tanggapan paling empatik terhadap murid adalah ...",
+              options: [
+                "Mereka seharusnya belajar sendiri.",
+                "Kondisi mereka perlu dipahami dan didukung agar tetap dapat belajar.",
+                "Banjir bukan urusan sekolah.",
+                "Mereka harus menerima keadaan tanpa bantuan."
+              ],
+              answer: 1
+            },
+            {
+              text: "Sudut pandang kepala desa berkaitan dengan ...",
+              options: [
+                "ketersediaan tempat belajar sementara",
+                "nilai ujian semua murid",
+                "harga buku pelajaran",
+                "jadwal kendaraan umum"
+              ],
+              answer: 0
+            }
+          ]
+        },
+        {
+          section: "Bagian B — Pilihan Ganda Kompleks",
+          title: "Relokasi Pedagang Pasar",
+          text:
+`Pemerintah Kota Laras memindahkan 86 pedagang dari Pasar Lama ke tempat penampungan sementara karena bangunan pasar akan diperbaiki. Beberapa pedagang menyampaikan kekhawatiran mengenai berkurangnya pelanggan. Pemerintah menyediakan kendaraan pengangkut barang dan membebaskan biaya sewa selama tiga bulan.
+
+Perwakilan pembeli meminta petunjuk arah dipasang agar masyarakat mudah menemukan lokasi baru. Pemerintah berjanji mengevaluasi akses, kebersihan, dan keamanan tempat penampungan setiap pekan.`,
+          type: "multiple",
+          questions: [
+            {
+              text: "Pihak yang sudut pandangnya muncul dalam berita adalah ...",
+              options: ["pedagang", "pemerintah kota", "pembeli", "pemain sepak bola"],
+              answer: [0, 1, 2]
+            },
+            {
+              text: "Kekhawatiran pedagang meliputi ...",
+              options: [
+                "berkurangnya pelanggan",
+                "kesulitan memindahkan barang",
+                "hilangnya seluruh sekolah",
+                "lokasi baru sulit ditemukan"
+              ],
+              answer: [0, 1, 3]
+            },
+            {
+              text: "Bentuk dukungan pemerintah adalah ...",
+              options: [
+                "kendaraan pengangkut barang",
+                "pembebasan sewa tiga bulan",
+                "evaluasi mingguan",
+                "larangan berdagang selamanya"
+              ],
+              answer: [0, 1, 2]
+            },
+            {
+              text: "Sikap empatik pembaca ditunjukkan dengan ...",
+              options: [
+                "memahami kecemasan pedagang",
+                "mempertimbangkan kebutuhan pembeli",
+                "mengejek pedagang yang mengeluh",
+                "melihat manfaat dan kesulitan relokasi"
+              ],
+              answer: [0, 1, 3]
+            },
+            {
+              text: "Informasi yang perlu dipantau setelah relokasi adalah ...",
+              options: ["akses", "kebersihan", "keamanan", "warna pakaian pedagang"],
+              answer: [0, 1, 2]
+            }
+          ]
+        },
+        {
+          section: "Bagian C — Benar atau Salah",
+          title: "Layanan Buku untuk Murid yang Dirawat",
+          text:
+`Komunitas Baca Sahabat Anak mengirimkan 300 buku bacaan ke ruang perawatan anak di Rumah Sakit Bhakti. Buku tersebut dipilih berdasarkan jenjang usia dan telah dibersihkan sebelum digunakan.
+
+Relawan juga mengadakan kegiatan membaca cerita dua kali dalam sepekan. Pihak rumah sakit menyatakan bahwa kegiatan dilakukan dengan memperhatikan kondisi kesehatan dan persetujuan keluarga pasien.`,
+          type: "truefalse",
+          questions: [
+            {
+              text: "Buku dipilih berdasarkan jenjang usia.",
+              answer: true
+            },
+            {
+              text: "Kegiatan membaca dilakukan tanpa mempertimbangkan kondisi pasien.",
+              answer: false
+            },
+            {
+              text: "Persetujuan keluarga pasien diperhatikan.",
+              answer: true
+            },
+            {
+              text: "Relawan mengadakan kegiatan membaca setiap jam.",
+              answer: false
+            },
+            {
+              text: "Program menunjukkan kepedulian terhadap kebutuhan emosional anak.",
+              answer: true
+            }
+          ]
+        },
+        {
+          section: "Bagian D — Menjodohkan",
+          title: "Jalur Ramah Disabilitas di Taman Kota",
+          text:
+`Taman Kota Nirmala kini memiliki jalur landai, ubin pemandu, papan informasi braille, dan toilet yang lebih mudah diakses pengguna kursi roda. Fasilitas tersebut dibuka pada Jumat setelah melalui uji akses bersama komunitas penyandang disabilitas.
+
+Pengelola taman menerima saran agar area parkir khusus diperluas dan beberapa papan petunjuk diturunkan posisinya. Perbaikan lanjutan dijadwalkan bulan depan.`,
+          type: "matching",
+          pairs: [
+            ["Pengguna kursi roda", "Memerlukan jalur landai dan toilet aksesibel"],
+            ["Penyandang tunanetra", "Terbantu ubin pemandu dan tulisan braille"],
+            ["Komunitas disabilitas", "Memberikan masukan melalui uji akses"],
+            ["Pengelola taman", "Menindaklanjuti saran perbaikan"],
+            ["Pengunjung umum", "Menjaga fasilitas agar dapat digunakan bersama"]
+          ]
+        },
+        {
+          section: "Bagian E — Penguatan Pilihan Ganda",
+          title: "Keterlambatan Kereta dan Penumpang",
+          text:
+`Kereta Arjuna tujuan Kota Raya terlambat 95 menit akibat pemeriksaan jalur. Petugas stasiun menyampaikan pengumuman berkala dan menyediakan air minum bagi penumpang yang menunggu.
+
+Seorang penumpang membawa anak kecil menyampaikan bahwa ia kesulitan karena persediaan makanan terbatas. Pengelola kemudian membuka ruang tunggu keluarga dan membantu penumpang lanjut usia menuju tempat duduk.`,
+          type: "single",
+          questions: [
+            {
+              text: "Penyebab keterlambatan kereta adalah ...",
+              options: ["pemeriksaan jalur", "hujan selama sebulan", "penutupan sekolah", "festival kota"],
+              answer: 0
+            },
+            {
+              text: "Kesulitan penumpang yang membawa anak kecil adalah ...",
+              options: [
+                "tidak memiliki tiket",
+                "persediaan makanan terbatas",
+                "tidak mengetahui tujuan",
+                "kehilangan kendaraan pribadi"
+              ],
+              answer: 1
+            },
+            {
+              text: "Tindakan yang menunjukkan empati adalah ...",
+              options: [
+                "mengabaikan penumpang",
+                "membuka ruang tunggu keluarga",
+                "menghentikan seluruh pengumuman",
+                "menutup tempat duduk"
+              ],
+              answer: 1
+            },
+            {
+              text: "Berita yang berimbang perlu memuat ...",
+              options: [
+                "hanya keluhan penumpang",
+                "hanya pembelaan pengelola",
+                "penjelasan penyebab dan pengalaman penumpang",
+                "pendapat anonim yang menghina"
+              ],
+              answer: 2
+            },
+            {
+              text: "Kalimat tanggapan paling empatik adalah ...",
+              options: [
+                "Penumpang tidak perlu mengeluh.",
+                "Keterlambatan dapat menimbulkan kesulitan berbeda, terutama bagi anak dan lansia.",
+                "Semua penumpang pasti marah.",
+                "Petugas selalu bersalah."
+              ],
+              answer: 1
+            }
+          ]
+        },
+        {
+          section: "Bagian F — Penguatan Benar atau Salah",
+          title: "Kegiatan Belajar bagi Anak Pekerja Migran",
+          text:
+`Sebuah pusat belajar komunitas membuka kelas akhir pekan bagi 42 anak pekerja migran. Kelas menyediakan pembelajaran bahasa, matematika dasar, seni, dan kegiatan membaca.
+
+Pengelola menjelaskan bahwa jadwal disusun setelah berdiskusi dengan orang tua agar tidak mengganggu waktu keluarga. Relawan memperoleh pelatihan perlindungan anak sebelum mendampingi kegiatan.`,
+          type: "truefalse",
+          questions: [
+            {
+              text: "Jadwal kelas disusun tanpa berdiskusi dengan orang tua.",
+              answer: false
+            },
+            {
+              text: "Relawan memperoleh pelatihan perlindungan anak.",
+              answer: true
+            },
+            {
+              text: "Kegiatan hanya berisi pelajaran matematika.",
+              answer: false
+            },
+            {
+              text: "Memahami kebutuhan keluarga merupakan bentuk empati.",
+              answer: true
+            },
+            {
+              text: "Anak dapat diberitakan dengan bahasa yang merendahkan karena masih kecil.",
+              answer: false
+            }
+          ]
+        }
+      ]
+    };
+
+    /* ============================================================
+       DATA MATERI DAN LKPD PERTEMUAN 3
+       FOKUS SELIS: LUHUR
+    ============================================================ */
+    const meeting3 = {
+      number: 3,
+      focus: "Luhur",
+      title: "Menilai Nilai Moral dan Etika Pemberitaan",
+      subtitle:
+        "Menggali nilai kebaikan, etika jurnalistik, tanggung jawab sosial, dan kearifan lokal dalam berita.",
+      objectives: [
+        "Murid mampu menemukan nilai moral dalam berita.",
+        "Murid mampu menilai etika penggunaan data dan gambar.",
+        "Murid mampu mengenali kearifan lokal yang diberitakan.",
+        "Murid mampu memilih tindakan yang mengutamakan kebaikan bersama."
+      ],
+      slides: [
+        {
+          title: "Nilai Luhur dalam Berita",
+          content: `
+            <p>Berita tidak hanya menyampaikan peristiwa, tetapi juga dapat memperlihatkan nilai kemanusiaan.</p>
+            <ul>
+              <li>Kejujuran</li>
+              <li>Gotong royong</li>
+              <li>Tanggung jawab</li>
+              <li>Keadilan</li>
+              <li>Kepedulian terhadap lingkungan</li>
+            </ul>
+          `
+        },
+        {
+          title: "Etika Pemberitaan",
+          content: `
+            <p>Etika membantu jurnalis menyampaikan fakta tanpa merugikan pihak yang diberitakan.</p>
+            <ul>
+              <li>Melindungi identitas anak dan korban.</li>
+              <li>Tidak menampilkan gambar yang merendahkan martabat.</li>
+              <li>Tidak memanipulasi kutipan.</li>
+              <li>Memberikan ruang klarifikasi.</li>
+            </ul>
+          `
+        },
+        {
+          title: "Kearifan Lokal sebagai Sumber Nilai",
+          content: `
+            <p>Tradisi lokal dapat mengandung pengetahuan mengenai hubungan manusia, alam, dan masyarakat.</p>
+            <div class="highlight-box">
+              Jurnalis perlu menjelaskan tradisi secara akurat dan menghindari penggambaran yang meremehkan masyarakat pemilik budaya.
+            </div>
+          `
+        },
+        {
+          title: "Berita untuk Kebaikan Bersama",
+          content: `
+            <p>Berita yang bertanggung jawab dapat membantu masyarakat memahami masalah dan menemukan jalan perbaikan.</p>
+            <ul>
+              <li>Menunjukkan masalah berdasarkan data.</li>
+              <li>Menghadirkan upaya penyelesaian.</li>
+              <li>Mendorong partisipasi masyarakat.</li>
+              <li>Menghindari sensasi yang tidak bermanfaat.</li>
+            </ul>
+          `
+        },
+        {
+          title: "Ringkasan Pertemuan 3",
+          content: `
+            <ul>
+              <li>Temukan nilai moral di balik tindakan.</li>
+              <li>Hormati privasi dan martabat narasumber.</li>
+              <li>Pelajari kearifan lokal tanpa merendahkan.</li>
+              <li>Utamakan manfaat sosial pemberitaan.</li>
+            </ul>
+            <div class="highlight-box">Luhur berarti mampu menangkap pengetahuan dan nilai kebaikan dari peristiwa yang diamati.</div>
+          `
+        }
+      ],
+      groups: [
+        {
+          section: "Bagian A — Pilihan Ganda",
+          title: "Warga Mengembalikan Dompet yang Ditemukan",
+          text:
+`Seorang warga bernama Sari menemukan dompet berisi uang tunai dan dokumen penting di halte. Ia menyerahkan dompet tersebut kepada petugas kepolisian sektor setempat.
+
+Polisi kemudian menghubungi pemilik berdasarkan kartu identitas di dalam dompet. Pemilik mengambil dompet pada hari yang sama dan menyampaikan terima kasih. Sari menolak hadiah serta mengatakan bahwa mengembalikan barang merupakan kewajiban.`,
+          type: "single",
+          questions: [
+            {
+              text: "Nilai luhur yang paling menonjol adalah ...",
+              options: ["kejujuran", "persaingan", "kemewahan", "keberanian berbohong"],
+              answer: 0
+            },
+            {
+              text: "Tindakan Sari setelah menemukan dompet adalah ...",
+              options: [
+                "menyimpan seluruh isinya",
+                "menyerahkannya kepada polisi",
+                "membuang dokumen",
+                "menjual dompet"
+              ],
+              answer: 1
+            },
+            {
+              text: "Pernyataan Sari menunjukkan sikap ...",
+              options: ["bertanggung jawab", "mementingkan hadiah", "menghindari kewajiban", "merendahkan pemilik"],
+              answer: 0
+            },
+            {
+              text: "Judul yang paling etis adalah ...",
+              options: [
+                "Sari Paling Hebat Sedunia",
+                "Warga Serahkan Dompet Temuan kepada Polisi",
+                "Pemilik Dompet Sangat Ceroboh",
+                "Dompet Misterius Menggemparkan Dunia"
+              ],
+              answer: 1
+            },
+            {
+              text: "Pelajaran moral dari peristiwa tersebut adalah ...",
+              options: [
+                "barang temuan boleh dimiliki",
+                "kejujuran menjaga kepercayaan sosial",
+                "hadiah harus selalu diminta",
+                "dokumen orang lain boleh dibuka untuk hiburan"
+              ],
+              answer: 1
+            }
+          ]
+        },
+        {
+          section: "Bagian B — Pilihan Ganda Kompleks",
+          title: "Gotong Royong Memulihkan Mata Air",
+          text:
+`Warga Dusun Kedungrejo bersama kelompok pemuda membersihkan kawasan mata air yang tertutup sampah dan semak. Kegiatan dilakukan selama tiga hari dengan pendampingan petugas lingkungan.
+
+Warga memasang tempat sampah, papan larangan, serta menanam 150 bibit pohon di sekitar sumber air. Tokoh masyarakat menjelaskan bahwa mata air tersebut telah digunakan turun-temurun untuk kebutuhan sehari-hari.`,
+          type: "multiple",
+          questions: [
+            {
+              text: "Nilai luhur yang tampak adalah ...",
+              options: ["gotong royong", "kepedulian lingkungan", "tanggung jawab", "perusakan"],
+              answer: [0, 1, 2]
+            },
+            {
+              text: "Tindakan pemulihan mata air meliputi ...",
+              options: [
+                "membersihkan sampah",
+                "menanam pohon",
+                "memasang papan larangan",
+                "menutup sumber air dengan beton"
+              ],
+              answer: [0, 1, 2]
+            },
+            {
+              text: "Keterangan yang menunjukkan kearifan lokal adalah ...",
+              options: [
+                "mata air digunakan turun-temurun",
+                "masyarakat menjaga sumber kehidupan bersama",
+                "kegiatan hanya untuk perlombaan",
+                "tokoh masyarakat menjelaskan hubungan warga dengan mata air"
+              ],
+              answer: [0, 1, 3]
+            },
+            {
+              text: "Pemberitaan yang etis sebaiknya ...",
+              options: [
+                "mengakui peran warga",
+                "menyebut sumber keterangan",
+                "menggambarkan tradisi secara menghina",
+                "menjelaskan manfaat lingkungan"
+              ],
+              answer: [0, 1, 3]
+            },
+            {
+              text: "Dampak positif yang mungkin muncul adalah ...",
+              options: [
+                "kualitas lingkungan membaik",
+                "kesadaran warga meningkat",
+                "sumber air lebih terjaga",
+                "sampah sengaja ditambah"
+              ],
+              answer: [0, 1, 2]
+            }
+          ]
+        },
+        {
+          section: "Bagian C — Benar atau Salah",
+          title: "Perlindungan Identitas Anak",
+          text:
+`Sebuah media memberitakan kasus perundungan di sekolah tanpa menyebut nama, alamat, atau menampilkan wajah murid yang menjadi korban. Media menggunakan ilustrasi umum dan memuat penjelasan dari pihak sekolah, keluarga, serta psikolog anak.
+
+Redaksi menyatakan bahwa identitas anak dilindungi untuk mencegah tekanan tambahan dan penyebaran stigma.`,
+          type: "truefalse",
+          questions: [
+            {
+              text: "Media menyebut nama lengkap anak yang menjadi korban.",
+              answer: false
+            },
+            {
+              text: "Media menggunakan ilustrasi umum.",
+              answer: true
+            },
+            {
+              text: "Perlindungan identitas bertujuan mengurangi tekanan tambahan.",
+              answer: true
+            },
+            {
+              text: "Menampilkan wajah korban anak selalu dibenarkan demi sensasi.",
+              answer: false
+            },
+            {
+              text: "Pemberitaan memuat keterangan dari beberapa pihak.",
+              answer: true
+            }
+          ]
+        },
+        {
+          section: "Bagian D — Menjodohkan",
+          title: "Tradisi Menjaga Hutan Desa",
+          text:
+`Masyarakat Desa Wanaasri melaksanakan tradisi tahunan untuk membersihkan jalur hutan dan menanam pohon di sekitar sumber air. Tetua desa menjelaskan bahwa warga dilarang menebang pohon pada radius tertentu dari mata air.
+
+Pemerintah desa mendokumentasikan aturan adat tersebut dan memasukkannya ke dalam program pelestarian lingkungan. Murid sekolah ikut membuat papan edukasi mengenai fungsi hutan.`,
+          type: "matching",
+          pairs: [
+            ["Tetua desa", "Menjelaskan aturan adat"],
+            ["Pemerintah desa", "Mendokumentasikan aturan pelestarian"],
+            ["Murid sekolah", "Membuat papan edukasi"],
+            ["Warga", "Membersihkan jalur dan menanam pohon"],
+            ["Aturan adat", "Melarang penebangan di sekitar mata air"]
+          ]
+        },
+        {
+          section: "Bagian E — Penguatan Pilihan Ganda",
+          title: "Dapur Umum Berbasis Gotong Royong",
+          text:
+`Warga Kelurahan Melati mendirikan dapur umum setelah angin kencang merusak 28 rumah. Bahan makanan berasal dari sumbangan warga dan pelaku usaha setempat. Setiap bantuan dicatat oleh panitia dan diumumkan melalui papan informasi.
+
+Panitia memprioritaskan makanan bagi anak, lansia, ibu hamil, dan warga yang rumahnya rusak berat. Petugas kesehatan memeriksa kebersihan dapur setiap hari.`,
+          type: "single",
+          questions: [
+            {
+              text: "Nilai yang tampak dari pendirian dapur umum adalah ...",
+              options: ["gotong royong", "keserakahan", "perselisihan", "ketidakpedulian"],
+              answer: 0
+            },
+            {
+              text: "Pencatatan bantuan menunjukkan nilai ...",
+              options: ["transparansi", "kerahasiaan palsu", "manipulasi", "diskriminasi"],
+              answer: 0
+            },
+            {
+              text: "Kelompok yang diprioritaskan adalah ...",
+              options: [
+                "anak, lansia, ibu hamil, dan korban berat",
+                "hanya panitia",
+                "hanya pemilik usaha",
+                "wisatawan"
+              ],
+              answer: 0
+            },
+            {
+              text: "Pemeriksaan kebersihan dilakukan oleh ...",
+              options: ["petugas kesehatan", "pengemudi bus", "penjaga museum", "pemain musik"],
+              answer: 0
+            },
+            {
+              text: "Prinsip luhur dalam pembagian bantuan adalah ...",
+              options: [
+                "mendahulukan kebutuhan paling mendesak",
+                "memberikan semua bantuan kepada satu orang",
+                "menyembunyikan seluruh catatan",
+                "membedakan berdasarkan kedekatan pribadi"
+              ],
+              answer: 0
+            }
+          ]
+        },
+        {
+          section: "Bagian F — Penguatan Benar atau Salah",
+          title: "Koreksi Berita oleh Redaksi",
+          text:
+`Redaksi Media Kota menerbitkan koreksi setelah menemukan kesalahan angka dalam berita mengenai jumlah peserta pelatihan. Berita awal menuliskan 450 peserta, sedangkan dokumen resmi menunjukkan 405 peserta.
+
+Redaksi memperbaiki artikel, mencantumkan catatan koreksi, dan meminta maaf kepada pembaca. Kesalahan diketahui setelah penyelenggara mengirimkan dokumen verifikasi.`,
+          type: "truefalse",
+          questions: [
+            {
+              text: "Jumlah peserta yang benar adalah 405.",
+              answer: true
+            },
+            {
+              text: "Redaksi menyembunyikan kesalahan tanpa memperbaikinya.",
+              answer: false
+            },
+            {
+              text: "Mengakui kesalahan merupakan bentuk tanggung jawab.",
+              answer: true
+            },
+            {
+              text: "Koreksi dapat membantu menjaga kepercayaan pembaca.",
+              answer: true
+            },
+            {
+              text: "Data yang salah boleh dipertahankan agar media tidak malu.",
+              answer: false
+            }
+          ]
+        }
+      ]
+    };
+
+    /* ============================================================
+       DATA MATERI DAN LKPD PERTEMUAN 4
+       FOKUS SELIS: INTROSPEKTIF
+    ============================================================ */
+    const meeting4 = {
+      number: 4,
+      focus: "Introspektif",
+      title: "Mengevaluasi Kualitas dan Bias Berita",
+      subtitle:
+        "Menghubungkan pengetahuan baru dengan kebiasaan pribadi serta mengevaluasi kelemahan dan kekuatan informasi.",
+      objectives: [
+        "Murid mampu mengevaluasi kelengkapan berita.",
+        "Murid mampu mengenali judul sensasional dan bias.",
+        "Murid mampu membandingkan berita dengan sumber lain.",
+        "Murid mampu merefleksikan kebiasaan bermedia."
+      ],
+      slides: [
+        {
+          title: "Apa Itu Evaluasi Berita?",
+          content: `
+            <p>Mengevaluasi berita berarti menilai keakuratan, kelengkapan, keseimbangan, relevansi, dan kejelasan penyajiannya.</p>
+            <ul>
+              <li>Apakah sumbernya jelas?</li>
+              <li>Apakah data dapat diverifikasi?</li>
+              <li>Apakah pihak terkait diberi ruang?</li>
+              <li>Apakah judul sesuai isi?</li>
+            </ul>
+          `
+        },
+        {
+          title: "Mengenali Bias",
+          content: `
+            <p>Bias terjadi ketika berita terlalu menonjolkan satu sisi atau menggunakan pilihan kata yang mengarahkan penilaian pembaca.</p>
+            <div class="highlight-box">
+              Kata seperti “pasti”, “terburuk”, “memalukan”, atau “luar biasa” perlu diperiksa apakah didukung fakta.
+            </div>
+          `
+        },
+        {
+          title: "Judul Sensasional",
+          content: `
+            <p>Judul sensasional dirancang untuk memancing klik atau emosi, tetapi terkadang tidak sesuai dengan isi.</p>
+            <ul>
+              <li>Baca isi, jangan hanya judul.</li>
+              <li>Bandingkan judul dengan fakta utama.</li>
+              <li>Periksa tanggal dan konteks.</li>
+              <li>Waspadai huruf kapital dan tanda seru berlebihan.</li>
+            </ul>
+          `
+        },
+        {
+          title: "Introspeksi Kebiasaan Bermedia",
+          content: `
+            <p>Introspeksi bukan menyalahkan diri, melainkan melihat kebiasaan secara jujur tanpa menghakimi.</p>
+            <ul>
+              <li>Apakah saya sering membaca hanya judul?</li>
+              <li>Apakah saya menyebarkan berita karena emosi?</li>
+              <li>Apakah saya mencari sumber pembanding?</li>
+              <li>Apakah saya bersedia mengoreksi kesalahan?</li>
+            </ul>
+          `
+        },
+        {
+          title: "Ringkasan Pertemuan 4",
+          content: `
+            <ul>
+              <li>Nilai sumber, data, dan keseimbangan berita.</li>
+              <li>Kenali bias dan bahasa sensasional.</li>
+              <li>Bandingkan informasi dengan sumber tepercaya.</li>
+              <li>Terima kekurangan kebiasaan diri sebagai bahan perbaikan.</li>
+            </ul>
+            <div class="highlight-box">Introspektif berarti menghubungkan pengalaman baru dengan diri sendiri secara jujur, menerima, dan tanpa penghakiman.</div>
+          `
+        }
+      ],
+      groups: [
+        {
+          section: "Bagian A — Pilihan Ganda",
+          title: "Judul dan Isi yang Tidak Sepenuhnya Sama",
+          text:
+`Sebuah portal menggunakan judul “Seluruh Sekolah di Kota Aruna Ditutup Mendadak!”. Isi berita menjelaskan bahwa hanya tiga sekolah di Kecamatan Utara yang menghentikan kegiatan tatap muka selama satu hari karena perbaikan jaringan listrik.
+
+Dinas Pendidikan menyatakan sekolah lain tetap menjalankan pembelajaran seperti biasa. Pengumuman resmi telah dikirim kepada orang tua murid di tiga sekolah tersebut.`,
+          type: "single",
+          questions: [
+            {
+              text: "Kelemahan utama judul berita adalah ...",
+              options: [
+                "menggunakan bahasa Indonesia",
+                "menggeneralisasi penutupan menjadi seluruh kota",
+                "menyebut kata sekolah",
+                "memuat nama kota"
+              ],
+              answer: 1
+            },
+            {
+              text: "Fakta dalam isi berita adalah ...",
+              options: [
+                "seluruh sekolah tutup",
+                "tiga sekolah berhenti tatap muka satu hari",
+                "semua listrik kota padam",
+                "murid diliburkan satu bulan"
+              ],
+              answer: 1
+            },
+            {
+              text: "Sumber klarifikasi dalam berita adalah ...",
+              options: ["Dinas Pendidikan", "pesan anonim", "komentar acak", "dugaan pembaca"],
+              answer: 0
+            },
+            {
+              text: "Judul yang lebih akurat adalah ...",
+              options: [
+                "Kota Aruna Lumpuh Total!",
+                "Tiga Sekolah Hentikan Tatap Muka Sehari karena Perbaikan Listrik",
+                "Semua Murid Tidak Boleh Belajar",
+                "Kejadian Paling Mengejutkan Tahun Ini"
+              ],
+              answer: 1
+            },
+            {
+              text: "Refleksi yang tepat bagi pembaca adalah ...",
+              options: [
+                "Saya perlu membaca isi sebelum bereaksi terhadap judul.",
+                "Saya cukup membaca judul.",
+                "Saya harus membagikan berita secepatnya.",
+                "Saya tidak perlu memeriksa sumber."
+              ],
+              answer: 0
+            }
+          ]
+        },
+        {
+          section: "Bagian B — Pilihan Ganda Kompleks",
+          title: "Berita Kenaikan Harga Cabai",
+          text:
+`Media A memberitakan kenaikan harga cabai dengan mewawancarai dua pembeli di pasar. Media B menggunakan data dinas perdagangan, wawancara pedagang, petani, dan pembeli, serta membandingkan harga selama empat pekan.
+
+Media A menyebut kenaikan terjadi “secara mengerikan”, tetapi tidak mencantumkan besar kenaikannya. Media B melaporkan harga naik dari Rp42.000 menjadi Rp56.000 per kilogram akibat pasokan berkurang setelah hujan lebat.`,
+          type: "multiple",
+          questions: [
+            {
+              text: "Kekuatan pemberitaan Media B adalah ...",
+              options: [
+                "menggunakan data harga",
+                "menghadirkan beberapa narasumber",
+                "menjelaskan penyebab",
+                "menggunakan kata mengerikan tanpa data"
+              ],
+              answer: [0, 1, 2]
+            },
+            {
+              text: "Kelemahan Media A adalah ...",
+              options: [
+                "narasumber terbatas",
+                "tidak menyebut besar kenaikan",
+                "menggunakan kata emosional",
+                "menampilkan data empat pekan"
+              ],
+              answer: [0, 1, 2]
+            },
+            {
+              text: "Data yang dapat diverifikasi meliputi ...",
+              options: [
+                "harga awal Rp42.000",
+                "harga baru Rp56.000",
+                "pasokan berkurang setelah hujan",
+                "kenaikan adalah yang paling menakutkan sepanjang masa"
+              ],
+              answer: [0, 1, 2]
+            },
+            {
+              text: "Langkah evaluasi pembaca adalah ...",
+              options: [
+                "membandingkan kedua media",
+                "memeriksa sumber data",
+                "menilai kesesuaian judul dan isi",
+                "percaya pada kata emosional saja"
+              ],
+              answer: [0, 1, 2]
+            },
+            {
+              text: "Kebiasaan introspektif yang baik adalah ...",
+              options: [
+                "mengakui pernah tertarik judul sensasional",
+                "belajar memeriksa data",
+                "menyalahkan diri tanpa perbaikan",
+                "bersedia mengoreksi informasi yang pernah dibagikan"
+              ],
+              answer: [0, 1, 3]
+            }
+          ]
+        },
+        {
+          section: "Bagian C — Benar atau Salah",
+          title: "Foto Lama Digunakan Kembali",
+          text:
+`Sebuah unggahan menggunakan foto banjir tahun 2023 dan menyatakan foto tersebut menggambarkan kondisi Kota Puspa pada Juli 2026. Hasil penelusuran gambar menunjukkan foto pertama kali diterbitkan oleh media lokal tiga tahun sebelumnya.
+
+Badan Penanggulangan Bencana Daerah menyatakan tidak ada banjir besar pada hari unggahan tersebut dibuat. Hujan memang terjadi, tetapi hanya menimbulkan genangan kecil di dua jalan.`,
+          type: "truefalse",
+          questions: [
+            {
+              text: "Foto berasal dari peristiwa tahun 2023.",
+              answer: true
+            },
+            {
+              text: "Foto tersebut sesuai dengan konteks Juli 2026.",
+              answer: false
+            },
+            {
+              text: "Penelusuran gambar dapat membantu memeriksa konteks foto.",
+              answer: true
+            },
+            {
+              text: "Tidak ada perbedaan antara genangan kecil dan banjir besar.",
+              answer: false
+            },
+            {
+              text: "Tanggal dan sumber foto perlu diperiksa sebelum membagikan unggahan.",
+              answer: true
+            }
+          ]
+        },
+        {
+          section: "Bagian D — Menjodohkan",
+          title: "Indikator Kualitas Berita",
+          text:
+`Tim literasi sekolah menyusun panduan pemeriksaan berita yang mencakup sumber, data, judul, tanggal, dan keberimbangan. Panduan digunakan murid untuk menilai informasi sebelum dibagikan di grup kelas.
+
+Guru meminta murid tidak hanya memberi label benar atau salah, tetapi menjelaskan alasan penilaiannya berdasarkan bukti.`,
+          type: "matching",
+          pairs: [
+            ["Sumber", "Menunjukkan asal informasi"],
+            ["Data", "Memberikan bukti yang dapat diperiksa"],
+            ["Judul", "Harus mewakili isi berita"],
+            ["Tanggal", "Menjelaskan waktu dan konteks"],
+            ["Keberimbangan", "Memberikan ruang kepada pihak relevan"]
+          ]
+        },
+        {
+          section: "Bagian E — Penguatan Pilihan Ganda",
+          title: "Survei tanpa Keterangan Metode",
+          text:
+`Sebuah artikel menyatakan “90 persen remaja tidak suka membaca”, tetapi tidak menyebut jumlah responden, lokasi, waktu, pertanyaan survei, atau lembaga pelaksana. Artikel hanya merujuk pada “hasil survei terbaru”.
+
+Peneliti pendidikan yang dimintai tanggapan mengatakan bahwa angka survei tidak dapat dinilai tanpa mengetahui metode pengumpulan datanya.`,
+          type: "single",
+          questions: [
+            {
+              text: "Kelemahan utama artikel adalah ...",
+              options: [
+                "tidak menjelaskan metode survei",
+                "menggunakan angka",
+                "membahas remaja",
+                "ditulis dalam paragraf"
+              ],
+              answer: 0
+            },
+            {
+              text: "Informasi yang semestinya dicantumkan adalah ...",
+              options: [
+                "jumlah responden",
+                "warna pakaian penulis",
+                "makanan kesukaan pembaca",
+                "cuaca di negara lain"
+              ],
+              answer: 0
+            },
+            {
+              text: "Mengapa metode survei penting?",
+              options: [
+                "agar angka dapat dinilai keandalannya",
+                "agar artikel lebih panjang",
+                "agar judul lebih menakutkan",
+                "agar pembaca tidak bertanya"
+              ],
+              answer: 0
+            },
+            {
+              text: "Sikap pembaca yang tepat adalah ...",
+              options: [
+                "menerima angka tanpa pertanyaan",
+                "menunda kesimpulan sampai metode diketahui",
+                "menyebarkan angka sebagai fakta pasti",
+                "menambahkan angka baru"
+              ],
+              answer: 1
+            },
+            {
+              text: "Pertanyaan introspektif yang relevan adalah ...",
+              options: [
+                "Apakah saya sering percaya pada angka tanpa memeriksa asalnya?",
+                "Apakah saya harus menghindari semua angka?",
+                "Bagaimana membuat berita lebih sensasional?",
+                "Siapa yang dapat saya salahkan?"
+              ],
+              answer: 0
+            }
+          ]
+        },
+        {
+          section: "Bagian F — Penguatan Benar atau Salah",
+          title: "Klarifikasi Video Pendek",
+          text:
+`Video berdurasi 12 detik memperlihatkan seorang guru meninggalkan ruang kelas ketika murid sedang berdiri. Unggahan menyebut guru tersebut meninggalkan kelas karena marah.
+
+Video lengkap berdurasi empat menit menunjukkan guru keluar untuk memanggil petugas kesehatan setelah seorang murid merasa pusing. Potongan pendek menghilangkan bagian sebelum dan sesudah kejadian.`,
+          type: "truefalse",
+          questions: [
+            {
+              text: "Video pendek memberikan konteks lengkap.",
+              answer: false
+            },
+            {
+              text: "Guru keluar untuk memanggil petugas kesehatan.",
+              answer: true
+            },
+            {
+              text: "Potongan video dapat mengubah pemahaman terhadap peristiwa.",
+              answer: true
+            },
+            {
+              text: "Pembaca tidak perlu mencari video lengkap.",
+              answer: false
+            },
+            {
+              text: "Mengakui bahwa penilaian awal keliru merupakan sikap introspektif.",
+              answer: true
+            }
+          ]
+        }
+      ]
+    };
+
+    /* ============================================================
+       DATA MATERI DAN LKPD PERTEMUAN 5
+       FOKUS SELIS: SANTUN
+    ============================================================ */
+    const meeting5 = {
+      number: 5,
+      focus: "Santun",
+      title: "Menulis dan Menyajikan Berita secara Bertanggung Jawab",
+      subtitle:
+        "Mewujudkan sikap santun dalam pemilihan kata, wawancara, penulisan, koreksi, dan penyebaran berita.",
+      objectives: [
+        "Murid mampu menyusun berita berdasarkan fakta.",
+        "Murid mampu memilih judul dan bahasa yang santun.",
+        "Murid mampu menerapkan etika wawancara.",
+        "Murid mampu menyajikan berita tanpa keterikatan pada sensasi."
+      ],
+      slides: [
+        {
+          title: "Struktur Teks Berita",
+          content: `
+            <p>Teks berita dapat disusun dari informasi paling penting menuju rincian pendukung.</p>
+            <ul>
+              <li><strong>Judul</strong>: ringkas dan mewakili isi.</li>
+              <li><strong>Teras berita</strong>: memuat inti peristiwa.</li>
+              <li><strong>Tubuh berita</strong>: menjelaskan rincian, data, dan kutipan.</li>
+              <li><strong>Ekor berita</strong>: memuat informasi tambahan.</li>
+            </ul>
+          `
+        },
+        {
+          title: "Bahasa Berita yang Santun",
+          content: `
+            <p>Bahasa santun tetap tegas dan informatif, tetapi tidak merendahkan.</p>
+            <ul>
+              <li>Gunakan kata baku dan lugas.</li>
+              <li>Hindari ejekan dan label negatif.</li>
+              <li>Jaga privasi pihak yang rentan.</li>
+              <li>Bedakan kritik terhadap tindakan dan serangan terhadap pribadi.</li>
+            </ul>
+          `
+        },
+        {
+          title: "Etika Wawancara",
+          content: `
+            <ul>
+              <li>Perkenalkan diri dan tujuan wawancara.</li>
+              <li>Minta persetujuan sebelum merekam.</li>
+              <li>Ajukan pertanyaan yang relevan.</li>
+              <li>Jangan memotong atau memaksa narasumber.</li>
+              <li>Konfirmasi kutipan penting.</li>
+            </ul>
+          `
+        },
+        {
+          title: "Menulis Tanpa Terikat Sensasi",
+          content: `
+            <p>Santun dalam SELIS bukan sekadar sopan secara verbal, tetapi bertindak sebagai pengamat yang tidak melekat pada ego, amarah, atau keinginan mencari perhatian.</p>
+            <div class="highlight-box">
+              Jurnalis tetap menyampaikan masalah, tetapi tidak memperbesar konflik demi sensasi.
+            </div>
+          `
+        },
+        {
+          title: "Ringkasan Pertemuan 5",
+          content: `
+            <ul>
+              <li>Susun berita berdasarkan tingkat kepentingan informasi.</li>
+              <li>Gunakan bahasa akurat, baku, dan manusiawi.</li>
+              <li>Hormati narasumber selama wawancara.</li>
+              <li>Koreksi kesalahan secara terbuka.</li>
+              <li>Sebarkan informasi dengan tanggung jawab.</li>
+            </ul>
+            <div class="highlight-box">Santun merupakan tindakan nyata yang lahir dari kesadaran, empati, nilai luhur, dan introspeksi.</div>
+          `
+        }
+      ],
+      groups: [
+        {
+          section: "Bagian A — Pilihan Ganda",
+          title: "Lomba Kebersihan Antarkelas",
+          text:
+`SMA Cakrawala mengadakan Lomba Kebersihan Antarkelas pada Jumat, 24 Juli 2026. Penilaian meliputi kebersihan lantai, pengelolaan sampah, kerapian meja, ventilasi, dan keberadaan tanaman.
+
+Kelas XI-2 memperoleh nilai tertinggi dengan skor 92. Kepala sekolah menyerahkan penghargaan saat apel dan mengajak seluruh kelas mempertahankan kebersihan tanpa hanya berorientasi pada perlombaan.`,
+          type: "single",
+          questions: [
+            {
+              text: "Judul yang paling tepat adalah ...",
+              options: [
+                "XI-2 Raih Nilai Tertinggi Lomba Kebersihan",
+                "Kelas Lain Sangat Memalukan!",
+                "Perlombaan Paling Hebat Sepanjang Masa",
+                "Semua Murid Gagal Menjaga Kebersihan"
+              ],
+              answer: 0
+            },
+            {
+              text: "Informasi yang layak ditempatkan pada teras berita adalah ...",
+              options: [
+                "SMA Cakrawala mengadakan lomba dan XI-2 meraih nilai tertinggi.",
+                "Warna tanaman di setiap kelas.",
+                "Nama semua murid di sekolah.",
+                "Pendapat pribadi penulis."
+              ],
+              answer: 0
+            },
+            {
+              text: "Skor kelas XI-2 adalah ...",
+              options: ["29", "92", "24", "11"],
+              answer: 1
+            },
+            {
+              text: "Pesan kepala sekolah adalah ...",
+              options: [
+                "kebersihan hanya perlu saat lomba",
+                "kebersihan perlu dipertahankan terus-menerus",
+                "tanaman harus dibuang",
+                "kelas lain tidak boleh ikut"
+              ],
+              answer: 1
+            },
+            {
+              text: "Pilihan bahasa yang santun adalah ...",
+              options: [
+                "Kelas lain benar-benar malas.",
+                "Kelas lain dapat meningkatkan pengelolaan kebersihan.",
+                "Kekalahan mereka sangat memalukan.",
+                "Hanya XI-2 yang pantas dihargai."
+              ],
+              answer: 1
+            }
+          ]
+        },
+        {
+          section: "Bagian B — Pilihan Ganda Kompleks",
+          title: "Wawancara tentang Kantin Sehat",
+          text:
+`Tim jurnalistik sekolah mewawancarai pengelola kantin, murid, guru, dan petugas puskesmas mengenai penerapan kantin sehat. Sebelum merekam, reporter menjelaskan tujuan wawancara dan meminta persetujuan narasumber.
+
+Reporter menanyakan jenis makanan, kebersihan, harga, serta saran perbaikan. Setelah wawancara, reporter mengonfirmasi kembali angka harga dan kutipan penting sebelum menulis berita.`,
+          type: "multiple",
+          questions: [
+            {
+              text: "Tindakan wawancara yang etis adalah ...",
+              options: [
+                "menjelaskan tujuan",
+                "meminta persetujuan rekaman",
+                "mengonfirmasi kutipan",
+                "memaksa narasumber menjawab"
+              ],
+              answer: [0, 1, 2]
+            },
+            {
+              text: "Narasumber yang diwawancarai adalah ...",
+              options: [
+                "pengelola kantin",
+                "murid",
+                "guru",
+                "petugas puskesmas"
+              ],
+              answer: [0, 1, 2, 3]
+            },
+            {
+              text: "Topik pertanyaan yang relevan meliputi ...",
+              options: [
+                "jenis makanan",
+                "kebersihan",
+                "harga",
+                "ramalan kehidupan pribadi narasumber"
+              ],
+              answer: [0, 1, 2]
+            },
+            {
+              text: "Sikap santun reporter ditunjukkan dengan ...",
+              options: [
+                "mendengarkan jawaban",
+                "menjaga ketepatan kutipan",
+                "mengubah jawaban agar dramatis",
+                "menghormati persetujuan narasumber"
+              ],
+              answer: [0, 1, 3]
+            },
+            {
+              text: "Langkah sebelum berita diterbitkan adalah ...",
+              options: [
+                "memeriksa fakta",
+                "memastikan nama dan angka",
+                "menilai kesesuaian judul",
+                "menambah tuduhan tanpa bukti"
+              ],
+              answer: [0, 1, 2]
+            }
+          ]
+        },
+        {
+          section: "Bagian C — Benar atau Salah",
+          title: "Penyuntingan Berita Sekolah",
+          text:
+`Redaktur majalah sekolah mengembalikan naskah berita kepada penulis karena judulnya terlalu menyudutkan satu kelas. Penulis kemudian mengganti judul, menambahkan keterangan wali kelas, dan menghapus kalimat yang berisi ejekan.
+
+Setelah revisi, berita diterbitkan dengan catatan bahwa program kedisiplinan masih dalam tahap evaluasi.`,
+          type: "truefalse",
+          questions: [
+            {
+              text: "Judul awal dinilai terlalu menyudutkan.",
+              answer: true
+            },
+            {
+              text: "Penulis mempertahankan kalimat ejekan.",
+              answer: false
+            },
+            {
+              text: "Keterangan wali kelas ditambahkan.",
+              answer: true
+            },
+            {
+              text: "Berita menyatakan program sudah pasti berhasil.",
+              answer: false
+            },
+            {
+              text: "Penyuntingan dapat meningkatkan kesantunan berita.",
+              answer: true
+            }
+          ]
+        },
+        {
+          section: "Bagian D — Menjodohkan",
+          title: "Tahapan Produksi Berita",
+          text:
+`Kelompok jurnalistik kelas XI meliput kegiatan donor darah di aula sekolah. Mereka membagi tugas menjadi reporter, pewawancara, fotografer, penulis, dan penyunting. Setiap anggota bekerja sesuai perannya.
+
+Sebelum publikasi, kelompok memeriksa kembali nama narasumber, jumlah peserta, waktu kegiatan, dan izin penggunaan foto.`,
+          type: "matching",
+          pairs: [
+            ["Reporter", "Mengumpulkan fakta di lokasi"],
+            ["Pewawancara", "Mengajukan pertanyaan kepada narasumber"],
+            ["Fotografer", "Mengambil gambar dengan memperhatikan izin"],
+            ["Penulis", "Menyusun fakta menjadi teks berita"],
+            ["Penyunting", "Memeriksa bahasa, data, dan etika"]
+          ]
+        },
+        {
+          section: "Bagian E — Penguatan Pilihan Ganda",
+          title: "Koreksi Nama Narasumber",
+          text:
+`Majalah digital sekolah salah menuliskan nama narasumber dari “Nadia Rahma” menjadi “Nadya Rama”. Setelah menerima pemberitahuan, redaksi memeriksa rekaman wawancara dan segera memperbaiki nama.
+
+Redaksi menambahkan catatan koreksi di bagian bawah artikel serta menghubungi narasumber untuk meminta maaf.`,
+          type: "single",
+          questions: [
+            {
+              text: "Langkah pertama yang dilakukan redaksi adalah ...",
+              options: [
+                "memeriksa rekaman wawancara",
+                "menghapus seluruh majalah",
+                "menyalahkan narasumber",
+                "membiarkan kesalahan"
+              ],
+              answer: 0
+            },
+            {
+              text: "Menghubungi narasumber untuk meminta maaf menunjukkan ...",
+              options: ["tanggung jawab dan kesantunan", "ketidakpedulian", "keinginan menyembunyikan fakta", "permusuhan"],
+              answer: 0
+            },
+            {
+              text: "Catatan koreksi berguna untuk ...",
+              options: [
+                "menjelaskan perubahan secara transparan",
+                "mempermalukan penulis",
+                "menghilangkan seluruh bukti",
+                "menambah sensasi"
+              ],
+              answer: 0
+            },
+            {
+              text: "Nama narasumber harus ditulis tepat karena ...",
+              options: [
+                "menyangkut identitas dan kredibilitas",
+                "agar berita lebih panjang",
+                "agar pembaca bingung",
+                "nama tidak memiliki arti"
+              ],
+              answer: 0
+            },
+            {
+              text: "Sikap santun bukan berarti ...",
+              options: [
+                "menghindari semua koreksi",
+                "mengakui dan memperbaiki kesalahan",
+                "menghormati narasumber",
+                "menjaga ketepatan informasi"
+              ],
+              answer: 0
+            }
+          ]
+        },
+        {
+          section: "Bagian F — Penguatan Benar atau Salah",
+          title: "Publikasi Berita Kegiatan Sosial",
+          text:
+`OSIS mengunggah berita pembagian paket kebutuhan pokok kepada warga. Sebelum publikasi, panitia meminta izin kepada penerima bantuan yang tampak dalam foto. Beberapa penerima memilih tidak ditampilkan, sehingga wajah mereka tidak dimuat.
+
+Berita berfokus pada proses pengumpulan dan penyaluran bantuan tanpa menyebut penerima sebagai kelompok yang lemah atau tidak berdaya.`,
+          type: "truefalse",
+          questions: [
+            {
+              text: "Panitia meminta izin sebelum menggunakan foto.",
+              answer: true
+            },
+            {
+              text: "Semua penerima dipaksa tampil dalam foto.",
+              answer: false
+            },
+            {
+              text: "Berita menghindari label yang merendahkan.",
+              answer: true
+            },
+            {
+              text: "Menjaga martabat penerima bantuan merupakan sikap santun.",
+              answer: true
+            },
+            {
+              text: "Sensasi lebih penting daripada persetujuan pihak yang difoto.",
+              answer: false
+            }
+          ]
+        }
+      ]
+    };
+
+    const meetings = {
+      1: meeting1,
+      2: meeting2,
+      3: meeting3,
+      4: meeting4,
+      5: meeting5
+    };
+
+    /* ============================================================
+       LIMA GRUP KUNCI JAWABAN TERPISAH
+    ============================================================ */
+    const answerKeysMeeting1 = buildAnswerKey(meeting1);
+    const answerKeysMeeting2 = buildAnswerKey(meeting2);
+    const answerKeysMeeting3 = buildAnswerKey(meeting3);
+    const answerKeysMeeting4 = buildAnswerKey(meeting4);
+    const answerKeysMeeting5 = buildAnswerKey(meeting5);
+
+    const answerKeyGroups = {
+      1: answerKeysMeeting1,
+      2: answerKeysMeeting2,
+      3: answerKeysMeeting3,
+      4: answerKeysMeeting4,
+      5: answerKeysMeeting5
+    };
+
+    /* ============================================================
+       STATE APLIKASI
+    ============================================================ */
+    const state = {
+      studentName: "",
+      studentClass: "",
+      currentMeeting: null,
+      currentSlide: 0,
+      submissionLocked: false,
+      result: null,
+      html5QrCode: null,
+      scannerActive: false
+    };
+
+    const dashboardPage = document.getElementById("dashboardPage");
+    const modulePage = document.getElementById("modulePage");
+    const resultPage = document.getElementById("resultPage");
+    const studentNameInput = document.getElementById("studentName");
+    const studentClassInput = document.getElementById("studentClass");
+    const accessCodeInput = document.getElementById("accessCode");
+    const authMessage = document.getElementById("authMessage");
+    const scannerPanel = document.getElementById("scannerPanel");
+    const questionsContainer = document.getElementById("questionsContainer");
+    const slidesContainer = document.getElementById("slidesContainer");
+    const slideDots = document.getElementById("slideDots");
+
+    function buildAnswerKey(meeting) {
+      const keys = [];
+      let questionNumber = 1;
+
+      meeting.groups.forEach((group) => {
+        if (group.type === "matching") {
+          group.pairs.forEach((pair) => {
+            keys.push({
+              number: questionNumber++,
+              type: "matching",
+              answer: pair[1]
+            });
+          });
+          return;
+        }
+
+        group.questions.forEach((question) => {
+          keys.push({
+            number: questionNumber++,
+            type: group.type,
+            answer: question.answer
+          });
+        });
+      });
+
+      return keys;
+    }
+
+    function normalizeText(value) {
+      return String(value || "").trim().toLowerCase();
+    }
+
+    function sanitizeText(value) {
+      const div = document.createElement("div");
+      div.textContent = String(value || "");
+      return div.innerHTML;
+    }
+
+    function showAuthMessage(message, type) {
+      authMessage.textContent = message;
+      authMessage.className = `message show ${type}`;
+    }
+
+    function clearAuthMessage() {
+      authMessage.textContent = "";
+      authMessage.className = "message";
+    }
+
+    function getSubmissionKey() {
+      return [
+        "berita-submitted",
+        state.currentMeeting,
+        normalizeText(state.studentClass),
+        normalizeText(state.studentName)
+      ].join("-");
+    }
+
+    function checkExistingSubmission() {
+      state.submissionLocked =
+        localStorage.getItem(getSubmissionKey()) === "success";
+    }
+
+    /* ============================================================
+       AUTENTIKASI MANUAL
+    ============================================================ */
+    function openModuleFromCode() {
+      clearAuthMessage();
+
+      const name = studentNameInput.value.trim();
+      const studentClass = studentClassInput.value.trim();
+      const code = accessCodeInput.value.trim().toLowerCase();
+
+      if (!name || name.length < 2) {
+        showAuthMessage("Masukkan nama murid dengan benar.", "error");
+        studentNameInput.focus();
+        return;
+      }
+
+      if (!studentClass) {
+        showAuthMessage("Masukkan kelas terlebih dahulu.", "error");
+        studentClassInput.focus();
+        return;
+      }
+
+      if (!accessMap[code]) {
+        showAuthMessage(
+          "Kode pertemuan tidak valid. Periksa kembali kode dari guru.",
+          "error"
+        );
+        accessCodeInput.focus();
+        return;
+      }
+
+      state.studentName = name;
+      state.studentClass = studentClass;
+      state.currentMeeting = accessMap[code];
+      state.currentSlide = 0;
+
+      checkExistingSubmission();
+      stopQrScanner();
+      renderMeeting();
+      showPage("module");
+    }
+
+    /* ============================================================
+       PEMINDAI QR CODE
+    ============================================================ */
+    async function startQrScanner() {
+      clearAuthMessage();
+
+      if (typeof Html5Qrcode === "undefined") {
+        showAuthMessage(
+          "Library pemindai QR belum berhasil dimuat. Periksa koneksi internet.",
+          "error"
+        );
+        return;
+      }
+
+      scannerPanel.classList.remove("hidden");
+
+      if (state.scannerActive) {
+        return;
+      }
+
+      try {
+        state.html5QrCode = new Html5Qrcode("qr-reader");
+
+        await state.html5QrCode.start(
+          { facingMode: "environment" },
+          {
+            fps: 10,
+            qrbox: { width: 240, height: 240 },
+            aspectRatio: 1
+          },
+          async (decodedText) => {
+            const scannedCode = decodedText.trim().toLowerCase();
+            accessCodeInput.value = scannedCode;
+            showAuthMessage(
+              `Kode berhasil dipindai: ${decodedText}. Membuka modul...`,
+              "success"
+            );
+
+            await stopQrScanner();
+
+            window.setTimeout(() => {
+              openModuleFromCode();
+            }, 350);
+          },
+          () => {
+            // Kesalahan pemindaian per frame diabaikan agar pemindai tetap berjalan.
+          }
+        );
+
+        state.scannerActive = true;
+      } catch (error) {
+        state.scannerActive = false;
+        scannerPanel.classList.add("hidden");
+        showAuthMessage(
+          "Kamera tidak dapat diakses. Izinkan akses kamera atau gunakan input kode manual.",
+          "error"
+        );
+      }
+    }
+
+    async function stopQrScanner() {
+      if (state.html5QrCode && state.scannerActive) {
+        try {
+          await state.html5QrCode.stop();
+          await state.html5QrCode.clear();
+        } catch (error) {
+          console.warn("Pemindai tidak dapat dihentikan dengan sempurna.", error);
+        }
+      }
+
+      state.html5QrCode = null;
+      state.scannerActive = false;
+      scannerPanel.classList.add("hidden");
+      document.getElementById("qr-reader").innerHTML = "";
+    }
+
+    /* ============================================================
+       RENDER PERTEMUAN
+    ============================================================ */
+    function renderMeeting() {
+      const meeting = meetings[state.currentMeeting];
+
+      document.getElementById("meetingTitle").textContent =
+        `Pertemuan ${meeting.number}: ${meeting.title}`;
+      document.getElementById("meetingSubtitle").textContent = meeting.subtitle;
+      document.getElementById("focusBadge").textContent =
+        `Fokus SELIS: ${meeting.focus}`;
+      document.getElementById("identityName").textContent = state.studentName;
+      document.getElementById("identityClass").textContent = state.studentClass;
+
+      renderSlides(meeting);
+      renderQuestions(meeting);
+      updateProgress();
+      activateTab("materialTab");
+    }
+
+    function renderSlides(meeting) {
+      slidesContainer.innerHTML = "";
+      slideDots.innerHTML = "";
+
+      meeting.slides.forEach((slide, index) => {
+        const slideElement = document.createElement("article");
+        slideElement.className = `slide ${index === 0 ? "active" : ""}`;
+        slideElement.dataset.slideIndex = index;
+
+        slideElement.innerHTML = `
+          <div class="slide-number">Slide ${index + 1} dari ${meeting.slides.length}</div>
+          <h3>${slide.title}</h3>
+          <div class="slide-content">${slide.content}</div>
+        `;
+
+        slidesContainer.appendChild(slideElement);
+
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = `slide-dot ${index === 0 ? "active" : ""}`;
+        dot.setAttribute("aria-label", `Buka slide ${index + 1}`);
+        dot.addEventListener("click", () => showSlide(index));
+        slideDots.appendChild(dot);
+      });
+
+      updateSlideNavigation();
+    }
+
+    function showSlide(index) {
+      const slides = [...document.querySelectorAll(".slide")];
+      const dots = [...document.querySelectorAll(".slide-dot")];
+
+      if (!slides.length) return;
+
+      state.currentSlide = Math.max(0, Math.min(index, slides.length - 1));
+
+      slides.forEach((slide, slideIndex) => {
+        slide.classList.toggle("active", slideIndex === state.currentSlide);
+      });
+
+      dots.forEach((dot, dotIndex) => {
+        dot.classList.toggle("active", dotIndex === state.currentSlide);
+      });
+
+      updateSlideNavigation();
+    }
+
+    function updateSlideNavigation() {
+      const slides = document.querySelectorAll(".slide");
+      document.getElementById("prevSlideBtn").disabled =
+        state.currentSlide === 0;
+      document.getElementById("nextSlideBtn").disabled =
+        state.currentSlide === slides.length - 1;
+    }
+
+    function renderQuestions(meeting) {
+      questionsContainer.innerHTML = "";
+      let globalQuestionNumber = 1;
+
+      meeting.groups.forEach((group, groupIndex) => {
+        const groupStart = globalQuestionNumber;
+        const groupEnd = groupStart + 4;
+
+        const stimulusCard = document.createElement("section");
+        stimulusCard.className = "stimulus-card";
+
+        const header = document.createElement("div");
+        header.className = "stimulus-header";
+        header.innerHTML = `
+          <div>
+            <div style="font-size:.83rem;font-weight:850;color:var(--secondary);margin-bottom:4px">
+              ${group.section}
+            </div>
+            <h3>${group.title}</h3>
+          </div>
+          <div class="question-range">Soal ${groupStart}–${groupEnd}</div>
+        `;
+
+        const stimulusText = document.createElement("div");
+        stimulusText.className = "stimulus-text";
+        stimulusText.textContent = group.text;
+
+        const questionArea = document.createElement("div");
+
+        if (group.type === "matching") {
+          const shuffledAnswers = group.pairs
+            .map((pair) => pair[1])
+            .sort(() => Math.random() - 0.5);
+
+          group.pairs.forEach((pair) => {
+            questionArea.appendChild(
+              createMatchingQuestion(
+                globalQuestionNumber,
+                pair[0],
+                shuffledAnswers
+              )
+            );
+            globalQuestionNumber++;
+          });
+        } else {
+          group.questions.forEach((question) => {
+            questionArea.appendChild(
+              createQuestionElement(
+                globalQuestionNumber,
+                group.type,
+                question
+              )
+            );
+            globalQuestionNumber++;
+          });
+        }
+
+        const note = document.createElement("div");
+        note.className = "completion-note";
+        note.textContent =
+          group.type === "multiple"
+            ? "Pada pilihan ganda kompleks, satu soal dapat memiliki lebih dari satu jawaban benar."
+            : "Jawablah seluruh soal berdasarkan informasi dalam stimulus.";
+
+        stimulusCard.appendChild(header);
+        stimulusCard.appendChild(stimulusText);
+        stimulusCard.appendChild(questionArea);
+        stimulusCard.appendChild(note);
+        questionsContainer.appendChild(stimulusCard);
+      });
+
+      document
+        .querySelectorAll("#quizForm input, #quizForm select")
+        .forEach((element) => {
+          element.addEventListener("change", updateProgress);
+        });
+    }
+
+    function createQuestionElement(number, type, question) {
+      const card = document.createElement("div");
+      card.className = "question-card";
+      card.dataset.question = number;
+      card.dataset.type = type;
+
+      const title = document.createElement("p");
+      title.className = "question-title";
+      title.innerHTML = `
+        <span class="question-number">${number}</span>
+        ${sanitizeText(question.text)}
+      `;
+      card.appendChild(title);
+
+      const options = document.createElement("div");
+      options.className = "options";
+
+      if (type === "single") {
+        question.options.forEach((option, optionIndex) => {
+          options.appendChild(
+            createOptionLabel(
+              "radio",
+              `q${number}`,
+              String(optionIndex),
+              option
+            )
+          );
+        });
+      }
+
+      if (type === "multiple") {
+        question.options.forEach((option, optionIndex) => {
+          options.appendChild(
+            createOptionLabel(
+              "checkbox",
+              `q${number}`,
+              String(optionIndex),
+              option
+            )
+          );
+        });
+      }
+
+      if (type === "truefalse") {
+        options.appendChild(
+          createOptionLabel("radio", `q${number}`, "true", "Benar")
+        );
+        options.appendChild(
+          createOptionLabel("radio", `q${number}`, "false", "Salah")
+        );
+      }
+
+      card.appendChild(options);
+      return card;
+    }
+
+    function createOptionLabel(inputType, inputName, inputValue, labelText) {
+      const label = document.createElement("label");
+      label.className = "option-label";
+
+      const input = document.createElement("input");
+      input.type = inputType;
+      input.name = inputName;
+      input.value = inputValue;
+
+      const text = document.createElement("span");
+      text.textContent = labelText;
+
+      label.appendChild(input);
+      label.appendChild(text);
+      return label;
+    }
+
+    function createMatchingQuestion(number, leftText, answerOptions) {
+      const card = document.createElement("div");
+      card.className = "question-card";
+      card.dataset.question = number;
+      card.dataset.type = "matching";
+
+      const grid = document.createElement("div");
+      grid.className = "matching-grid";
+
+      const label = document.createElement("div");
+      label.className = "matching-label";
+      label.innerHTML = `
+        <span class="question-number">${number}</span>
+        <strong>${sanitizeText(leftText)}</strong>
+      `;
+
+      const select = document.createElement("select");
+      select.name = `q${number}`;
+      select.setAttribute("aria-label", `Jawaban soal ${number}`);
+
+      const placeholder = document.createElement("option");
+      placeholder.value = "";
+      placeholder.textContent = "Pilih pasangan...";
+      select.appendChild(placeholder);
+
+      answerOptions.forEach((answer) => {
+        const option = document.createElement("option");
+        option.value = answer;
+        option.textContent = answer;
+        select.appendChild(option);
+      });
+
+      grid.appendChild(label);
+      grid.appendChild(select);
+      card.appendChild(grid);
+      return card;
+    }
+
+    /* ============================================================
+       PROGRES PENGERJAAN
+    ============================================================ */
+    function updateProgress() {
+      let answered = 0;
+
+      for (let number = 1; number <= 30; number++) {
+        const card = document.querySelector(
+          `.question-card[data-question="${number}"]`
+        );
+
+        if (!card) continue;
+
+        const type = card.dataset.type;
+
+        if (type === "matching") {
+          const select = card.querySelector("select");
+          if (select && select.value) answered++;
+          continue;
+        }
+
+        const checked = card.querySelectorAll("input:checked");
+        if (checked.length > 0) answered++;
+      }
+
+      const percentage = Math.round((answered / 30) * 100);
+      document.getElementById("progressText").textContent =
+        `${answered} dari 30 terjawab`;
+      document.getElementById("progressBar").style.width =
+        `${percentage}%`;
+    }
+
+    /* ============================================================
+       PEMERIKSAAN DAN PENILAIAN
+    ============================================================ */
+    function collectAnswers() {
+      const answers = {};
+
+      for (let number = 1; number <= 30; number++) {
+        const card = document.querySelector(
+          `.question-card[data-question="${number}"]`
+        );
+
+        if (!card) continue;
+
+        const type = card.dataset.type;
+
+        if (type === "multiple") {
+          answers[number] = [...card.querySelectorAll("input:checked")]
+            .map((input) => Number(input.value))
+            .sort((a, b) => a - b);
+        } else if (type === "matching") {
+          answers[number] = card.querySelector("select")?.value || "";
+        } else if (type === "truefalse") {
+          const checked = card.querySelector("input:checked");
+          answers[number] =
+            checked === null ? null : checked.value === "true";
+        } else {
+          const checked = card.querySelector("input:checked");
+          answers[number] =
+            checked === null ? null : Number(checked.value);
+        }
+      }
+
+      return answers;
+    }
+
+    function isAnswerComplete(value, type) {
+      if (type === "multiple") {
+        return Array.isArray(value) && value.length > 0;
+      }
+
+      if (type === "matching") {
+        return typeof value === "string" && value.length > 0;
+      }
+
+      return value !== null && value !== undefined;
+    }
+
+    function arraysEqual(arrayA, arrayB) {
+      if (!Array.isArray(arrayA) || !Array.isArray(arrayB)) return false;
+      if (arrayA.length !== arrayB.length) return false;
+
+      const sortedA = [...arrayA].sort((a, b) => a - b);
+      const sortedB = [...arrayB].sort((a, b) => a - b);
+
+      return sortedA.every((value, index) => value === sortedB[index]);
+    }
+
+    function checkResults() {
+      const answers = collectAnswers();
+      const answerKeys = answerKeyGroups[state.currentMeeting];
+
+      const unanswered = answerKeys
+        .filter((key) => !isAnswerComplete(answers[key.number], key.type))
+        .map((key) => key.number);
+
+      if (unanswered.length > 0) {
+        alert(
+          `Masih ada ${unanswered.length} soal yang belum dijawab: ${unanswered.join(", ")}.`
+        );
+
+        const firstUnanswered = document.querySelector(
+          `.question-card[data-question="${unanswered[0]}"]`
+        );
+
+        firstUnanswered?.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+
+        return;
+      }
+
+      let correct = 0;
+      const correctNumbers = [];
+      const wrongNumbers = [];
+      const categoryResult = {
+        "Bagian A": { correct: 0, total: 5 },
+        "Bagian B": { correct: 0, total: 5 },
+        "Bagian C": { correct: 0, total: 5 },
+        "Bagian D": { correct: 0, total: 5 },
+        "Bagian E": { correct: 0, total: 5 },
+        "Bagian F": { correct: 0, total: 5 }
+      };
+
+      answerKeys.forEach((key) => {
+        const studentAnswer = answers[key.number];
+        let isCorrect = false;
+
+        if (key.type === "multiple") {
+          isCorrect = arraysEqual(studentAnswer, key.answer);
+        } else {
+          isCorrect = studentAnswer === key.answer;
+        }
+
+        const categoryIndex = Math.floor((key.number - 1) / 5);
+        const categoryName = `Bagian ${String.fromCharCode(65 + categoryIndex)}`;
+
+        if (isCorrect) {
+          correct++;
+          correctNumbers.push(key.number);
+          categoryResult[categoryName].correct++;
+        } else {
+          wrongNumbers.push(key.number);
+        }
+      });
+
+      const wrong = 30 - correct;
+      const score = Math.round((correct / 30) * 100);
+      const meeting = meetings[state.currentMeeting];
+
+      const strongCategories = Object.entries(categoryResult)
+        .filter(([, result]) => result.correct >= 4)
+        .map(([name]) => name);
+
+      const weakCategories = Object.entries(categoryResult)
+        .filter(([, result]) => result.correct <= 2)
+        .map(([name]) => name);
+
+      const positiveAnalysis =
+        `Murid menjawab benar ${correct} dari 30 soal. ` +
+        (
+          strongCategories.length
+            ? `Penguasaan paling baik tampak pada ${strongCategories.join(", ")}. `
+            : "Penguasaan materi tersebar cukup merata pada seluruh bagian. "
+        ) +
+        getPositiveNarrative(score, meeting.focus);
+
+      const negativeAnalysis =
+        `Terdapat ${wrong} jawaban yang belum tepat. ` +
+        (
+          wrongNumbers.length
+            ? `Nomor yang perlu ditinjau kembali: ${wrongNumbers.join(", ")}. `
+            : "Tidak terdapat jawaban yang perlu diperbaiki. "
+        ) +
+        (
+          weakCategories.length
+            ? `Penguatan terutama diperlukan pada ${weakCategories.join(", ")}. `
+            : "Tidak ada bagian yang menunjukkan kesulitan dominan. "
+        ) +
+        getImprovementNarrative(score, meeting.focus);
+
+      state.result = {
+        correct,
+        wrong,
+        score,
+        correctNumbers,
+        wrongNumbers,
+        positiveAnalysis,
+        negativeAnalysis,
+        categoryResult
+      };
+
+      renderResult();
+      showPage("result");
+      sendResultToSheets();
+    }
+
+    function getPositiveNarrative(score, focus) {
+      if (score >= 90) {
+        return `Pemahaman sangat baik. Murid telah menunjukkan penerapan dimensi ${focus} secara kuat dalam membaca dan menilai berita.`;
+      }
+
+      if (score >= 75) {
+        return `Pemahaman tergolong baik. Murid telah menunjukkan dasar penerapan dimensi ${focus}, meskipun beberapa rincian masih perlu diperkuat.`;
+      }
+
+      if (score >= 60) {
+        return `Pemahaman dasar telah terbentuk. Murid mulai mampu menerapkan dimensi ${focus} ketika berhadapan dengan informasi berita.`;
+      }
+
+      return `Murid telah berusaha menyelesaikan seluruh soal dan memiliki titik awal untuk mengembangkan dimensi ${focus}.`;
+    }
+
+    function getImprovementNarrative(score, focus) {
+      if (score >= 90) {
+        return "Pertahankan ketelitian dan gunakan kemampuan tersebut ketika menerima informasi di luar kelas.";
+      }
+
+      if (score >= 75) {
+        return "Baca ulang stimulus pada nomor yang salah, kemudian bandingkan jawaban dengan fakta yang benar-benar tertulis.";
+      }
+
+      if (score >= 60) {
+        return `Pelajari kembali materi pertemuan ini dan berlatih menerapkan dimensi ${focus} melalui berita dari sumber tepercaya.`;
+      }
+
+      return "Ulangi materi dari slide pertama, tandai unsur penting pada setiap berita, lalu diskusikan kesulitan dengan guru.";
+    }
+
+    /* ============================================================
+       HALAMAN HASIL
+    ============================================================ */
+    function renderResult() {
+      const meeting = meetings[state.currentMeeting];
+      const result = state.result;
+
+      document.getElementById("resultGreeting").textContent =
+        `${meeting.title} — Fokus ${meeting.focus}`;
+      document.getElementById("resultScore").textContent = result.score;
+      document.getElementById("resultName").textContent = state.studentName;
+      document.getElementById("resultClass").textContent = state.studentClass;
+      document.getElementById("resultMeeting").textContent =
+        `Pertemuan ${meeting.number} — ${meeting.focus}`;
+      document.getElementById("resultCorrect").textContent =
+        `${result.correct} dari 30`;
+      document.getElementById("positiveAnalysis").textContent =
+        result.positiveAnalysis;
+      document.getElementById("negativeAnalysis").textContent =
+        result.negativeAnalysis;
+
+      const status = document.getElementById("sendStatus");
+      const retryButton = document.getElementById("retrySendBtn");
+
+      if (state.submissionLocked) {
+        status.className = "send-status success";
+        status.textContent =
+          "Data untuk nama, kelas, dan pertemuan ini telah terkirim sebelumnya. Pengiriman ulang dikunci.";
+        retryButton.classList.add("hidden");
+      } else {
+        status.className = "send-status waiting";
+        status.textContent = "Menyiapkan pengiriman hasil ke Google Sheets...";
+        retryButton.classList.add("hidden");
+      }
+    }
+
+    /* ============================================================
+       FETCH API POST KE GOOGLE SHEETS
+       VALIDASI SATU KALI KIRIM SETELAH SUKSES
+    ============================================================ */
+    async function sendResultToSheets() {
+      if (!state.result) return;
+
+      const sendStatus = document.getElementById("sendStatus");
+      const retryButton = document.getElementById("retrySendBtn");
+
+      if (state.submissionLocked) {
+        sendStatus.className = "send-status success";
+        sendStatus.textContent =
+          "Data telah terkirim sebelumnya. Pengiriman ulang dikunci.";
+        retryButton.classList.add("hidden");
+        return;
+      }
+
+      state.submissionLocked = true;
+      retryButton.classList.add("hidden");
+      sendStatus.className = "send-status waiting";
+      sendStatus.textContent = "Mengirim hasil ke Google Sheets...";
+
+      const payload = new URLSearchParams({
+        kelas: state.studentClass,
+        pertemuan_ke: String(state.currentMeeting),
+        nama: state.studentName,
+        skor: String(state.result.score),
+        analisis_positif: state.result.positiveAnalysis,
+        analisis_negatif: state.result.negativeAnalysis
+      });
+
+      try {
+        const response = await fetch(SHEETS_ENDPOINT, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+          },
+          body: payload.toString(),
+          redirect: "follow"
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        localStorage.setItem(getSubmissionKey(), "success");
+        state.submissionLocked = true;
+
+        sendStatus.className = "send-status success";
+        sendStatus.textContent =
+          "✓ Data berhasil dikirim ke Google Sheets. Pengiriman untuk hasil ini telah dikunci secara permanen pada perangkat.";
+        retryButton.classList.add("hidden");
+      } catch (error) {
+        console.error("Pengiriman gagal:", error);
+
+        state.submissionLocked = false;
+        sendStatus.className = "send-status failed";
+        sendStatus.textContent =
+          "Data belum berhasil dikirim. Periksa koneksi internet, lalu tekan tombol “Kirim Ulang Data”.";
+        retryButton.classList.remove("hidden");
+      }
+    }
+
+    /* ============================================================
+       NAVIGASI HALAMAN DAN TAB
+    ============================================================ */
+    function showPage(pageName) {
+      dashboardPage.classList.toggle("hidden", pageName !== "dashboard");
+      modulePage.classList.toggle("hidden", pageName !== "module");
+      resultPage.classList.toggle("hidden", pageName !== "result");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function activateTab(tabId) {
+      document.querySelectorAll(".tab-content").forEach((content) => {
+        content.classList.toggle("hidden", content.id !== tabId);
+      });
+
+      document.querySelectorAll(".tab-btn").forEach((button) => {
+        button.classList.toggle(
+          "active",
+          button.dataset.tab === tabId
+        );
+      });
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function logout() {
+      stopQrScanner();
+
+      state.studentName = "";
+      state.studentClass = "";
+      state.currentMeeting = null;
+      state.currentSlide = 0;
+      state.submissionLocked = false;
+      state.result = null;
+
+      studentNameInput.value = "";
+      studentClassInput.value = "";
+      accessCodeInput.value = "";
+      questionsContainer.innerHTML = "";
+      slidesContainer.innerHTML = "";
+      clearAuthMessage();
+      showPage("dashboard");
+    }
+
+    /* ============================================================
+       EVENT LISTENERS
+    ============================================================ */
+    document
+      .getElementById("openModuleBtn")
+      .addEventListener("click", openModuleFromCode);
+
+    document
+      .getElementById("scanQrBtn")
+      .addEventListener("click", startQrScanner);
+
+    document
+      .getElementById("stopScannerBtn")
+      .addEventListener("click", stopQrScanner);
+
+    document
+      .getElementById("togglePassword")
+      .addEventListener("click", () => {
+        const isPassword = accessCodeInput.type === "password";
+        accessCodeInput.type = isPassword ? "text" : "password";
+        document.getElementById("togglePassword").textContent =
+          isPassword ? "🙈" : "👁️";
+      });
+
+    accessCodeInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        openModuleFromCode();
+      }
+    });
+
+    document.querySelectorAll(".tab-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        activateTab(button.dataset.tab);
+      });
+    });
+
+    document
+      .getElementById("prevSlideBtn")
+      .addEventListener("click", () => {
+        showSlide(state.currentSlide - 1);
+      });
+
+    document
+      .getElementById("nextSlideBtn")
+      .addEventListener("click", () => {
+        showSlide(state.currentSlide + 1);
+      });
+
+    document
+      .getElementById("goToWorksheetBtn")
+      .addEventListener("click", () => {
+        activateTab("worksheetTab");
+      });
+
+    document
+      .getElementById("checkResultBtn")
+      .addEventListener("click", checkResults);
+
+    document
+      .getElementById("retrySendBtn")
+      .addEventListener("click", sendResultToSheets);
+
+    document
+      .getElementById("printResultBtn")
+      .addEventListener("click", () => {
+        window.print();
+      });
+
+    document
+      .getElementById("backToModuleBtn")
+      .addEventListener("click", () => {
+        showPage("module");
+        activateTab("worksheetTab");
+      });
+
+    document
+      .getElementById("logoutBtn")
+      .addEventListener("click", logout);
+
+    window.addEventListener("beforeunload", () => {
+      if (state.scannerActive && state.html5QrCode) {
+        state.html5QrCode.stop().catch(() => {});
+      }
+    });
+  </script>
+</body>
+</html>
